@@ -3,6 +3,14 @@ package Reto2Modelo;
 public class Aeropuerto {
 	private String CodigoAeropuerto;
 	private String NombreAeropuerto;
+	
+	public Aeropuerto() {
+		
+	}
+	public Aeropuerto(String codigoAeropuerto, String nombreAeropuerto) {
+		CodigoAeropuerto = codigoAeropuerto;
+		NombreAeropuerto = nombreAeropuerto;
+	}
 	public String getCodigoAeropuerto() {
 		return CodigoAeropuerto;
 	}
