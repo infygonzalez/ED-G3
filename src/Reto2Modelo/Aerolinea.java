@@ -4,6 +4,14 @@ public class Aerolinea {
 	
 	private String CodigoAerolinea;
 	private String NombreAerolinea;
+	
+	public Aerolinea() {
+		
+	}
+	public Aerolinea(String codigoAerolinea, String nombreAerolinea) {
+		CodigoAerolinea = codigoAerolinea;
+		NombreAerolinea = nombreAerolinea;
+	}
 	public String getCodigoAerolinea() {
 		return CodigoAerolinea;
 	}

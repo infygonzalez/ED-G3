@@ -13,7 +13,6 @@ public class Agencia {
 	}
 	
 	public Agencia(String nombreAgencia, String logo, String colorMarca, int numeroEmpleados, String tipoAgencia) {
-		super();
 		NombreAgencia = nombreAgencia;
 		Logo = logo;
 		ColorMarca = colorMarca;
