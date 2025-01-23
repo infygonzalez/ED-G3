@@ -5,6 +5,15 @@ public class Evento {
 	private String EventoID;
 	private String NombreEvento;
 	private String Precio;
+	
+	public Evento() {
+		
+	}
+	public Evento(String eventoID, String nombreEvento, String precio) {
+		EventoID = eventoID;
+		NombreEvento = nombreEvento;
+		Precio = precio;
+	}
 	public String getEventoID() {
 		return EventoID;
 	}
