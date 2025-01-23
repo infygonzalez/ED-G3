@@ -8,20 +8,30 @@ public class VueloVuelta extends VueloIda {
 	private String DuraciónVueloVuelta;
 	private Aeropuerto AeropuertoOrigenVuelta;
 	private Aeropuerto AeropuertoDestinoVuelta;
+	private Aerolinea Aerolinea;
 
 	
-	public VueloVuelta(String eventoID, String nombreEvento, String precio, Viaje viaje, String codigoVuelo,
+	public VueloVuelta(String eventoID, String nombreEvento, String precio, Viaje viajeID, String codigoVuelo,
 			String fechaSalida, String horaSalida, String duracionVuelo, Aeropuerto aeropuertoOrigen,
-			Aeropuerto aeropuertoDestino, String codigoVueloVuelta, String fechaSalidaVuelta, String horaSalidaVuelta,
-			String duraciónVueloVuelta, Aeropuerto aeropuertoOrigenVuelta, Aeropuerto aeropuertoDestinoVuelta) {
-		super(eventoID, nombreEvento, precio, viaje, codigoVuelo, fechaSalida, horaSalida, duracionVuelo,
-				aeropuertoOrigen, aeropuertoDestino);
+			Aeropuerto aeropuertoDestino, Reto2Modelo.Aerolinea aerolinea, String codigoVueloVuelta,
+			String fechaSalidaVuelta, String horaSalidaVuelta, String duraciónVueloVuelta,
+			Aeropuerto aeropuertoOrigenVuelta, Aeropuerto aeropuertoDestinoVuelta, Reto2Modelo.Aerolinea aerolinea2) {
+		super(eventoID, nombreEvento, precio, viajeID, codigoVuelo, fechaSalida, horaSalida, duracionVuelo,
+				aeropuertoOrigen, aeropuertoDestino, aerolinea);
 		CodigoVueloVuelta = codigoVueloVuelta;
 		FechaSalidaVuelta = fechaSalidaVuelta;
 		HoraSalidaVuelta = horaSalidaVuelta;
 		DuraciónVueloVuelta = duraciónVueloVuelta;
 		AeropuertoOrigenVuelta = aeropuertoOrigenVuelta;
 		AeropuertoDestinoVuelta = aeropuertoDestinoVuelta;
+		Aerolinea = aerolinea2;
+	}
+	
+	public Aerolinea getAerolinea() {
+		return Aerolinea;
+	}
+	public void setAerolinea(Aerolinea aerolinea) {
+		Aerolinea = aerolinea;
 	}
 	public Aeropuerto getAeropuertoOrigenVuelta() {
 		return AeropuertoOrigenVuelta;
@@ -64,8 +74,9 @@ public class VueloVuelta extends VueloIda {
 		return super.toString()+"VueloVuelta [CodigoVueloVuelta=" + CodigoVueloVuelta + ", FechaSalidaVuelta=" + FechaSalidaVuelta
 				+ ", HoraSalidaVuelta=" + HoraSalidaVuelta + ", DuraciónVueloVuelta=" + DuraciónVueloVuelta
 				+ ", AeropuertoOrigenVuelta=" + AeropuertoOrigenVuelta + ", AeropuertoDestinoVuelta="
-				+ AeropuertoDestinoVuelta + "]";
+				+ AeropuertoDestinoVuelta + ", Aerolinea=" + Aerolinea + "]";
 	}
+
 	
 	
 	
