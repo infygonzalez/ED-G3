@@ -1,10 +1,21 @@
 package Reto2Modelo;
 
-public class VueloVuelta {
+public class VueloVuelta extends VueloIda {
+	
 	private String CodigoVueloVuelta;
 	private String FechaSalidaVuelta;
 	private String HoraSalidaVuelta;
 	private String DuraciónVueloVuelta;
+	
+	public VueloVuelta(String eventoID, String nombreEvento, String precio,Viaje viaje, String codigoVuelo, String fechaSalida,
+			String horaSalida, String duracionVuelo, String codigoVueloVuelta, String fechaSalidaVuelta,
+			String horaSalidaVuelta, String duraciónVueloVuelta) {
+		super(eventoID, nombreEvento, precio, viaje, codigoVuelo, fechaSalida, horaSalida, duracionVuelo);
+		CodigoVueloVuelta = codigoVueloVuelta;
+		FechaSalidaVuelta = fechaSalidaVuelta;
+		HoraSalidaVuelta = horaSalidaVuelta;
+		DuraciónVueloVuelta = duraciónVueloVuelta;
+	}
 	public String getCodigoVueloVuelta() {
 		return CodigoVueloVuelta;
 	}
@@ -31,7 +42,7 @@ public class VueloVuelta {
 	}
 	@Override
 	public String toString() {
-		return "VueloVuelta [CodigoVueloVuelta=" + CodigoVueloVuelta + ", FechaSalidaVuelta=" + FechaSalidaVuelta
+		return  super.toString()+"VueloVuelta [CodigoVueloVuelta=" + CodigoVueloVuelta + ", FechaSalidaVuelta=" + FechaSalidaVuelta
 				+ ", HoraSalidaVuelta=" + HoraSalidaVuelta + ", DuraciónVueloVuelta=" + DuraciónVueloVuelta + "]";
 	}
 	
