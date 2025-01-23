@@ -1,17 +1,48 @@
 package Reto2Modelo;
 
-public class Viajes {
+import java.util.ArrayList;
+
+public class Viaje {
 	 private String ViajeID;
 	 private String NombreViaje;
 	 private String Descripción; 
-	 private String vTipoViaje;
+	 private String TipoViaje;
 	 private String FechaInicio;
 	 private String FechaFin;
 	 private String DuracionViaje;
 	 private String ServiciosNoIncluidos;
 	 private String PaisDestino;
+	 private ArrayList<Evento> Eventos;
+	 
+	public Viaje(String viajeID, String nombreViaje, String descripción, String tipoViaje, String fechaInicio,
+			String fechaFin, String duracionViaje, String serviciosNoIncluidos, String paisDestino,
+			ArrayList<Evento> eventos) {
+		super();
+		ViajeID = viajeID;
+		NombreViaje = nombreViaje;
+		Descripción = descripción;
+		TipoViaje = tipoViaje;
+		FechaInicio = fechaInicio;
+		FechaFin = fechaFin;
+		DuracionViaje = duracionViaje;
+		ServiciosNoIncluidos = serviciosNoIncluidos;
+		PaisDestino = paisDestino;
+		Eventos = eventos;
+	}
 	public String getViajeID() {
 		return ViajeID;
+	}
+	public String getTipoViaje() {
+		return TipoViaje;
+	}
+	public void setTipoViaje(String tipoViaje) {
+		TipoViaje = tipoViaje;
+	}
+	public ArrayList<Evento> getEventos() {
+		return Eventos;
+	}
+	public void setEventos(ArrayList<Evento> eventos) {
+		Eventos = eventos;
 	}
 	public void setViajeID(String viajeID) {
 		ViajeID = viajeID;
@@ -27,12 +58,6 @@ public class Viajes {
 	}
 	public void setDescripción(String descripción) {
 		Descripción = descripción;
-	}
-	public String getvTipoViaje() {
-		return vTipoViaje;
-	}
-	public void setvTipoViaje(String vTipoViaje) {
-		this.vTipoViaje = vTipoViaje;
 	}
 	public String getFechaInicio() {
 		return FechaInicio;
@@ -66,11 +91,12 @@ public class Viajes {
 	}
 	@Override
 	public String toString() {
-		return "Viajes [ViajeID=" + ViajeID + ", NombreViaje=" + NombreViaje + ", Descripción=" + Descripción
-				+ ", vTipoViaje=" + vTipoViaje + ", FechaInicio=" + FechaInicio + ", FechaFin=" + FechaFin
+		return "Viaje [ViajeID=" + ViajeID + ", NombreViaje=" + NombreViaje + ", Descripción=" + Descripción
+				+ ", TipoViaje=" + TipoViaje + ", FechaInicio=" + FechaInicio + ", FechaFin=" + FechaFin
 				+ ", DuracionViaje=" + DuracionViaje + ", ServiciosNoIncluidos=" + ServiciosNoIncluidos
-				+ ", PaisDestino=" + PaisDestino + "]";
+				+ ", PaisDestino=" + PaisDestino + ", Eventos=" + Eventos + "]";
 	}
+
 	 
 
 }
