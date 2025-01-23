@@ -1,9 +1,17 @@
 package Reto2Modelo;
 
-public class Otros {
+public class Otros extends Evento {
 
 	private String Fecha;
 	private String Descripcion;
+	
+
+	public Otros(String eventoID, String nombreEvento, String precio, Reto2Modelo.Viaje viaje, String fecha,
+			String descripcion) {
+		super(eventoID, nombreEvento, precio, viaje);
+		Fecha = fecha;
+		Descripcion = descripcion;
+	}
 
 	public String getFecha() {
 		return Fecha;
@@ -23,6 +31,6 @@ public class Otros {
 
 	@Override
 	public String toString() {
-		return "Otros [Fecha=" + Fecha + ", Descripcion=" + Descripcion + "]";
+		return  super.toString()+"Otros [Fecha=" + Fecha + ", Descripcion=" + Descripcion + "]";
 	}
 }
