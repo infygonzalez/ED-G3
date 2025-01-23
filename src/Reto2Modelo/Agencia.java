@@ -8,6 +8,18 @@ public class Agencia {
 	private int NumeroEmpleados;
 	private String TipoAgencia;
 
+	public Agencia() {
+		
+	}
+	
+	public Agencia(String nombreAgencia, String logo, String colorMarca, int numeroEmpleados, String tipoAgencia) {
+		super();
+		NombreAgencia = nombreAgencia;
+		Logo = logo;
+		ColorMarca = colorMarca;
+		NumeroEmpleados = numeroEmpleados;
+		TipoAgencia = tipoAgencia;
+	}
 	
 	public String getNombreAgencia() {
 		return NombreAgencia;
