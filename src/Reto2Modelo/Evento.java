@@ -5,14 +5,16 @@ public class Evento {
 	private String EventoID;
 	private String NombreEvento;
 	private String Precio;
-	private Viaje Viaje;
+	private Viaje ViajeID;
 	
 
-	public Evento(String eventoID, String nombreEvento, String precio,Viaje viaje) {
+	
+	public Evento(String eventoID, String nombreEvento, String precio, Viaje viajeID) {
+		super();
 		EventoID = eventoID;
 		NombreEvento = nombreEvento;
 		Precio = precio;
-		Viaje = viaje;
+		ViajeID = viajeID;
 	}
 	public String getEventoID() {
 		return EventoID;
@@ -32,16 +34,17 @@ public class Evento {
 	public void setPrecio(String precio) {
 		Precio = precio;
 	}
-	public Viaje getViaje() {
-		return Viaje;
+	public Viaje getViajeID() {
+		return ViajeID;
 	}
-	public void setViaje(Viaje viaje) {
-		Viaje = viaje;
+	public void setViajeID(Viaje viajeID) {
+		ViajeID = viajeID;
 	}
 	@Override
 	public String toString() {
-		return "Evento [EventoID=" + EventoID + ", NombreEvento=" + NombreEvento + ", Precio=" + Precio + ", Viaje="
-				+ Viaje + "]";
+		return "Evento [EventoID=" + EventoID + ", NombreEvento=" + NombreEvento + ", Precio=" + Precio + ", ViajeID="
+				+ ViajeID + "]";
 	}
+
 
 }
