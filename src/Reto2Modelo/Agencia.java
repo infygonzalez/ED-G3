@@ -1,5 +1,7 @@
 package Reto2Modelo;
 
+import java.util.ArrayList;
+
 public class Agencia {
 	
 	private String NombreAgencia;
@@ -7,19 +9,30 @@ public class Agencia {
 	private String ColorMarca;
 	private int NumeroEmpleados;
 	private String TipoAgencia;
+	 private ArrayList<Viaje> Viajes;
 
 	public Agencia() {
 		
 	}
-	
-	public Agencia(String nombreAgencia, String logo, String colorMarca, int numeroEmpleados, String tipoAgencia) {
+
+	public Agencia(String nombreAgencia, String logo, String colorMarca, int numeroEmpleados, String tipoAgencia,
+			ArrayList<Viaje> viajes) {
+		super();
 		NombreAgencia = nombreAgencia;
 		Logo = logo;
 		ColorMarca = colorMarca;
 		NumeroEmpleados = numeroEmpleados;
 		TipoAgencia = tipoAgencia;
+		Viajes = viajes;
 	}
-	
+
+	public ArrayList<Viaje> getViajes() {
+		return Viajes;
+	}
+
+	public void setViajes(ArrayList<Viaje> viajes) {
+		Viajes = viajes;
+	}
 	public String getNombreAgencia() {
 		return NombreAgencia;
 	}
@@ -50,11 +63,12 @@ public class Agencia {
 	public void setTipoAgencia(String tipoAgencia) {
 		TipoAgencia = tipoAgencia;
 	}
-
 	@Override
 	public String toString() {
 		return "Agencia [NombreAgencia=" + NombreAgencia + ", Logo=" + Logo + ", ColorMarca=" + ColorMarca
-				+ ", NumeroEmpleados=" + NumeroEmpleados + ", TipoAgencia=" + TipoAgencia + "]";
+				+ ", NumeroEmpleados=" + NumeroEmpleados + ", TipoAgencia=" + TipoAgencia + ", Viajes=" + Viajes + "]";
 	}
+
+	
 }
 	
