@@ -12,11 +12,18 @@ public class Viaje {
 	private String DuracionViaje;
 	private String ServiciosNoIncluidos;
 	private Pais PaisDestino;
-	private ArrayList<Evento> Eventos;
-
+	
+	private ArrayList<Viaje> Viajes;
+	private ArrayList<Alojamiento> Alojamientos;
+	private ArrayList<Otros> Otros;
+	
+	public Viaje() {
+		
+	}
+	
 	public Viaje(String viajeID, String nombreViaje, String descripción, String tipoViaje, String fechaInicio,
 			String fechaFin, String duracionViaje, String serviciosNoIncluidos, Pais paisDestino,
-			ArrayList<Evento> eventos) {
+			ArrayList<Viaje> viajes, ArrayList<Alojamiento> alojamientos, ArrayList<Otros> otros) {
 		super();
 		ViajeID = viajeID;
 		NombreViaje = nombreViaje;
@@ -27,95 +34,93 @@ public class Viaje {
 		DuracionViaje = duracionViaje;
 		ServiciosNoIncluidos = serviciosNoIncluidos;
 		PaisDestino = paisDestino;
-		Eventos = eventos;
+		Viajes = viajes;
+		Alojamientos = alojamientos;
+		Otros = otros;
 	}
 
+	
 	public String getViajeID() {
 		return ViajeID;
 	}
-
-	public String getTipoViaje() {
-		return TipoViaje;
-	}
-
-	public void setTipoViaje(String tipoViaje) {
-		TipoViaje = tipoViaje;
-	}
-
-	public ArrayList<Evento> getEventos() {
-		return Eventos;
-	}
-
-	public void setEventos(ArrayList<Evento> eventos) {
-		Eventos = eventos;
-	}
-
 	public void setViajeID(String viajeID) {
 		ViajeID = viajeID;
 	}
-
 	public String getNombreViaje() {
 		return NombreViaje;
 	}
-
 	public void setNombreViaje(String nombreViaje) {
 		NombreViaje = nombreViaje;
 	}
-
 	public String getDescripción() {
 		return Descripción;
 	}
-
 	public void setDescripción(String descripción) {
 		Descripción = descripción;
 	}
-
+	public String getTipoViaje() {
+		return TipoViaje;
+	}
+	public void setTipoViaje(String tipoViaje) {
+		TipoViaje = tipoViaje;
+	}
 	public String getFechaInicio() {
 		return FechaInicio;
 	}
-
 	public void setFechaInicio(String fechaInicio) {
 		FechaInicio = fechaInicio;
 	}
-
 	public String getFechaFin() {
 		return FechaFin;
 	}
-
 	public void setFechaFin(String fechaFin) {
 		FechaFin = fechaFin;
 	}
-
 	public String getDuracionViaje() {
 		return DuracionViaje;
 	}
-
 	public void setDuracionViaje(String duracionViaje) {
 		DuracionViaje = duracionViaje;
 	}
-
 	public String getServiciosNoIncluidos() {
 		return ServiciosNoIncluidos;
 	}
-
 	public void setServiciosNoIncluidos(String serviciosNoIncluidos) {
 		ServiciosNoIncluidos = serviciosNoIncluidos;
 	}
-
 	public Pais getPaisDestino() {
 		return PaisDestino;
 	}
-
 	public void setPaisDestino(Pais paisDestino) {
 		PaisDestino = paisDestino;
 	}
-
+	public ArrayList<Viaje> getViajes() {
+		return Viajes;
+	}
+	public void setViajes(ArrayList<Viaje> viajes) {
+		Viajes = viajes;
+	}
+	public ArrayList<Alojamiento> getAlojamientos() {
+		return Alojamientos;
+	}
+	public void setAlojamientos(ArrayList<Alojamiento> alojamientos) {
+		Alojamientos = alojamientos;
+	}
+	public ArrayList<Otros> getOtros() {
+		return Otros;
+	}
+	public void setOtros(ArrayList<Otros> otros) {
+		Otros = otros;
+	}
+	
 	@Override
 	public String toString() {
 		return "Viaje [ViajeID=" + ViajeID + ", NombreViaje=" + NombreViaje + ", Descripción=" + Descripción
 				+ ", TipoViaje=" + TipoViaje + ", FechaInicio=" + FechaInicio + ", FechaFin=" + FechaFin
 				+ ", DuracionViaje=" + DuracionViaje + ", ServiciosNoIncluidos=" + ServiciosNoIncluidos
-				+ ", PaisDestino=" + PaisDestino + ", Eventos=" + Eventos + "]";
+				+ ", PaisDestino=" + PaisDestino + ", Viajes=" + Viajes + ", Alojamientos=" + Alojamientos + ", Otros="
+				+ Otros + "]";
 	}
-
+	
+	
 }
