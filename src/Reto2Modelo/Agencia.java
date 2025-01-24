@@ -17,7 +17,6 @@ public class Agencia {
 
 	public Agencia(String nombreAgencia, String logo, String colorMarca, int numeroEmpleados, String tipoAgencia,
 			ArrayList<Viaje> viajes) {
-		super();
 		NombreAgencia = nombreAgencia;
 		Logo = logo;
 		ColorMarca = colorMarca;
