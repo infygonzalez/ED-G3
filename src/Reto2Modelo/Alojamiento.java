@@ -1,22 +1,64 @@
 package Reto2Modelo;
 
-public class Alojamiento extends Evento {
+public class Alojamiento {
+	private String EventoID;
+	private String NombreEvento;
+	private String Precio;
+	private Viaje ViajeID;
+	
 	private String NombreHotel;
 	private String Ciudad;
-	private Double PrecioEuros;
 	private String FechaEntrada;
 	private String FechaSalida;
-	private String Tipo;
+	private String TipoHabitacion = "DB";
+	
+	public Alojamiento() {
+		
+	}
 
-	public Alojamiento(String eventoID, String nombreEvento, String precio,Viaje viaje, String nombreHotel, String ciudad,
-			Double precioEuros, String fechaEntrada, String fechaSalida, String tipo) {
-		super(eventoID, nombreEvento, precio, viaje);
+	public Alojamiento(String eventoID, String nombreEvento, String precio, Viaje viajeID, String nombreHotel,
+			String ciudad, String fechaEntrada, String fechaSalida, String tipoHabitacion) {
+		EventoID = eventoID;
+		NombreEvento = nombreEvento;
+		Precio = precio;
+		ViajeID = viajeID;
 		NombreHotel = nombreHotel;
 		Ciudad = ciudad;
-		PrecioEuros = precioEuros;
 		FechaEntrada = fechaEntrada;
 		FechaSalida = fechaSalida;
-		Tipo = tipo;
+		TipoHabitacion = tipoHabitacion;
+	}
+
+	public String getEventoID() {
+		return EventoID;
+	}
+
+	public void setEventoID(String eventoID) {
+		EventoID = eventoID;
+	}
+
+	public String getNombreEvento() {
+		return NombreEvento;
+	}
+
+	public void setNombreEvento(String nombreEvento) {
+		NombreEvento = nombreEvento;
+	}
+
+	public String getPrecio() {
+		return Precio;
+	}
+
+	public void setPrecio(String precio) {
+		Precio = precio;
+	}
+
+	public Viaje getViajeID() {
+		return ViajeID;
+	}
+
+	public void setViajeID(Viaje viajeID) {
+		ViajeID = viajeID;
 	}
 
 	public String getNombreHotel() {
@@ -35,14 +77,6 @@ public class Alojamiento extends Evento {
 		Ciudad = ciudad;
 	}
 
-	public Double getPrecioEuros() {
-		return PrecioEuros;
-	}
-
-	public void setPrecioEuros(Double precioEuros) {
-		PrecioEuros = precioEuros;
-	}
-
 	public String getFechaEntrada() {
 		return FechaEntrada;
 	}
@@ -59,18 +93,23 @@ public class Alojamiento extends Evento {
 		FechaSalida = fechaSalida;
 	}
 
-	public String getTipo() {
-		return Tipo;
+	public String getTipoHabitacion() {
+		return TipoHabitacion;
 	}
 
-	public void setTipo(String tipo) {
-		Tipo = tipo;
+	public void setTipoHabitacion(String tipoHabitacion) {
+		TipoHabitacion = tipoHabitacion;
 	}
 
 	@Override
 	public String toString() {
-		return  super.toString()+"Alojamiento [NombreHotel=" + NombreHotel + ", Ciudad=" + Ciudad + ", PrecioEuros=" + PrecioEuros
-				+ ", FechaEntrada=" + FechaEntrada + ", FechaSalida=" + FechaSalida + ", Tipo=" + Tipo + "]";
+		return "Alojamiento [EventoID=" + EventoID + ", NombreEvento=" + NombreEvento + ", Precio=" + Precio
+				+ ", ViajeID=" + ViajeID + ", NombreHotel=" + NombreHotel + ", Ciudad=" + Ciudad + ", FechaEntrada="
+				+ FechaEntrada + ", FechaSalida=" + FechaSalida + ", TipoHabitacion=" + TipoHabitacion + "]";
 	}
+	
+	
+
+	
 
 }
