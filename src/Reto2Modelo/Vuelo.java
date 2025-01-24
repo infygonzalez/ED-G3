@@ -15,14 +15,14 @@ public class Vuelo  {
 	private Aeropuerto AeropuertoDestino;
 	private Aerolinea Aerolinea;
 	
-	private Aerolinea EventoIDVuelta;
+	private Aerolinea EventoVueltaID;
 
 	public Vuelo() {
 	}
 
 	public Vuelo(String eventoID, String nombreEvento, String precio, Viaje viajeID, String codigoVuelo,
 			String fechaSalida, String horaSalida, String duracionVuelo, Aeropuerto aeropuertoOrigen,
-			Aeropuerto aeropuertoDestino, Aerolinea aerolinea, Aerolinea eventoIDVuelta) {
+			Aeropuerto aeropuertoDestino, Aerolinea aerolinea, Aerolinea eventoVueltaID) {
 		super();
 		EventoID = eventoID;
 		NombreEvento = nombreEvento;
@@ -35,7 +35,7 @@ public class Vuelo  {
 		AeropuertoOrigen = aeropuertoOrigen;
 		AeropuertoDestino = aeropuertoDestino;
 		Aerolinea = aerolinea;
-		EventoIDVuelta = eventoIDVuelta;
+		EventoVueltaID = eventoVueltaID;
 	}
 
 	public String getEventoID() {
@@ -126,12 +126,12 @@ public class Vuelo  {
 		Aerolinea = aerolinea;
 	}
 
-	public Aerolinea getEventoIDVuelta() {
-		return EventoIDVuelta;
+	public Aerolinea getEventoVueltaID() {
+		return EventoVueltaID;
 	}
 
-	public void setEventoIDVuelta(Aerolinea eventoIDVuelta) {
-		EventoIDVuelta = eventoIDVuelta;
+	public void setEventoVueltaID(Aerolinea eventoVueltaID) {
+		EventoVueltaID = eventoVueltaID;
 	}
 
 	@Override
@@ -139,9 +139,11 @@ public class Vuelo  {
 		return "Vuelo [EventoID=" + EventoID + ", NombreEvento=" + NombreEvento + ", Precio=" + Precio + ", ViajeID="
 				+ ViajeID + ", CodigoVuelo=" + CodigoVuelo + ", FechaSalida=" + FechaSalida + ", HoraSalida="
 				+ HoraSalida + ", DuracionVuelo=" + DuracionVuelo + ", AeropuertoOrigen=" + AeropuertoOrigen
-				+ ", AeropuertoDestino=" + AeropuertoDestino + ", Aerolinea=" + Aerolinea + ", EventoIDVuelta="
-				+ EventoIDVuelta + "]";
+				+ ", AeropuertoDestino=" + AeropuertoDestino + ", Aerolinea=" + Aerolinea + ", EventoVueltaID="
+				+ EventoVueltaID + "]";
 	}
+
+	
 
 
 }
