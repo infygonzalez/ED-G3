@@ -1,8 +1,166 @@
-* {
-    font-family: inter, Arial, Helvetica, sans-serif;
+/* Importar fuente "Inter" Google Fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+html,
+body {
+    margin: 0;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    scroll-behavior: smooth;
 }
 
-body {
+ul {
+    display: flex;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+nav ul li a:hover {
+    color: var(--coloragenciatexto);
+    opacity: 0.5;
+}
+
+/* HEADER */
+header {
+    background-color: var(--coloragencia);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    line-height: 1;
+}
+
+header>a {
+    color: var(--coloragenciatexto);
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    padding: 20px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+header nav ul {
+    display: flex;
+    text-decoration: none;
+    padding: 0;
+}
+
+header nav li {
+    list-style: none;
+    line-height: 0;
+}
+
+header nav a {
+    color: var(--coloragenciatexto);
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+
+
+header nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+header nav ul li a {
+    display: block;
+    padding: 30px;
+    font-size: 20px;
+    text-align: center;
+    text-decoration: none;
+}
+
+header nav>label {
+    display: none;
+    cursor: pointer;
+    color: var(--coloragenciatexto);
+    text-transform: uppercase;
+    padding: 1rem;
+    font-size: 2rem;
+}
+
+header nav input {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    header nav ul {
+        display: none;
+        position: absolute;
+        top: 63px;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        background: white;
+        z-index: 9;
+    }
+    nav ul li a:hover {
+        color:black;
+        opacity: 0.5;
+    }
+    header nav a {
+        color: black;
+    }
+ 
+    header nav label {
+        display: block;
+    }
+
+    header nav input:checked+ul {
+        display: block;
+    }
+
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+    }
+
+    header nav ul {
+        top: 121px;
+    }
+}
+
+/* FOOTER */
+footer {
+    color: var(--coloragenciatexto);
+    background-color: var(--coloragencia);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+footer nav ul {
+    padding: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     margin: 0;
 }
 
+footer nav li {
+    list-style: none;
+}
+
+footer nav ul li a {
+    display: block;
+    padding: 20px;
+    font-size: 20px;
+    color: var(--coloragenciatexto);
+    text-align: center;
+    text-decoration: none;
+}
+
+::selection {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+}
