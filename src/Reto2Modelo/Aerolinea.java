@@ -1,7 +1,6 @@
 package Reto2Modelo;
 
 public class Aerolinea {
-	
 	private String CodigoAerolinea;
 	private String NombreAerolinea;
 	

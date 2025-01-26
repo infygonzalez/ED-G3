@@ -3,13 +3,12 @@ package Reto2Modelo;
 import java.util.ArrayList;
 
 public class Agencia {
-	
 	private String NombreAgencia;
 	private String Logo;
 	private String ColorMarca;
 	private int NumeroEmpleados;
 	private String TipoAgencia;
-	 private ArrayList<Viaje> Viajes;
+	private ArrayList<Viaje> Viajes;
 
 	public Agencia() {
 		

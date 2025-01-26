@@ -1,7 +1,7 @@
 package Reto2Modelo;
 
 public class Vuelo  {
-
+	/* Atributos comunes de todos los eventos */
 	private String EventoID;
 	private String NombreEvento;
 	private String Precio;
