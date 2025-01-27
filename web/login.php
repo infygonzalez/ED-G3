@@ -2,24 +2,25 @@
 
 require_once('php/conexion.php');
 
- if(isset($_POST['login']))
- {
-  
- $usuario = $_POST['usuario'];
- $contrasena = $_POST['contrasena'];
-  
- $sql = "SELECT * FROM agencia WHERE NombreAgencia = '$usuario' and Contraseña = '$contrasena'";
- $resultado = $conn->query($sql);
+if (isset($_POST['login'])) {
 
- if ( $resultado->num_rows==1) {
-     echo "Datos recibidos";
-     header("location: /");
- } else {
-     echo "Se ha producido un error: " . $conn->error .$sql;
- }  
+    $usuario = $_POST['usuario'];
+    $contrasena = $_POST['contrasena'];
 
- }
- ?>
+    $sql = "SELECT * FROM agencia WHERE NombreAgencia = '$usuario' and Contraseña = '$contrasena'";
+    $resultado = $conn->query($sql);
+
+    if ($resultado->num_rows == 1) {
+        session_start();
+        $_SESSION['Agencia'] = $usuario;
+        header(header: "location: /");
+
+    } else {
+        echo "Se ha producido un error: " . $conn->error . $sql;
+    }
+
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -37,7 +38,8 @@ require_once('php/conexion.php');
     <main>
         <div id="login" class="contenedor">
             <h1>Iniciar sesión</h1>
-            <form name="login"  action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validarLogin()" method="post">
+            <form name="login" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validarLogin()"
+                method="post">
                 <fieldset>
                     <label for="usuario">Usuario</label>
                     <input type="text" name="usuario">
@@ -51,7 +53,7 @@ require_once('php/conexion.php');
         </div>
     </main>
     <script>
-       function validarLogin(){
+        function validarLogin() {
             let usuario = document.forms["login"]["usuario"].value;
             if (usuario == "") {
                 alert("El campo usuario no puede estar vacío");
