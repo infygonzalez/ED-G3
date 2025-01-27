@@ -1,3 +1,25 @@
+<?php
+
+require_once('php/conexion.php');
+
+ if(isset($_POST['login']))
+ {
+  
+ $usuario = $_POST['usuario'];
+ $contrasena = $_POST['contrasena'];
+  
+ $sql = "SELECT * FROM agencia WHERE NombreAgencia = '$usuario' and Contraseña = '$contrasena'";
+ $resultado = $conn->query($sql);
+
+ if ( $resultado->num_rows==1) {
+     echo "Datos recibidos";
+     header("location: /");
+ } else {
+     echo "Se ha producido un error: " . $conn->error .$sql;
+ }  
+
+ }
+ ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,16 +37,16 @@
     <main>
         <div id="login" class="contenedor">
             <h1>Iniciar sesión</h1>
-            <form name="login" action="/action_page.php" onsubmit="return validarLogin()" method="post">
+            <form name="login"  action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validarLogin()" method="post">
                 <fieldset>
                     <label for="usuario">Usuario</label>
-                    <input type="text" id="usuario">
+                    <input type="text" name="usuario">
                 </fieldset>
                 <fieldset>
-                    <label for="contraseña">Contraseña</label>
-                    <input type="password" id="contraseña">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" name="contrasena">
                 </fieldset>
-                <button type="submit">Iniciar sesión</button>
+                <button type="submit" name="login">Iniciar sesión</button>
             </form>
         </div>
     </main>
@@ -35,8 +57,8 @@
                 alert("El campo usuario no puede estar vacío");
                 return false;
             }
-            let contraseña = document.forms["login"]["contraseña"].value;
-            if (contraseña == "") {
+            let contrasena = document.forms["login"]["contrasena"].value;
+            if (contrasena == "") {
                 alert("El campo contraseña no puede estar vacío");
                 return false;
             }
