@@ -20,7 +20,6 @@ require_once('php/conexion.php');
 
   <link rel="stylesheet" href="css/base.css">
   <style>
-    /* PENDIENTE DE CAMBIAR CON PHP */
     * {
       --coloragencia: <?php echo  $colorAgencia; ?>;
       --coloragenciatexto:   white;
