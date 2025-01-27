@@ -1,24 +1,36 @@
+<?php
+require_once('php/agencia.php');
+require_once('php/conexion.php');
+
+    session_start(); 
+    if (isset($_SESSION['Agencia'])) {
+      list($nombreAgencia,  $colorAgencia,$logoAgencia) = conseguirAgencia($_SESSION['Agencia'],$conn);
+    } else {
+      header(header: "location: /login.php");
+
+    }
+ ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOMBRE AGENCIA</title>
+  <title><?php echo  $nombreAgencia; ?></title>
 
   <link rel="stylesheet" href="css/base.css">
   <style>
     /* PENDIENTE DE CAMBIAR CON PHP */
     * {
-      --coloragencia: blue;
-      --coloragenciatexto: white;
+      --coloragencia: <?php echo  $colorAgencia; ?>;
+      --coloragenciatexto:   white;
     }
   </style>
 </head>
 
 <body id="top">
   <header>
-    <a href="#">Logo agencia</a>
+    <a href="#" id="logo"><img src="<?php echo  $logoAgencia; ?>;" alt=""></a>
     <nav>
       <label for="ico">☰</label>
       <input id="ico" type="checkbox">
