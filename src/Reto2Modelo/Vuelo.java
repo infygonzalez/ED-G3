@@ -15,14 +15,14 @@ public class Vuelo  {
 	private Aeropuerto AeropuertoDestino;
 	private Aerolinea Aerolinea;
 	
-	private Aerolinea EventoVueltaID;
+	private Vuelo EventoVueltaID;
 
 	public Vuelo() {
 	}
 
 	public Vuelo(String eventoID, String nombreEvento, String precio, Viaje viajeID, String codigoVuelo,
 			String fechaSalida, String horaSalida, String duracionVuelo, Aeropuerto aeropuertoOrigen,
-			Aeropuerto aeropuertoDestino, Aerolinea aerolinea, Aerolinea eventoVueltaID) {
+			Aeropuerto aeropuertoDestino, Aerolinea aerolinea, Vuelo eventoVueltaID) {
 		super();
 		EventoID = eventoID;
 		NombreEvento = nombreEvento;
@@ -126,11 +126,11 @@ public class Vuelo  {
 		Aerolinea = aerolinea;
 	}
 
-	public Aerolinea getEventoVueltaID() {
+	public Vuelo getEventoVueltaID() {
 		return EventoVueltaID;
 	}
 
-	public void setEventoVueltaID(Aerolinea eventoVueltaID) {
+	public void setEventoVueltaID(Vuelo eventoVueltaID) {
 		EventoVueltaID = eventoVueltaID;
 	}
 
