@@ -2,12 +2,12 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar sesión</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
 
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
 
 </head>
 
@@ -15,7 +15,7 @@
     <main>
         <div id="login" class="contenedor">
             <h1>Iniciar sesión</h1>
-            <form>
+            <form name="login" action="/action_page.php" onsubmit="return validarLogin()" method="post">
                 <fieldset>
                     <label for="usuario">Usuario</label>
                     <input type="text" id="usuario">
@@ -28,6 +28,21 @@
             </form>
         </div>
     </main>
+    <script>
+       function validarLogin(){
+            let usuario = document.forms["login"]["usuario"].value;
+            if (usuario == "") {
+                alert("El campo usuario no puede estar vacío");
+                return false;
+            }
+            let contraseña = document.forms["login"]["contraseña"].value;
+            if (contraseña == "") {
+                alert("El campo contraseña no puede estar vacío");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 
 </html>
