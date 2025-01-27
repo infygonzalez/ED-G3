@@ -16,9 +16,18 @@ ul {
 li {
     list-style: none;
 }
+
 nav ul li a:hover {
     color: var(--coloragenciatexto);
     opacity: 0.5;
+}
+
+#logo img {
+    max-height: 6rem;
+}
+
+main {
+    height: 50vh;
 }
 
 /* HEADER */
@@ -100,14 +109,16 @@ header nav input {
         background: white;
         z-index: 9;
     }
+
     nav ul li a:hover {
-        color:black;
+        color: black;
         opacity: 0.5;
     }
+
     header nav a {
         color: black;
     }
- 
+
     header nav label {
         display: block;
     }
