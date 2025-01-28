@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Bienvenida extends JFrame {
 
@@ -40,6 +42,14 @@ public class Bienvenida extends JFrame {
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER,0, 0));
 		
 		JLabel lblNewLabel = new JLabel(new ImageIcon(image.getImage().getScaledInstance(800, 500, Image.SCALE_DEFAULT)));
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login ventana = new Login();
+				setVisible(false);
+				ventana.setVisible(true);
+			}
+		});
 		panel.add(lblNewLabel);
 		
 	}
