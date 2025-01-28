@@ -9,4 +9,8 @@ public class Controlador {
 		Gestor gestor = new Gestor();
 		return gestor.login(usuario,contraseña);
 	}
+	public void  insertarAgencia(Agencia agencia) {
+		Gestor gestor = new Gestor();
+		gestor.insertarAgencia(agencia);
+	}
 }

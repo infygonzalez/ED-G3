@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JOptionPane;
+
 
 public class Gestor {
 	public Agencia login(String usuario, String contraseña) {
@@ -63,5 +65,40 @@ public class Gestor {
 			System.out.println("Error al cerrar la conexión" + sqle.getMessage());
 		}
 		return agencia;
+	}
+	public void insertarAgencia (Agencia agencia) {
+		Connection conexion = null;
+		Statement sentencia = null;
+		
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			sentencia = conexion .createStatement();
+			String sql = SQLQueries.INSERT_AGENCIA + agencia.getNombreAgencia() + SQLQueries.SEPARATOR + agencia.getLogo() + SQLQueries.SEPARATOR + agencia.getColorMarca() 
+						+ SQLQueries.SEPARATOR + agencia.getNumeroEmpleados()  + SQLQueries.SEPARATOR + agencia.getTipoAgencia() + SQLQueries.SEPARATOR + agencia.getContraseña() + SQLQueries.END_BLOCK;
+			
+			sentencia.executeUpdate(sql);
+		}
+		catch (SQLException sqle) {
+			System.out.println("Error con la base de datos " + sqle.getMessage());
+		}
+		catch (Exception e) {
+			System.out.println("Error generico " + e.getMessage());
+		}
+
+		try {
+			sentencia.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la sentencia.");
+		}
+		try {
+			conexion.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la conexion.");
+		}
+		
+	
 	}
 }
