@@ -95,6 +95,13 @@ public class Login extends JFrame {
 		pnl_login.add(btnInciarSesion);
 
 		JButton btnNuevaAgencia = new JButton("Nueva agencia");
+		btnNuevaAgencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NuevaAgencia ventana = new NuevaAgencia();
+				setVisible(false);
+				ventana.setVisible(true);
+			}
+		});
 		btnNuevaAgencia.setBounds(423, 151, 129, 23);
 		pnl_login.add(btnNuevaAgencia);
 		ImageIcon image = new ImageIcon(getClass().getResource("/Reto2Img/fondo1.jpg"));
