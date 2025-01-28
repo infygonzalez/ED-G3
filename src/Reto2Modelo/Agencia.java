@@ -6,7 +6,7 @@ public class Agencia {
 	private String NombreAgencia;
 	private String Logo;
 	private String ColorMarca;
-	private int NumeroEmpleados;
+	private String NumeroEmpleados;
 	private String TipoAgencia;
 	private ArrayList<Viaje> Viajes;
 
@@ -14,7 +14,7 @@ public class Agencia {
 		
 	}
 
-	public Agencia(String nombreAgencia, String logo, String colorMarca, int numeroEmpleados, String tipoAgencia,
+	public Agencia(String nombreAgencia, String logo, String colorMarca, String numeroEmpleados, String tipoAgencia,
 			ArrayList<Viaje> viajes) {
 		NombreAgencia = nombreAgencia;
 		Logo = logo;
@@ -49,10 +49,10 @@ public class Agencia {
 	public void setColorMarca(String colorMarca) {
 		ColorMarca = colorMarca;
 	}
-	public int getNumeroEmpleados() {
+	public String getNumeroEmpleados() {
 		return NumeroEmpleados;
 	}
-	public void setNumeroEmpleados(int numeroEmpleados) {
+	public void setNumeroEmpleados(String numeroEmpleados) {
 		NumeroEmpleados = numeroEmpleados;
 	}
 	public String getTipoAgencia() {
