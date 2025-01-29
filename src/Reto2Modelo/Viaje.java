@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class Viaje {
 	private String ViajeID;
 	private String NombreViaje;
-	private String Descripción;
+	private String DescripciónViaje;
 	private String TipoViaje;
 	private String FechaInicio;
 	private String FechaFin;
 	private String DuracionViaje;
 	private String ServiciosNoIncluidos;
 	private Pais PaisDestino;
-	
+	private Agencia NombreAgencia;
 	private ArrayList<Viaje> Viajes;
 	private ArrayList<Alojamiento> Alojamientos;
 	private ArrayList<Otros> Otros;
@@ -21,13 +21,13 @@ public class Viaje {
 		
 	}
 	
-	public Viaje(String viajeID, String nombreViaje, String descripción, String tipoViaje, String fechaInicio,
+	public Viaje(String viajeID, String nombreViaje, String descripciónViaje, String tipoViaje, String fechaInicio,
 			String fechaFin, String duracionViaje, String serviciosNoIncluidos, Pais paisDestino,
 			ArrayList<Viaje> viajes, ArrayList<Alojamiento> alojamientos, ArrayList<Otros> otros) {
 		super();
 		ViajeID = viajeID;
 		NombreViaje = nombreViaje;
-		Descripción = descripción;
+		DescripciónViaje = descripciónViaje;
 		TipoViaje = tipoViaje;
 		FechaInicio = fechaInicio;
 		FechaFin = fechaFin;
@@ -40,6 +40,22 @@ public class Viaje {
 	}
 
 	
+	public String getDescripciónViaje() {
+		return DescripciónViaje;
+	}
+
+	public void setDescripciónViaje(String descripciónViaje) {
+		DescripciónViaje = descripciónViaje;
+	}
+
+	public Agencia getNombreAgencia() {
+		return NombreAgencia;
+	}
+
+	public void setNombreAgencia(Agencia nombreAgencia) {
+		NombreAgencia = nombreAgencia;
+	}
+
 	public String getViajeID() {
 		return ViajeID;
 	}
@@ -52,12 +68,7 @@ public class Viaje {
 	public void setNombreViaje(String nombreViaje) {
 		NombreViaje = nombreViaje;
 	}
-	public String getDescripción() {
-		return Descripción;
-	}
-	public void setDescripción(String descripción) {
-		Descripción = descripción;
-	}
+	
 	public String getTipoViaje() {
 		return TipoViaje;
 	}
@@ -112,15 +123,17 @@ public class Viaje {
 	public void setOtros(ArrayList<Otros> otros) {
 		Otros = otros;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Viaje [ViajeID=" + ViajeID + ", NombreViaje=" + NombreViaje + ", Descripción=" + Descripción
+		return "Viaje [ViajeID=" + ViajeID + ", NombreViaje=" + NombreViaje + ", DescripciónViaje=" + DescripciónViaje
 				+ ", TipoViaje=" + TipoViaje + ", FechaInicio=" + FechaInicio + ", FechaFin=" + FechaFin
 				+ ", DuracionViaje=" + DuracionViaje + ", ServiciosNoIncluidos=" + ServiciosNoIncluidos
-				+ ", PaisDestino=" + PaisDestino + ", Viajes=" + Viajes + ", Alojamientos=" + Alojamientos + ", Otros="
-				+ Otros + "]";
+				+ ", PaisDestino=" + PaisDestino + ", NombreAgencia=" + NombreAgencia + ", Viajes=" + Viajes
+				+ ", Alojamientos=" + Alojamientos + ", Otros=" + Otros + "]";
 	}
+	
+
 	
 	
 }
