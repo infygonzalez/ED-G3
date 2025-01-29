@@ -19,32 +19,40 @@ require_once('php/conexion.php');
   <title><?php echo  $nombreAgencia; ?></title>
 
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/login.css">
-
   <style>
     * {
       --coloragencia: <?php echo  $colorAgencia; ?>;
       --coloragenciatexto:   white;
     }
-    
   </style>
 </head>
 
+<body id="top">
+  <header>
+    <a href="#" id="logo"><img src="<?php echo  $logoAgencia; ?>;" alt=""></a>
+    <nav>
+      <label for="ico">☰</label>
+      <input id="ico" type="checkbox">
+      <ul>
+        <li><a href="#">Registrar Vuelo</a></li>
+        <li><a href="#">Registrar Evento</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<body>
-    <main id="principal">
-        <div  class="contenedor">
-            <h1><a href="#" id="logo"><img src="<?php echo  $logoAgencia; ?>;" alt=""></a></h1>
-            <button id="Vuelo">
-                Registrar  Vuelo <img id="imagenVuelo" src="img/avion.png" alt="">
-            </button>
-            <button id="Evento">
-                Registrar  Evento <img id="imagenEvento" src="img/cartel-de-hotel.png" alt=""></a> 
-            </button>
-           
-        </div>
-    </main>
+  <main>
+
+  </main>
+
+  <footer>
+    <nav>
+      <ul>
+        <li><a href="#">Copyright</a></li>
+        <li><a href="#">Desconectar</a></li>
+        <li><a href="#top">▲</a></li>
+      </ul>
+    </nav>
+  </footer>
 </body>
-
 
 </html>

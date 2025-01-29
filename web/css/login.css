@@ -3,17 +3,53 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+#principal{
+    background-color: var(--coloragencia);
+
+}
+#loginfondo{
     animation: fondo 25s infinite;
     background-size: cover;
     background-repeat: no-repeat;
 }
+#Vuelo{
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    padding:2rem;
+    align-items: center;
+    background: linear-gradient(to right,white,rgb(0, 255, 234));
+    font-weight: bold;
+   
+}
+
+#Evento{
+    text-align:left;
+    display: flex;
+    justify-content: space-between;
+    padding:2rem;
+    align-items: center;
+    background: linear-gradient(to right,white,rgb(2, 250, 105));
+    font-weight: bold;
+}
+
+#imagenVuelo {
+    width: 134px;
+   
+}
+#imagenEvento{
+    width: 134px;
+   
+}
 
 .contenedor {
-    background-color: white;
-    padding: 3rem;
+    background-color:#f2f2f2;
+    padding: 4rem;
     border-radius: 30px;
     text-align: center;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 30vw;
 }
 
 h1 {
@@ -57,7 +93,15 @@ button:hover {
     background: black;
     color: white
 }
+#Vuelo:hover{
+    background: linear-gradient(to right,white,rgb(1, 134, 123));
+    color: black;
+}
+#Evento:hover{
+    background: linear-gradient(to right,white,rgb(1, 163, 69));
+    color:black
 
+}
 @keyframes fondo {
     0% {
         background-image: url(/img/fondo1.jpg);
