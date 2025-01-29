@@ -20,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class NuevaAgencia extends JFrame {
 
@@ -33,109 +35,133 @@ public class NuevaAgencia extends JFrame {
 	private JComboBox comboBoxTipoAgencia;
 	private JComboBox comboBoxNumeroEmpleados;
 	private JPanel panelColor;
+	private JLabel lblNewLabel_1;
 
 	/**
 	 * Create the frame.
 	 */
 	public NuevaAgencia() {
+		setBackground(new Color(255, 255, 255));
+		setTitle("Nueva agencia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 351);
+		setBounds(100, 100, 425, 688);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNombreAgencia = new JLabel("Nombre Agencia");
-		lblNombreAgencia.setBounds(56, 23, 122, 14);
+		JLabel lblNombreAgencia = new JLabel("Nombre de la agencia");
+		lblNombreAgencia.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblNombreAgencia.setBounds(26, 82, 307, 32);
 		contentPane.add(lblNombreAgencia);
 
 		JLabel lblColorMarca = new JLabel("Color de Marca");
-		lblColorMarca.setBounds(56, 65, 122, 14);
+		lblColorMarca.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblColorMarca.setBounds(26, 163, 307, 32);
 		contentPane.add(lblColorMarca);
 
-		JLabel lblNumeroEmpleados = new JLabel("Numero de Empleados");
-		lblNumeroEmpleados.setBounds(56, 104, 122, 14);
+		JLabel lblNumeroEmpleados = new JLabel("Número de empleados");
+		lblNumeroEmpleados.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblNumeroEmpleados.setBounds(26, 245, 307, 32);
 		contentPane.add(lblNumeroEmpleados);
 
 		JLabel lblLogo = new JLabel("Logo");
-		lblLogo.setBounds(56, 189, 122, 14);
+		lblLogo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblLogo.setBounds(26, 405, 356, 32);
 		contentPane.add(lblLogo);
 
 		txtNombreAgencia = new JTextField();
-		txtNombreAgencia.setBounds(207, 20, 174, 20);
+		txtNombreAgencia.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtNombreAgencia.setBounds(26, 125, 356, 35);
 		contentPane.add(txtNombreAgencia);
 		txtNombreAgencia.setColumns(10);
 
 		txtColor = new JTextField();
+		txtColor.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelColor.setBackground( Color.decode(txtColor.getText()));
 			}
 		});
 		txtColor.setColumns(10);
-		txtColor.setBounds(207, 62, 122, 20);
+		txtColor.setBounds(26, 206, 258, 35);
 		contentPane.add(txtColor);
 
 		txtLogo = new JTextField();
+		txtLogo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtLogo.setColumns(10);
-		txtLogo.setBounds(207, 186, 174, 20);
+		txtLogo.setBounds(24, 448, 358, 35);
 		contentPane.add(txtLogo);
 
 		JLabel lblTipoAgencia = new JLabel("Tipo de Agencia");
-		lblTipoAgencia.setBounds(56, 148, 122, 14);
+		lblTipoAgencia.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblTipoAgencia.setBounds(26, 332, 307, 32);
 		contentPane.add(lblTipoAgencia);
 
 		comboBoxNumeroEmpleados = new JComboBox();
+		comboBoxNumeroEmpleados.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		comboBoxNumeroEmpleados.setModel(new DefaultComboBoxModel(
 				new String[] { "Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados" }));
-		comboBoxNumeroEmpleados.setBounds(207, 100, 174, 22);
+		comboBoxNumeroEmpleados.setBounds(26, 288, 356, 33);
 		contentPane.add(comboBoxNumeroEmpleados);
 
 		comboBoxTipoAgencia = new JComboBox();
+		comboBoxTipoAgencia.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		comboBoxTipoAgencia
 				.setModel(new DefaultComboBoxModel(new String[] { "mayorista", "minorista", "mayorista-minorista" }));
-		comboBoxTipoAgencia.setBounds(207, 144, 174, 22);
+		comboBoxTipoAgencia.setBounds(24, 371, 358, 33);
 		contentPane.add(comboBoxTipoAgencia);
 
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setForeground(new Color(255, 255, 255));
+		btnGuardar.setBackground(new Color(0, 0, 0));
+		btnGuardar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (validarAgencia() == true) {
-					Login ventana = new Login();
-					setVisible(false);
-					ventana.setVisible(true);
+					dispose();
 				}
 
 			}
 		});
-		btnGuardar.setBounds(56, 266, 151, 23);
+		btnGuardar.setBounds(26, 588, 164, 38);
 		contentPane.add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(new Color(255, 255, 255));
+		btnCancelar.setBackground(new Color(0, 0, 0));
+		btnCancelar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Login ventana = new Login();
-				setVisible(false);
-				ventana.setVisible(true);
+				dispose();
 			}
 		});
-		btnCancelar.setBounds(217, 266, 164, 23);
+		btnCancelar.setBounds(220, 588, 164, 38);
 		contentPane.add(btnCancelar);
 
 		JLabel lblContrasea = new JLabel("Contraseña");
-		lblContrasea.setBounds(56, 227, 122, 14);
+		lblContrasea.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblContrasea.setBounds(24, 494, 309, 27);
 		contentPane.add(lblContrasea);
 
 		txtContraseña = new JTextField();
+		txtContraseña.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtContraseña.setColumns(10);
-		txtContraseña.setBounds(207, 224, 174, 20);
+		txtContraseña.setBounds(26, 530, 356, 35);
 		contentPane.add(txtContraseña);
 		
 		panelColor = new JPanel();
 		panelColor.setBackground(new Color(255, 255, 255));
-		panelColor.setBounds(337, 65, 43, 20);
+		panelColor.setBounds(294, 206, 88, 35);
 		contentPane.add(panelColor);
+		
+		lblNewLabel_1 = new JLabel("Nueva agencia");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 37));
+		lblNewLabel_1.setBounds(0, 11, 409, 57);
+		contentPane.add(lblNewLabel_1);
 	}
 
 	public boolean validarAgencia() {
