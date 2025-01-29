@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Reto2Vista.Bienvenida;
+import Reto2Vista.Login;
 
 public class Reto2 extends JFrame {
 
@@ -21,7 +21,7 @@ public class Reto2 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Bienvenida frame = new Bienvenida();
+					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
