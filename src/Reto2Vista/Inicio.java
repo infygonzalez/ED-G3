@@ -31,6 +31,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Reto2Controlador.Controlador;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Inicio extends JFrame {
 
@@ -78,16 +80,23 @@ public class Inicio extends JFrame {
 			e.printStackTrace();
 		}
 		ImageIcon image = new ImageIcon(imgUrl);
-		JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(330, 198, Image.SCALE_SMOOTH)));
+		JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(256, 173, Image.SCALE_SMOOTH)));
 		panelLogo.add(lblLogo);
 
-		JLabel lblNewLabel = new JLabel(agencia.getNombreAgencia());
-		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(15, 196, 256, 58);
-		panel.add(lblNewLabel);
+		JLabel lblNombreAgencia = new JLabel(agencia.getNombreAgencia());
+		lblNombreAgencia.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblNombreAgencia.setForeground(new Color(255, 255, 255));
+		lblNombreAgencia.setBounds(15, 196, 256, 58);
+		panel.add(lblNombreAgencia);
 
 		JButton btnDesconectar = new JButton("Desconectar");
+		btnDesconectar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Login ventana = new Login();
+				ventana.setVisible(true);
+			}
+		});
 		btnDesconectar.setForeground(new Color(0, 0, 0));
 		btnDesconectar.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		btnDesconectar.setBackground(new Color(255, 255, 255));
@@ -101,17 +110,17 @@ public class Inicio extends JFrame {
 		btnGenerarOfertaViaje.setBounds(10, 491, 284, 38);
 		panel.add(btnGenerarOfertaViaje);
 
-		JLabel lblNewLabel_1 = new JLabel("Viajes");
-		lblNewLabel_1.setFont(new Font("Segoe UI", Font.PLAIN, 30));
-		lblNewLabel_1.setBounds(327, 29, 284, 51);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblViaje = new JLabel("Viajes");
+		lblViaje.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		lblViaje.setBounds(327, 29, 284, 51);
+		contentPane.add(lblViaje);
 
-		JButton btnGenerarOfertaViaje_1 = new JButton("Crear viaje");
-		btnGenerarOfertaViaje_1.setForeground(Color.BLACK);
-		btnGenerarOfertaViaje_1.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		btnGenerarOfertaViaje_1.setBackground(Color.WHITE);
-		btnGenerarOfertaViaje_1.setBounds(778, 33, 196, 51);
-		contentPane.add(btnGenerarOfertaViaje_1);
+		JButton btnCrearViaje = new JButton("Crear viaje");
+		btnCrearViaje.setForeground(Color.BLACK);
+		btnCrearViaje.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		btnCrearViaje.setBackground(Color.WHITE);
+		btnCrearViaje.setBounds(778, 33, 196, 51);
+		contentPane.add(btnCrearViaje);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(327, 91, 647, 208);
@@ -126,6 +135,22 @@ public class Inicio extends JFrame {
 		table = new JTable(modelo);
 		cargarTabla(agencia);
 		scrollPane.setViewportView(table);
+		
+		JLabel lblEventos = new JLabel("Eventos");
+		lblEventos.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		lblEventos.setBounds(327, 330, 284, 51);
+		contentPane.add(lblEventos);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(327, 392, 647, 208);
+		contentPane.add(scrollPane_1);
+		
+		JButton btnCrearEvento = new JButton("Crear evento");
+		btnCrearEvento.setForeground(Color.BLACK);
+		btnCrearEvento.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		btnCrearEvento.setBackground(Color.WHITE);
+		btnCrearEvento.setBounds(778, 334, 196, 51);
+		contentPane.add(btnCrearEvento);
 	}
 
 	public void cargarTabla(Agencia agencia) {
