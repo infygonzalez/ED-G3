@@ -162,6 +162,186 @@ public class Gestor {
 		}
 		return viajes;
 	}
+	public ArrayList<Vuelo> buscarTodosVuelos(Viaje viaje,ArrayList<Aeropuerto> aeropuertos,ArrayList<Aerolinea> aerolineas){
+		Connection conexion = null;
+		PreparedStatement sentencia = null;
+		ResultSet resultSet = null;
+		ArrayList<Vuelo> vuelos = null;
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			String sql = SQLQueries.SELECT_VUELOS_VIAJE;
+			sentencia = conexion.prepareStatement(sql);
+			sentencia.setString(1, viaje.getViajeID());
+			resultSet = sentencia.executeQuery();
+			vuelos = new ArrayList<Vuelo>();
+			while (resultSet.next()) {
+				Vuelo vuelo = new Vuelo();
+				vuelo.setViajeID(viaje);
+				vuelo.setEventoID(resultSet.getString("EventoID"));
+				vuelo.setNombreEvento(resultSet.getString("NombreEvento"));
+				vuelo.setPrecio(resultSet.getString("Precio"));
+				vuelo.setCodigoVuelo(resultSet.getString("CodigoVuelo"));
+				vuelo.setFechaSalida(resultSet.getString("FechaSalida"));
+				vuelo.setHoraSalida(resultSet.getString("HoraSalida"));
+				vuelo.setDuracionVuelo(resultSet.getString("DuracionVuelo"));
+				for(Aerolinea aerolinea: aerolineas) {
+					if(resultSet.getString("Aerolinea").equals(aerolinea.getCodigoAerolinea())== true) {
+						vuelo.setAerolinea(aerolinea);
+					}
+				}
+				for(Aeropuerto aerolinea: aeropuertos) {
+					if(resultSet.getString("AeropuertoOrigen").equals(aerolinea.getCodigoAeropuerto())== true) {
+						vuelo.setAeropuertoOrigen(aerolinea);
+					}
+					if(resultSet.getString("AeropuertoDestino").equals(aerolinea.getCodigoAeropuerto())== true) {
+						vuelo.setAeropuertoDestino(aerolinea);
+					}
+				}
+				vuelos.add(vuelo);
+
+			}
+			
+		}
+		catch (SQLException sqle) {
+			System.out.println("Error con la base de datos " + sqle.getMessage());
+		}
+		catch (Exception e) {
+			System.out.println("Error generico " + e.getMessage());
+		}
+		
+		try {
+			resultSet.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar el resultset.");
+		}
+		try {
+			sentencia.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la sentencia.");
+		}
+		try {
+			conexion.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la conexion.");
+		}
+		return vuelos;
+	}
+	public ArrayList<Alojamiento> buscarTodosAlojamiento(Viaje viaje){
+		Connection conexion = null;
+		PreparedStatement sentencia = null;
+		ResultSet resultSet = null;
+		ArrayList<Alojamiento> alojamientos = null;
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			String sql = SQLQueries.SELECT_ALOJAMIENTO_VIAJE;
+			sentencia = conexion.prepareStatement(sql);
+			sentencia.setString(1, viaje.getViajeID());
+			resultSet = sentencia.executeQuery();
+			alojamientos = new ArrayList<Alojamiento>();
+			while (resultSet.next()) {
+				Alojamiento alojamiento = new Alojamiento();
+				alojamiento.setViajeID(viaje);
+				alojamiento.setEventoID(resultSet.getString("EventoID"));
+				alojamiento.setNombreEvento(resultSet.getString("NombreEvento"));
+				alojamiento.setPrecio(resultSet.getString("Precio"));
+				alojamiento.setNombreHotel(resultSet.getString("NombreHotel"));
+				alojamiento.setCiudad(resultSet.getString("Ciudad"));
+				alojamiento.setFechaEntrada(resultSet.getString("FechaEntrada"));
+				alojamiento.setFechaSalida(resultSet.getString("FechaSalida"));
+				alojamiento.setTipoHabitacion(resultSet.getString("TipoHabitacion"));
+
+				alojamientos.add(alojamiento);
+
+			}
+			
+		}
+		catch (SQLException sqle) {
+			System.out.println("Error con la base de datos " + sqle.getMessage());
+		}
+		catch (Exception e) {
+			System.out.println("Error generico " + e.getMessage());
+		}
+		
+		try {
+			resultSet.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar el resultset.");
+		}
+		try {
+			sentencia.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la sentencia.");
+		}
+		try {
+			conexion.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la conexion.");
+		}
+		return alojamientos;
+	}
+	public ArrayList<Otros> buscarTodosOtros(Viaje viaje){
+		Connection conexion = null;
+		PreparedStatement sentencia = null;
+		ResultSet resultSet = null;
+		ArrayList<Otros> otrosLista = null;
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			String sql = SQLQueries.SELECT_ALOJAMIENTO_VIAJE;
+			sentencia = conexion.prepareStatement(sql);
+			sentencia.setString(1, viaje.getViajeID());
+			resultSet = sentencia.executeQuery();
+			otrosLista = new ArrayList<Otros>();
+			while (resultSet.next()) {
+				Otros otro = new Otros();
+				otro.setViajeID(viaje);
+				otro.setEventoID(resultSet.getString("EventoID"));
+				otro.setNombreEvento(resultSet.getString("NombreEvento"));
+				otro.setPrecio(resultSet.getString("Precio"));
+				otro.setFecha(resultSet.getString("Fecha"));
+				otro.setDescripcion(resultSet.getString("Descripcion"));
+			
+				otrosLista.add(otro);
+
+			}
+			
+		}
+		catch (SQLException sqle) {
+			System.out.println("Error con la base de datos " + sqle.getMessage());
+		}
+		catch (Exception e) {
+			System.out.println("Error generico " + e.getMessage());
+		}
+		
+		try {
+			resultSet.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar el resultset.");
+		}
+		try {
+			sentencia.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la sentencia.");
+		}
+		try {
+			conexion.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la conexion.");
+		}
+		return otrosLista;
+	}
+
 	public ArrayList<Pais> buscarTodosPaises(){
 		Connection conexion = null;
 		PreparedStatement sentencia = null;

@@ -8,6 +8,9 @@ public class SQLQueries {
 	public static final String SELECT_TODOS_PAISES = "SELECT * FROM Pais ";
 	public static final String SELECT_TODOS_AEROPUERTOS = "SELECT * FROM Aeropuerto ";
 	public static final String SELECT_TODOS_AEROLINEAS = "SELECT * FROM Aerolinea ";
+	public static final String SELECT_VUELOS_VIAJE = "SELECT * FROM vuelo WHERE ViajeID=?";
+	public static final String SELECT_ALOJAMIENTO_VIAJE = "SELECT * FROM alojamiento WHERE ViajeID=?";
+	public static final String SELECT_OTROS_VIAJE = "SELECT * FROM otros WHERE ViajeID=?";
 
 	//INSERTS
 	public static final String INSERT_AGENCIA = "insert into Agencia  values ('";
