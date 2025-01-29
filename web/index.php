@@ -1,6 +1,6 @@
 <?php
-require_once('php/agencia.php');
-require_once('php/conexion.php');
+require_once('conexion-php/agencia.php');
+require_once('conexion-php/conexion.php');
 
     session_start(); 
     if (isset($_SESSION['Agencia'])) {

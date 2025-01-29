@@ -1,6 +1,6 @@
 <?php
 
-require_once('php/conexion.php');
+require_once('conexion-php/conexion.php');
 
 if (isset($_POST['login'])) {
 
