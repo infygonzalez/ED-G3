@@ -112,13 +112,14 @@ public class Gestor {
 			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 			String sql = SQLQueries.SELECT_VIAJES_AGENCIA;
 			sentencia = conexion.prepareStatement(sql);
+			sentencia.setString(1, agencia.getNombreAgencia());
 			resultSet = sentencia.executeQuery();
 			viajes = new ArrayList<Viaje>();
 			while (resultSet.next()) {
 				Viaje viaje = new Viaje();
 				viaje.setViajeID(resultSet.getString("ViajeID"));
 				viaje.setNombreViaje(resultSet.getString("NombreViaje"));
-				viaje.setDescripciónViaje(resultSet.getString("DescripciónViaje"));
+				viaje.setDescripciónViaje(resultSet.getString("DescripcionViaje"));
 				viaje.setTipoViaje(resultSet.getString("TipoViaje"));
 				viaje.setFechaInicio(resultSet.getString("FechaInicio"));
 				viaje.setFechaFin(resultSet.getString("FechaFin"));
