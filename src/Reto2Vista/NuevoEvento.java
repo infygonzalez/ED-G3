@@ -52,27 +52,27 @@ public class NuevoEvento extends JFrame {
 	}
 	
 	public JPanel nuevoevento () {
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 908, 574);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JPanel Evento = new JPanel();
+		Evento.setBounds(0, 0, 908, 574);
+		contentPane.add(Evento);
+		Evento.setLayout(null);
 		
 		JLabel lblNombreEvento = new JLabel("Nombre Evento");
 		lblNombreEvento.setBounds(70, 45, 141, 14);
-		panel.add(lblNombreEvento);
+		Evento.add(lblNombreEvento);
 		
 		JLabel lblTipoEvento = new JLabel("Tipo de Evento");
 		lblTipoEvento.setBounds(70, 82, 141, 14);
-		panel.add(lblTipoEvento);
+		Evento.add(lblTipoEvento);
 		
 		JComboBox cbNombreEvento = new JComboBox();
 		cbNombreEvento.setBounds(238, 78, 187, 22);
-		panel.add(cbNombreEvento);
+		Evento.add(cbNombreEvento);
 		
 		textField = new JTextField();
 		textField.setBounds(238, 42, 187, 20);
-		panel.add(textField);
+		Evento.add(textField);
 		textField.setColumns(10);
-		return panel;
+		return Evento;
 	}
 }
