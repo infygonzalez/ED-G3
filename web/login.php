@@ -29,14 +29,14 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
 
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
 
 </head>
 
 <body>
     <main id="loginfondo">
-        <div id="login" class="contenedor">
+        <section id="login" class="login">
             <h1>Iniciar sesión</h1>
             <form name="login" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validarLogin()"
                 method="post">
@@ -50,7 +50,7 @@ if (isset($_POST['login'])) {
                 </fieldset>
                 <button type="submit" name="login">Iniciar sesión</button>
             </form>
-        </div>
+    </section>
     </main>
     <script>
         function validarLogin() {

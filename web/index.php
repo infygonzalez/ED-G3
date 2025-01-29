@@ -18,29 +18,25 @@ require_once('php/conexion.php');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo  $nombreAgencia; ?></title>
 
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
 
   <style>
     * {
       --coloragencia: <?php echo  $colorAgencia; ?>;
-      --coloragenciatexto:   white;
+      --coloragenciatexto: white;
     }
     
   </style>
 </head>
 
-
 <body>
     <main id="principal">
-        <div  class="contenedor">
-            <h1><a href="#" id="logo"><img src="<?php echo  $logoAgencia; ?>;" alt=""></a></h1>
-            <button id="Vuelo">
-                Registrar  Vuelo <img id="imagenVuelo" src="img/avion.png" alt="">
-            </button>
-            <button id="Evento">
-                Registrar  Evento <img id="imagenEvento" src="img/cartel-de-hotel.png" alt=""></a> 
-            </button>
+        <div  class="principal">
+            <a href="#" id="logoprincipal"><img src="<?php echo  $logoAgencia; ?>;" alt=""></a>
+            <button id="Vuelo"><p>Registrar  Vuelo</p> <i class="fa-solid fa-plane xl"></i></button>
+            <button id="Evento"><p>Registrar  Evento</p> <i class="fa-solid fa-square-h xl"></i></button>
            
         </div>
     </main>

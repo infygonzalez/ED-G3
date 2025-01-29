@@ -18,7 +18,9 @@ require_once('php/conexion.php');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo  $nombreAgencia; ?></title>
 
-  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/reset.css">
   <style>
     * {
       --coloragencia: <?php echo  $colorAgencia; ?>;
@@ -34,8 +36,8 @@ require_once('php/conexion.php');
       <label for="ico">☰</label>
       <input id="ico" type="checkbox">
       <ul>
-        <li><a href="#">Registrar Vuelo</a></li>
-        <li><a href="#">Registrar Evento</a></li>
+        <li><a href="#"><i class="fa-sharp fa-solid fa-plane"></i>Registrar Vuelo</a></li>
+        <li><a href="#"><i class="fa-regular fa-calendar-days"></i>Registrar Evento</a></li>
       </ul>
     </nav>
   </header>
@@ -47,8 +49,8 @@ require_once('php/conexion.php');
   <footer>
     <nav>
       <ul>
-        <li><a href="#">Copyright</a></li>
-        <li><a href="#">Desconectar</a></li>
+        <li><a href="#"><i class="fa-solid fa-copyright"></i>Copyright</a></li>
+        <li><a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Desconectar</a></li>
         <li><a href="#top">▲</a></li>
       </ul>
     </nav>
