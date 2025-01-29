@@ -6,6 +6,7 @@ require_once('conexion-php/conexion.php');
     if (isset($_SESSION['Agencia'])) {
       list($nombreAgencia,  $colorAgencia,$logoAgencia) = conseguirAgencia($_SESSION['Agencia'],$conn);
     } else {
+      // Redirigir al login si no hay una sesion detectada
       header(header: "location: /login.php");
 
     }
@@ -50,11 +51,17 @@ require_once('conexion-php/conexion.php');
     <nav>
       <ul>
         <li><a href="#"><i class="fa-solid fa-copyright"></i>Copyright</a></li>
-        <li><a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Desconectar</a></li>
+        <li><a onclick="return desconectar()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Desconectar</a></li>
         <li><a href="#top">▲</a></li>
       </ul>
     </nav>
   </footer>
+  <script type="text/javascript">
+        function desconectar() {
+          document.cookie =  'PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          window.location.href = "/login.php";
+        }
+    </script>
 </body>
 
 </html>

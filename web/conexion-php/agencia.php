@@ -17,7 +17,7 @@ function conseguirAgencia($nombreAgencia, $conn)
         return array($nombreAgencia, $colorAgencia, $logoAgencia);
 
     } else {
-        echo "Se ha producido un error: " . $nombreAgencia->error . $sql;
+        echo "No se ha encontrado la agencia";
     }
 
 }

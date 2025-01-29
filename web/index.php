@@ -6,6 +6,7 @@ require_once('conexion-php/conexion.php');
     if (isset($_SESSION['Agencia'])) {
       list($nombreAgencia,  $colorAgencia,$logoAgencia) = conseguirAgencia($_SESSION['Agencia'],$conn);
     } else {
+      // Redirigir al login si no hay una sesion detectada
       header(header: "location: /login.php");
 
     }

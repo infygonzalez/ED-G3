@@ -1,9 +1,8 @@
 <?php
 
 require_once('conexion-php/conexion.php');
-
+$mensajeError = null;
 if (isset($_POST['login'])) {
-
     $usuario = $_POST['usuario'];
     $contrasena = $_POST['contrasena'];
 
@@ -14,9 +13,8 @@ if (isset($_POST['login'])) {
         session_start();
         $_SESSION['Agencia'] = $usuario;
         header(header: "location: /");
-
     } else {
-        echo "Se ha producido un error: " . $conn->error . $sql;
+        $mensajeError = "Usuario o contraseña incorrectos.";
     }
 
 }
@@ -52,7 +50,10 @@ if (isset($_POST['login'])) {
             </form>
     </section>
     </main>
-    <script>
+    <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        <?php if(!empty($mensajeError)){ echo'alert("' . $mensajeError . '");';} ?>
+    });
         function validarLogin() {
             let usuario = document.forms["login"]["usuario"].value;
             if (usuario == "") {
