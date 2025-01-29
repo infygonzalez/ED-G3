@@ -1,38 +1,22 @@
-<?php
-require_once('conexion-php/agencia.php');
-require_once('conexion-php/conexion.php');
-
-    session_start(); 
-    if (isset($_SESSION['Agencia'])) {
-      list($nombreAgencia,  $colorAgencia,$logoAgencia) = conseguirAgencia($_SESSION['Agencia'],$conn);
-    } else {
-      // Redirigir al login si no hay una sesion detectada
-      header(header: "location: /login.php");
-
-    }
- ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php echo  $nombreAgencia; ?></title>
+  <?php
+  include_once('conexion-php/agencia.php');
+  ?>
+  <title><?php echo $nombreAgencia; ?></title>
 
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/reset.css">
-  <style>
-    * {
-      --coloragencia: <?php echo  $colorAgencia; ?>;
-      --coloragenciatexto:   white;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
 </head>
 
 <body id="top">
   <header>
-    <a href="#" id="logo"><img src="<?php echo  $logoAgencia; ?>;" alt=""></a>
+    <a href="#" id="logo"><img src="<?php echo $logoAgencia; ?>;" alt=""></a>
     <nav>
       <label for="ico">☰</label>
       <input id="ico" type="checkbox">
