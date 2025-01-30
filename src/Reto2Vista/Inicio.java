@@ -17,9 +17,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import Reto2Modelo.Aerolinea;
+import Reto2Modelo.Aeropuerto;
 import Reto2Modelo.Agencia;
+import Reto2Modelo.Pais;
 import Reto2Modelo.Viaje;
+import Reto2Modelo.Vuelo;
+import Reto2Modelo.Alojamiento;
+import Reto2Modelo.Otros;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -33,14 +41,22 @@ import javax.swing.table.DefaultTableModel;
 import Reto2Controlador.Controlador;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ListSelectionModel;
 
 public class Inicio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
-	private DefaultTableModel modelo;
+	private JTable tableViajes;
+	private DefaultTableModel modeloViajes;
+	private DefaultTableModel modeloEventos;
 	private Controlador controlador = new Controlador();
+	private ArrayList<Aerolinea> aerolineas;
+	private ArrayList<Aeropuerto> aeropuertos;
+	private ArrayList<Pais> paises;
+	private JTable tableEventos;
+	private JButton btnBorrarViajeSeleccionado;
+	private JButton btnBorrarEventoSeleccionado;
 
 	/**
 	 * Create the frame.
@@ -66,7 +82,7 @@ public class Inicio extends JFrame {
 		JPanel panelLogo = new JPanel();
 		panelLogo.setOpaque(false);
 		panelLogo.setBorder(null);
-		panelLogo.setBackground(new Color(240, 240, 240));
+		panelLogo.setBackground(Color.decode(agencia.getColorMarca()));
 		panelLogo.setBounds(15, 15, 256, 173);
 		panel.add(panelLogo);
 
@@ -112,7 +128,7 @@ public class Inicio extends JFrame {
 
 		JLabel lblViaje = new JLabel("Viajes");
 		lblViaje.setFont(new Font("Segoe UI", Font.PLAIN, 30));
-		lblViaje.setBounds(327, 29, 284, 51);
+		lblViaje.setBounds(327, 29, 160, 51);
 		contentPane.add(lblViaje);
 
 		JButton btnCrearViaje = new JButton("Crear viaje");
@@ -125,48 +141,150 @@ public class Inicio extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(327, 91, 647, 208);
 		contentPane.add(scrollPane);
-
-		modelo = new DefaultTableModel();
-		modelo.addColumn("Nombre");
-		modelo.addColumn("Tipo");
-		modelo.addColumn("Fecha inicio");
-		modelo.addColumn("Fecha fin");
-		modelo.addColumn("Pais");
-		table = new JTable(modelo);
-		cargarTabla(agencia);
-		scrollPane.setViewportView(table);
-		
-		JLabel lblEventos = new JLabel("Eventos");
-		lblEventos.setFont(new Font("Segoe UI", Font.PLAIN, 30));
-		lblEventos.setBounds(327, 330, 284, 51);
-		contentPane.add(lblEventos);
-		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(327, 392, 647, 208);
 		contentPane.add(scrollPane_1);
 		
+		modeloViajes = new DefaultTableModel();
+		modeloViajes.addColumn("ViajeID");
+		modeloViajes.addColumn("Nombre");
+		modeloViajes.addColumn("Tipo");
+		modeloViajes.addColumn("Fecha inicio");
+		modeloViajes.addColumn("Fecha fin");
+		modeloViajes.addColumn("Pais");
+		tableViajes = new JTable(modeloViajes);
+		tableViajes.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		tableViajes.setDefaultEditor(Object.class, null);
+		tableViajes.getColumnModel().getColumn(0).setMinWidth(0);
+		tableViajes.getColumnModel().getColumn(0).setMaxWidth(0);
+		tableViajes.getTableHeader().setReorderingAllowed(false);
+		cargarTabla(agencia);
+		scrollPane.setViewportView(tableViajes);
+		modeloEventos = new DefaultTableModel();
+		modeloEventos.addColumn("EventoID");
+		modeloEventos.addColumn("Nombre");
+		modeloEventos.addColumn("Tipo");
+		modeloEventos.addColumn("Fecha");
+		modeloEventos.addColumn("Precio");		
+		tableEventos = new JTable(modeloEventos);
+		tableEventos.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		scrollPane_1.setViewportView(tableEventos);
+		tableEventos.setDefaultEditor(Object.class, null);
+		tableEventos.getColumnModel().getColumn(0).setMinWidth(0);
+		tableEventos.getColumnModel().getColumn(0).setMaxWidth(0);
+		tableEventos.getTableHeader().setReorderingAllowed(false);
+		tableViajes.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	        	btnBorrarViajeSeleccionado.setVisible(true);
+	        	mostrarEventos(viajeSeleccionado(agencia));
+	        }
+	    });
+		JLabel lblEventos = new JLabel("Eventos");
+		lblEventos.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		lblEventos.setBounds(327, 330, 139, 51);
+		contentPane.add(lblEventos);
 		JButton btnCrearEvento = new JButton("Crear evento");
 		btnCrearEvento.setForeground(Color.BLACK);
 		btnCrearEvento.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		btnCrearEvento.setBackground(Color.WHITE);
 		btnCrearEvento.setBounds(778, 334, 196, 51);
 		contentPane.add(btnCrearEvento);
-	}
+		
+		btnBorrarViajeSeleccionado = new JButton("Borrar viaje seleccionado");
+		btnBorrarViajeSeleccionado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			//	Controlador.borrarViaje(viajeSeleccionado(agencia));
+				
+			}
+		});
+		btnBorrarViajeSeleccionado.setForeground(Color.BLACK);
+		btnBorrarViajeSeleccionado.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnBorrarViajeSeleccionado.setBackground(Color.WHITE);
+		btnBorrarViajeSeleccionado.setBounds(558, 49, 210, 35);
+    	btnBorrarViajeSeleccionado.setVisible(false);
 
-	public void cargarTabla(Agencia agencia) {
-		modelo.setRowCount(0);
+		contentPane.add(btnBorrarViajeSeleccionado);
+		
+		btnBorrarEventoSeleccionado = new JButton("Borrar evento seleccionado");
+		btnBorrarEventoSeleccionado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			//	Controlador.borrarEvento(eventoSeleccionado(agencia));
+				
+			}
+		});
+		btnBorrarEventoSeleccionado.setForeground(Color.BLACK);
+		btnBorrarEventoSeleccionado.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnBorrarEventoSeleccionado.setBackground(Color.WHITE);
+		btnBorrarEventoSeleccionado.setBounds(558, 49, 210, 35);
+		btnBorrarEventoSeleccionado.setVisible(false);
+
+		contentPane.add(btnBorrarEventoSeleccionado);
+	}
+	public Viaje viajeSeleccionado(Agencia agencia) {
+	    String ViajeIDSeleccionado =	tableViajes.getValueAt(tableViajes.getSelectedRow(), 0).toString();
+        ArrayList<Viaje> viajesArray = agencia.getViajes();
+		for (int i = 0; i < viajesArray.size(); i++) {
+			if(viajesArray.get(i).getViajeID().equals(ViajeIDSeleccionado)) {
+				return viajesArray.get(i);
+			}
+		}
+		return null;
+	}
 	
-		agencia.setViajes(	controlador.getListaViajes(controlador.getListaPaises(), agencia));
+	public void mostrarEventos(Viaje viaje) {
+		modeloEventos.setRowCount(0);
+		ArrayList<Vuelo> vuelosArray = viaje.getVuelos();
+		for (int z = 0; z < vuelosArray.size(); z++) {
+			String[] fila= new String[5];
+			fila[0] = vuelosArray.get(z).getEventoID();
+			fila[1] = vuelosArray.get(z).getNombreEvento();
+			fila[2] = "Vuelo";
+			fila[3] = vuelosArray.get(z).getFechaSalida();
+			fila[4] = vuelosArray.get(z).getPrecio()+ "€";
+			modeloEventos.addRow(fila);
+		}
+		ArrayList<Alojamiento> alojamientosArray = viaje.getAlojamientos();
+		System.out.println(alojamientosArray.size());
+		for (int e = 0; e < alojamientosArray.size(); e++) {
+			String[] fila= new String[5];
+			fila[0] = alojamientosArray.get(e).getEventoID();
+			fila[1] = alojamientosArray.get(e).getNombreEvento();
+			fila[2] = "Alojamiento";
+			fila[3] = alojamientosArray.get(e).getFechaEntrada();
+			fila[4] = alojamientosArray.get(e).getPrecio()+ "€";
+			modeloEventos.addRow(fila);
+		}
+		ArrayList<Otros> otrosArray = viaje.getOtros();
+		for (int d = 0; d < otrosArray.size(); d++) {
+			String[] fila= new String[5];
+			fila[0] = otrosArray.get(d).getEventoID();
+			fila[1] = otrosArray.get(d).getNombreEvento();
+			fila[2] = "Otros";
+			fila[3] = otrosArray.get(d).getFecha();
+			fila[4] = otrosArray.get(d).getPrecio()+ "€";
+			modeloEventos.addRow(fila);
+		}
+	}
+	public void cargarTabla(Agencia agencia) {
+		modeloViajes.setRowCount(0);
+		paises = controlador.getListaPaises();
+		aeropuertos = controlador.getListaAeropuertos();
+		aerolineas = controlador.getListaAerolineas();
+		agencia.setViajes(controlador.getListaViajes(paises, agencia));
 		ArrayList<Viaje> viajesArray = agencia.getViajes();
 		for (int i = 0; i < viajesArray.size(); i++) {
-			String[] fila= new String[5];
-			fila[0] = viajesArray.get(i).getNombreViaje();
-			fila[1] = viajesArray.get(i).getTipoViaje();
-			fila[2] = viajesArray.get(i).getFechaInicio();
-			fila[3] = viajesArray.get(i).getFechaFin();
-			fila[4] = viajesArray.get(i).getPaisDestino().getDescripcionPais();
+			viajesArray.get(i).setVuelos(controlador.getListaVuelos(viajesArray.get(i),aeropuertos,aerolineas));
+			viajesArray.get(i).setAlojamientos(controlador.getListaAlojamiento(viajesArray.get(i)));
+			viajesArray.get(i).setOtros(controlador.getListaOtros(viajesArray.get(i)));
+			String[] fila= new String[6];
+			fila[0] = viajesArray.get(i).getViajeID();
+			fila[1] = viajesArray.get(i).getNombreViaje();
+			fila[2] = viajesArray.get(i).getTipoViaje();
+			fila[3] = viajesArray.get(i).getFechaInicio();
+			fila[4] = viajesArray.get(i).getFechaFin();
+			fila[5] = viajesArray.get(i).getPaisDestino().getDescripcionPais();
 
-			modelo.addRow(fila);
+			modeloViajes.addRow(fila);
 		}
 
 	}
