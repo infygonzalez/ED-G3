@@ -16,4 +16,14 @@ public class SQLQueries {
 	public static final String INSERT_AGENCIA = "insert into Agencia  values ('";
 	public static final String SEPARATOR = "' , '";
 	public static final String END_BLOCK = "' )";
+	
+	//DELETES
+	public static final String DELETE_EVENTOID_VUELO = "DELETE * FROM Vuelo WHERE EventoID=?";
+	public static final String DELETE_EVENTOID_ALOJAMIENTO = "DELETE * FROM Alojamiento WHERE EventoID=?";
+	public static final String DELETE_EVENTOID_OTROS = "DELETE * FROM Otros WHERE EventoID=?";
+	public static final String DELETE_VIAJESID_VIAJES = "DELETE * FROM Viaje WHERE ViajeID=?";
+	
+	
+	
+	
 }
