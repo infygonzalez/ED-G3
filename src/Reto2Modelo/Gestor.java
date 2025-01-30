@@ -35,15 +35,6 @@ public class Gestor {
 				agencia.setTipoAgencia(resultSet.getString("TipoAgencia"));
 
 			}
-			/*
-			 * while (resultSet.next()) { Alumno alumno = new Alumno();
-			 * alumno.setDni(resultSet.getString("dni"));
-			 * alumno.setNombre(resultSet.getString("nombre"));
-			 * alumno.setApellidos(resultSet.getString("apellidos"));
-			 * alumno.setGrupo(resultSet.getString("grupo"));
-			 * alumno.setFecNacimiento(resultSet.getString("fecNacimiento"));
-			 * alumnos.add(alumno); }
-			 */
 		} catch (SQLException sqle) {
 			System.out.println("Error con la base de datos" + sqle.getMessage());
 		} catch (Exception e) {
@@ -187,6 +178,7 @@ public class Gestor {
 				vuelo.setFechaSalida(resultSet.getString("FechaSalida"));
 				vuelo.setHoraSalida(resultSet.getString("HoraSalida"));
 				vuelo.setDuracionVuelo(resultSet.getString("DuracionVuelo"));
+				vuelo.setEventoVueltaID(getVuelo(resultSet.getString("EventoVueltaID"),aeropuertos,aerolineas,viaje));
 				for(Aerolinea aerolinea: aerolineas) {
 					if(resultSet.getString("Aerolinea").equals(aerolinea.getCodigoAerolinea())== true) {
 						vuelo.setAerolinea(aerolinea);
@@ -482,6 +474,67 @@ public class Gestor {
 		}
 		return aerolineas;
 	}
+	public Vuelo getVuelo(String EventoID,ArrayList<Aeropuerto> aeropuertos,ArrayList<Aerolinea> aerolineas,Viaje viaje) {
+		Connection conexion = null;
+		PreparedStatement sentencia = null;
+		ResultSet resultSet = null;
+		Vuelo vuelo = null;
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			String sql = SQLQueries.SELECT_VUELOS_EVENTOID;
+			sentencia = conexion.prepareStatement(sql);
+			sentencia.setString(1, EventoID);
+			resultSet = sentencia.executeQuery();
+			 
+			if (resultSet.isBeforeFirst() &&resultSet.next()) {
+				vuelo = new Vuelo();
+				vuelo.setViajeID(viaje);
+				vuelo.setEventoID(resultSet.getString("EventoID"));
+				vuelo.setNombreEvento(resultSet.getString("NombreEvento"));
+				vuelo.setPrecio(resultSet.getString("Precio"));
+				vuelo.setCodigoVuelo(resultSet.getString("CodigoVuelo"));
+				vuelo.setFechaSalida(resultSet.getString("FechaSalida"));
+				vuelo.setHoraSalida(resultSet.getString("HoraSalida"));
+				vuelo.setDuracionVuelo(resultSet.getString("DuracionVuelo"));
+				for(Aerolinea aerolinea: aerolineas) {
+					if(resultSet.getString("Aerolinea").equals(aerolinea.getCodigoAerolinea())== true) {
+						vuelo.setAerolinea(aerolinea);
+					}
+				}
+				for(Aeropuerto aerolinea: aeropuertos) {
+					if(resultSet.getString("AeropuertoOrigen").equals(aerolinea.getCodigoAeropuerto())== true) {
+						vuelo.setAeropuertoOrigen(aerolinea);
+					}
+					if(resultSet.getString("AeropuertoDestino").equals(aerolinea.getCodigoAeropuerto())== true) {
+						vuelo.setAeropuertoDestino(aerolinea);
+					}
+				}
+
+			}
+		} catch (SQLException sqle) {
+			System.out.println("Error con la base de datos" + sqle.getMessage());
+		} catch (Exception e) {
+			System.out.println("Error génerico" + e.getMessage());
+		}
+
+		try {
+			resultSet.close();
+		} catch (Exception e) {
+			System.out.println("Error al cerrar el resultSet" + e.getMessage());
+		}
+		try {
+			sentencia.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error al cerrar la sentencia" + sqle.getMessage());
+		}
+		try {
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error al cerrar la conexión" + sqle.getMessage());
+		}
+		return vuelo;
+	}
 	public boolean eliminarVuelo (Vuelo vuelo) {
 		boolean valido = false;
 		Connection conexion = null;
@@ -492,8 +545,8 @@ public class Gestor {
 			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 			String sql = SQLQueries.DELETE_EVENTOID_VUELO;
 			sentencia = conexion.prepareStatement(sql);
-			sentencia.executeUpdate(sql);
 			sentencia.setString(1, vuelo.getEventoID());
+			sentencia.executeUpdate();
 
 			valido = true;
 		}
@@ -529,8 +582,8 @@ public class Gestor {
 			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 			String sql = SQLQueries.DELETE_EVENTOID_ALOJAMIENTO;
 			sentencia = conexion.prepareStatement(sql);
-			sentencia.executeUpdate(sql);
 			sentencia.setString(1, alojamiento.getEventoID());
+			sentencia.executeUpdate();
 
 			valido = true;
 		}
@@ -566,8 +619,8 @@ public class Gestor {
 			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 			String sql = SQLQueries.DELETE_EVENTOID_ALOJAMIENTO;
 			sentencia = conexion.prepareStatement(sql);
-			sentencia.executeUpdate(sql);
 			sentencia.setString(1, otros.getEventoID());
+			sentencia.executeUpdate();
 
 			valido = true;
 		}
@@ -604,8 +657,8 @@ public class Gestor {
 			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 			String sql = SQLQueries.DELETE_VIAJESID_VIAJES;
 			sentencia = conexion.prepareStatement(sql);
-			sentencia.executeUpdate(sql);
 			sentencia.setString(1, viaje.getViajeID());
+			sentencia.executeUpdate();
 
 			valido = true;
 		}

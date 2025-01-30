@@ -31,6 +31,8 @@ import Reto2Modelo.Otros;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -144,7 +146,7 @@ public class Inicio extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(327, 392, 647, 208);
 		contentPane.add(scrollPane_1);
-		
+
 		modeloViajes = new DefaultTableModel();
 		modeloViajes.addColumn("ViajeID");
 		modeloViajes.addColumn("Nombre");
@@ -165,7 +167,7 @@ public class Inicio extends JFrame {
 		modeloEventos.addColumn("Nombre");
 		modeloEventos.addColumn("Tipo");
 		modeloEventos.addColumn("Fecha");
-		modeloEventos.addColumn("Precio");		
+		modeloEventos.addColumn("Precio");
 		tableEventos = new JTable(modeloEventos);
 		tableEventos.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		scrollPane_1.setViewportView(tableEventos);
@@ -173,12 +175,20 @@ public class Inicio extends JFrame {
 		tableEventos.getColumnModel().getColumn(0).setMinWidth(0);
 		tableEventos.getColumnModel().getColumn(0).setMaxWidth(0);
 		tableEventos.getTableHeader().setReorderingAllowed(false);
-		tableViajes.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-	        public void valueChanged(ListSelectionEvent event) {
-	        	btnBorrarViajeSeleccionado.setVisible(true);
-	        	mostrarEventos(viajeSeleccionado(agencia));
-	        }
-	    });
+		tableViajes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
+				if (viajeSeleccionado != null) {
+					btnBorrarViajeSeleccionado.setVisible(true);
+					mostrarEventos(viajeSeleccionado);
+				}
+			}
+		});
+		tableEventos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				btnBorrarEventoSeleccionado.setVisible(true);
+			}
+		});
 		JLabel lblEventos = new JLabel("Eventos");
 		lblEventos.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		lblEventos.setBounds(327, 330, 139, 51);
@@ -189,82 +199,83 @@ public class Inicio extends JFrame {
 		btnCrearEvento.setBackground(Color.WHITE);
 		btnCrearEvento.setBounds(778, 334, 196, 51);
 		contentPane.add(btnCrearEvento);
-		
+
 		btnBorrarViajeSeleccionado = new JButton("Borrar viaje seleccionado");
 		btnBorrarViajeSeleccionado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			//	Controlador.borrarViaje(viajeSeleccionado(agencia));
-				
+				eliminarViaje(agencia);
 			}
 		});
 		btnBorrarViajeSeleccionado.setForeground(Color.BLACK);
 		btnBorrarViajeSeleccionado.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnBorrarViajeSeleccionado.setBackground(Color.WHITE);
 		btnBorrarViajeSeleccionado.setBounds(558, 49, 210, 35);
-    	btnBorrarViajeSeleccionado.setVisible(false);
+		btnBorrarViajeSeleccionado.setVisible(false);
 
 		contentPane.add(btnBorrarViajeSeleccionado);
-		
+
 		btnBorrarEventoSeleccionado = new JButton("Borrar evento seleccionado");
 		btnBorrarEventoSeleccionado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			//	Controlador.borrarEvento(eventoSeleccionado(agencia));
-				
+				eliminarEvento(agencia);
 			}
 		});
 		btnBorrarEventoSeleccionado.setForeground(Color.BLACK);
 		btnBorrarEventoSeleccionado.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnBorrarEventoSeleccionado.setBackground(Color.WHITE);
-		btnBorrarEventoSeleccionado.setBounds(558, 49, 210, 35);
+		btnBorrarEventoSeleccionado.setBounds(537, 346, 231, 35);
 		btnBorrarEventoSeleccionado.setVisible(false);
 
 		contentPane.add(btnBorrarEventoSeleccionado);
 	}
+
 	public Viaje viajeSeleccionado(Agencia agencia) {
-	    String ViajeIDSeleccionado =	tableViajes.getValueAt(tableViajes.getSelectedRow(), 0).toString();
-        ArrayList<Viaje> viajesArray = agencia.getViajes();
-		for (int i = 0; i < viajesArray.size(); i++) {
-			if(viajesArray.get(i).getViajeID().equals(ViajeIDSeleccionado)) {
-				return viajesArray.get(i);
+		if (tableViajes.getSelectedRow() != -1) {
+			String ViajeIDSeleccionado = tableViajes.getValueAt(tableViajes.getSelectedRow(), 0).toString();
+			ArrayList<Viaje> viajesArray = agencia.getViajes();
+			for (int i = 0; i < viajesArray.size(); i++) {
+				if (viajesArray.get(i).getViajeID().equals(ViajeIDSeleccionado)) {
+					return viajesArray.get(i);
+				}
 			}
 		}
 		return null;
 	}
-	
+
 	public void mostrarEventos(Viaje viaje) {
 		modeloEventos.setRowCount(0);
 		ArrayList<Vuelo> vuelosArray = viaje.getVuelos();
 		for (int z = 0; z < vuelosArray.size(); z++) {
-			String[] fila= new String[5];
+			String[] fila = new String[5];
 			fila[0] = vuelosArray.get(z).getEventoID();
 			fila[1] = vuelosArray.get(z).getNombreEvento();
 			fila[2] = "Vuelo";
 			fila[3] = vuelosArray.get(z).getFechaSalida();
-			fila[4] = vuelosArray.get(z).getPrecio()+ "€";
+			fila[4] = vuelosArray.get(z).getPrecio() + "€";
 			modeloEventos.addRow(fila);
 		}
 		ArrayList<Alojamiento> alojamientosArray = viaje.getAlojamientos();
-		System.out.println(alojamientosArray.size());
 		for (int e = 0; e < alojamientosArray.size(); e++) {
-			String[] fila= new String[5];
+			String[] fila = new String[5];
 			fila[0] = alojamientosArray.get(e).getEventoID();
 			fila[1] = alojamientosArray.get(e).getNombreEvento();
 			fila[2] = "Alojamiento";
 			fila[3] = alojamientosArray.get(e).getFechaEntrada();
-			fila[4] = alojamientosArray.get(e).getPrecio()+ "€";
+			fila[4] = alojamientosArray.get(e).getPrecio() + "€";
 			modeloEventos.addRow(fila);
 		}
 		ArrayList<Otros> otrosArray = viaje.getOtros();
 		for (int d = 0; d < otrosArray.size(); d++) {
-			String[] fila= new String[5];
+			String[] fila = new String[5];
 			fila[0] = otrosArray.get(d).getEventoID();
 			fila[1] = otrosArray.get(d).getNombreEvento();
 			fila[2] = "Otros";
 			fila[3] = otrosArray.get(d).getFecha();
-			fila[4] = otrosArray.get(d).getPrecio()+ "€";
+			fila[4] = otrosArray.get(d).getPrecio() + "€";
 			modeloEventos.addRow(fila);
 		}
 	}
+
 	public void cargarTabla(Agencia agencia) {
 		modeloViajes.setRowCount(0);
 		paises = controlador.getListaPaises();
@@ -273,10 +284,10 @@ public class Inicio extends JFrame {
 		agencia.setViajes(controlador.getListaViajes(paises, agencia));
 		ArrayList<Viaje> viajesArray = agencia.getViajes();
 		for (int i = 0; i < viajesArray.size(); i++) {
-			viajesArray.get(i).setVuelos(controlador.getListaVuelos(viajesArray.get(i),aeropuertos,aerolineas));
+			viajesArray.get(i).setVuelos(controlador.getListaVuelos(viajesArray.get(i), aeropuertos, aerolineas));
 			viajesArray.get(i).setAlojamientos(controlador.getListaAlojamiento(viajesArray.get(i)));
 			viajesArray.get(i).setOtros(controlador.getListaOtros(viajesArray.get(i)));
-			String[] fila= new String[6];
+			String[] fila = new String[6];
 			fila[0] = viajesArray.get(i).getViajeID();
 			fila[1] = viajesArray.get(i).getNombreViaje();
 			fila[2] = viajesArray.get(i).getTipoViaje();
@@ -285,6 +296,55 @@ public class Inicio extends JFrame {
 			fila[5] = viajesArray.get(i).getPaisDestino().getDescripcionPais();
 
 			modeloViajes.addRow(fila);
+		}
+
+	}
+
+	public void eliminarViaje(Agencia agencia) {
+		if (controlador.eliminarViaje(viajeSeleccionado(agencia)) == true) {
+			JOptionPane.showMessageDialog(null, "Eliminado correctamente.", agencia.getNombreAgencia(),
+					JOptionPane.INFORMATION_MESSAGE);
+			cargarTabla(agencia);
+			modeloEventos.setRowCount(0);
+			btnBorrarViajeSeleccionado.setVisible(false);
+			btnBorrarEventoSeleccionado.setVisible(false);
+		}
+	}
+
+	public void eliminarEvento(Agencia agencia) {
+		boolean valido = false;
+		if (tableEventos.getSelectedRow() != -1) {
+			String EventoIDSeleccionado = tableEventos.getValueAt(tableEventos.getSelectedRow(), 0).toString();
+			String TipoEventoSeleccionado = tableEventos.getValueAt(tableEventos.getSelectedRow(), 2).toString();
+			if (TipoEventoSeleccionado == "Vuelo") {
+				ArrayList<Vuelo> vuelosArray = viajeSeleccionado(agencia).getVuelos();
+				for (int i = 0; i < vuelosArray.size(); i++) {
+					if (vuelosArray.get(i).getEventoID().equals(EventoIDSeleccionado)) {
+						valido = controlador.eliminarVuelo(vuelosArray.get(i));
+					}
+				}
+			} else if (TipoEventoSeleccionado == "Alojamiento") {
+				ArrayList<Alojamiento> alojamientosArray = viajeSeleccionado(agencia).getAlojamientos();
+				for (int i = 0; i < alojamientosArray.size(); i++) {
+					if (alojamientosArray.get(i).getEventoID().equals(EventoIDSeleccionado)) {
+						valido = controlador.eliminarAlojamiento(alojamientosArray.get(i));
+					}
+				}
+			} else if (TipoEventoSeleccionado == "Otros") {
+				ArrayList<Otros> otrosArray = viajeSeleccionado(agencia).getOtros();
+				for (int i = 0; i < otrosArray.size(); i++) {
+					if (otrosArray.get(i).getEventoID().equals(EventoIDSeleccionado)) {
+						valido = controlador.eliminarOtros(otrosArray.get(i));
+					}
+				}
+			}
+		}
+		if (valido == true) {
+			JOptionPane.showMessageDialog(null, "Eliminado correctamente.", agencia.getNombreAgencia(),
+					JOptionPane.INFORMATION_MESSAGE);
+			cargarTabla(agencia);
+			modeloEventos.setRowCount(0);
+			btnBorrarEventoSeleccionado.setVisible(false);
 		}
 
 	}
