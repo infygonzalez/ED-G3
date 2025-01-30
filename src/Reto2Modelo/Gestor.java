@@ -67,7 +67,8 @@ public class Gestor {
 		}
 		return agencia;
 	}
-	public void insertarAgencia (Agencia agencia) {
+	public boolean insertarAgencia (Agencia agencia) {
+		boolean valido = false;
 		Connection conexion = null;
 		Statement sentencia = null;
 		
@@ -79,6 +80,7 @@ public class Gestor {
 						+ SQLQueries.SEPARATOR + agencia.getNumeroEmpleados()  + SQLQueries.SEPARATOR + agencia.getTipoAgencia() + SQLQueries.SEPARATOR + agencia.getContraseña() + SQLQueries.END_BLOCK;
 			
 			sentencia.executeUpdate(sql);
+			valido = true;
 		}
 		catch (SQLException sqle) {
 			System.out.println("Error con la base de datos " + sqle.getMessage());
@@ -99,7 +101,7 @@ public class Gestor {
 		catch (SQLException sqle) {
 			System.out.println(" Error al cerrar la conexion.");
 		}
-		
+		return valido;
 	
 	}
 	public ArrayList<Viaje> buscarTodosViajes(ArrayList<Pais> paises,Agencia agencia){
