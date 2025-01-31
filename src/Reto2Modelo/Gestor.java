@@ -289,7 +289,7 @@ public class Gestor {
 		try {
 			Class.forName(DBUtils.DRIVER);
 			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
-			String sql = SQLQueries.SELECT_ALOJAMIENTO_VIAJE;
+			String sql = SQLQueries.SELECT_OTROS_VIAJE;
 			sentencia = conexion.prepareStatement(sql);
 			sentencia.setString(1, viaje.getViajeID());
 			resultSet = sentencia.executeQuery();
