@@ -76,7 +76,7 @@ public class Inicio extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
-		panel.setBackground(new Color(0, 0, 0));
+		panel.setBackground(Color.decode(agencia.getColorMarca()));
 		panel.setBounds(0, 0, 304, 611);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -134,6 +134,13 @@ public class Inicio extends JFrame {
 		contentPane.add(lblViaje);
 
 		JButton btnCrearViaje = new JButton("Crear viaje");
+		btnCrearViaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NuevoViaje nuevoviaje = new NuevoViaje(agencia);
+				setVisible(false);
+				nuevoviaje.setVisible(true);
+			}
+		});
 		btnCrearViaje.setForeground(Color.BLACK);
 		btnCrearViaje.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		btnCrearViaje.setBackground(Color.WHITE);
