@@ -48,9 +48,7 @@
                       <option>Escapadas</option>
                       <option>Familias con niños menores</option>
               </fieldset>
-            </div>  
-
-            <div class="campos">
+              
               <fieldset>
                   <label for="FechaInicio">Fecha de inicio</label>
                   <input type="date" name="FechaInicio">
