@@ -144,6 +144,12 @@ i {
     background-color: #ffffff;
 }
 
+section {
+    margin: 3rem auto;
+}
+
+
+
 @media (max-width: 768px) {
     header nav ul {
         display: none;

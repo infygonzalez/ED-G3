@@ -75,7 +75,9 @@ h1 {
 form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 3rem;
+    min-width: 800px;
+    width: 100%;
 }
 
 fieldset {
@@ -85,6 +87,9 @@ fieldset {
     align-items: flex-start;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    /* width: 50%; */
+    width: 100%;
 }
 
 label {
@@ -94,13 +99,18 @@ label {
 label,
 input,
 button,textarea {
-    font-size: 2rem;
+    font-size: 1.7rem;
 }
 
-input, button ,textarea{
+input, button, textarea {
     border-radius: 1rem;
-    padding: 1rem;
+    padding: .7rem;
     border: 1px solid #959595;
+    box-sizing: border-box;
+}
+
+textarea, input {
+    font-size: 1.5rem;
 }
 
 button {
@@ -127,23 +137,32 @@ button:hover {
     color:black
 
 }
-.campos{
+.campos {
     display: flex;
-    gap:2rem;
+    gap: 5rem;
+    justify-content: space-between;
+    width: 100%;
 }
 #RegistrarViaje{
     align-items: center;
 }
-#RegistrarViaje input{
-    width: 30rem;
+#RegistrarViaje input {
+    width: 100%;
 }
 #RegistrarViaje textarea{
-    width: 65rem;
-
+    width: 100%;
 }
 p {
     margin: 0;
     padding-right: 1rem;
+}
+
+.none {
+    display: none;
+}
+
+.largo {
+    width: 100%;
 }
 @keyframes fondo {
     0% {

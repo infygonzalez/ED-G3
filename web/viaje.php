@@ -28,51 +28,57 @@
   </header>
 
   <main>
- 
-        <form action="#" method="get" id="RegistrarViaje">
+    <section>
+      <form action="#" method="get" id="RegistrarViaje">
             <div class="campos">
-            <fieldset>
-                <label for="NombreViaje">Nombre del viaje</label>
-                <input type="text" name="NombreViaje" required placeholder="Escriba el nombre del viaje">
-            </fieldset>
-            <fieldset>
-                <label for="TipoViaje">Tipo de viaje</label>
-                <input type="text" list="TipoViaje">
-                <datalist id="TipoViaje">
-                    <option>Novios</option>
-                    <option>Senior</option>
-                    <option>Grupos</option>
-                    <option>Grandes viajes(destinos exoticos)</option>
-                    <option>Combinado(vuelo+hotel)</option>
-                    <option>Escapadas</option>
-                    <option>Familias con niños menores</option>
-            </fieldset>
+              <fieldset>
+                  <label for="NombreViaje">Nombre del viaje</label>
+                  <input type="text" name="NombreViaje" required placeholder="Escriba el nombre del viaje">
+              </fieldset>
+
+              <fieldset>
+                  <label for="TipoViaje">Tipo de viaje</label>
+                  <input type="text" list="TipoViaje">
+                  <datalist id="TipoViaje">
+                      <option>Novios</option>
+                      <option>Senior</option>
+                      <option>Grupos</option>
+                      <option>Grandes viajes(destinos exoticos)</option>
+                      <option>Combinado(vuelo+hotel)</option>
+                      <option>Escapadas</option>
+                      <option>Familias con niños menores</option>
+              </fieldset>
             </div>  
+
             <div class="campos">
-            <fieldset>
-                <label for="FechaInicio">Fecha de inicio</label>
-                <input type="date" name="FechaInicio">
-            </fieldset>
-            <fieldset>
-                <label for="FechaFin">Fecha de fin</label>
-                <input type="date" name="FechaFin">
-            </fieldset>
+              <fieldset>
+                  <label for="FechaInicio">Fecha de inicio</label>
+                  <input type="date" name="FechaInicio">
+              </fieldset>
+
+              <fieldset>
+                  <label for="FechaFin">Fecha de fin</label>
+                  <input type="date" name="FechaFin">
+              </fieldset>
             </div>  
-            <fieldset>
+
+            <fieldset class="none">
                 <label for="DuracionViaje"></label>
             </fieldset>
-            <fieldset>
+
+            <fieldset class="largo">
                 <label for="DescripcionViaje">Descripción</label>
                 <textarea maxlength="500" name="DescripcionViaje"  placeholder="Max. 500 palabras"></textarea>
             </fieldset>
-            <fieldset>
+
+            <fieldset class="largo">
                 <label for="ServiciosNoIncluidos">Servicios no incluidos</label>
                 <textarea maxlength="500" name="ServiciosNoIncluidos"  placeholder="Max. 500 palabras"></textarea>
             </fieldset>
 
-            <br>
             <button type="submit">Guardar viaje</button>
         </form>
+    </section>
 
   </main>
 
