@@ -617,7 +617,7 @@ public class Gestor {
 		try {
 			Class.forName(DBUtils.DRIVER);
 			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
-			String sql = SQLQueries.DELETE_EVENTOID_ALOJAMIENTO;
+			String sql = SQLQueries.DELETE_EVENTOID_OTROS;
 			sentencia = conexion.prepareStatement(sql);
 			sentencia.setString(1, otros.getEventoID());
 			sentencia.executeUpdate();
