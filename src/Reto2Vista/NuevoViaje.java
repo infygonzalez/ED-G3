@@ -166,7 +166,7 @@ public class NuevoViaje extends JFrame {
 		lblFechaFin.setBounds(641, 135, 273, 32);
 		contentPane.add(lblFechaFin);
 		
-		JDateChooser chooserFechaFin = new JDateChooser((Date) null);
+		JDateChooser chooserFechaFin = new JDateChooser(c.getTime());
 		chooserFechaFin.getCalendarButton().setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		chooserFechaFin.setBounds(641, 178, 273, 35);
 		contentPane.add(chooserFechaFin);
