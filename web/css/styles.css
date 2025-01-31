@@ -1,14 +1,15 @@
 main {
-    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 #principal{
+    height: 100vh;
     background-color: var(--coloragencia);
 
 }
-#loginfondo{
+#loginfondo{    
+    height: 100vh;
     animation: fondo 25s infinite;
     background-size: cover;
     background-repeat: no-repeat;
@@ -92,11 +93,11 @@ label {
 
 label,
 input,
-button {
+button,textarea {
     font-size: 2rem;
 }
 
-input, button {
+input, button ,textarea{
     border-radius: 1rem;
     padding: 1rem;
     border: 1px solid #959595;
@@ -126,7 +127,20 @@ button:hover {
     color:black
 
 }
+.campos{
+    display: flex;
+    gap:2rem;
+}
+#RegistrarViaje{
+    align-items: center;
+}
+#RegistrarViaje input{
+    width: 30rem;
+}
+#RegistrarViaje textarea{
+    width: 65rem;
 
+}
 p {
     margin: 0;
     padding-right: 1rem;

@@ -31,9 +31,6 @@ nav ul li a:hover {
     margin-bottom: 2rem;
 }
 
-main {
-    height: 70vh;
-}
 
 header {
     background-color: var(--coloragencia);
