@@ -36,7 +36,7 @@
       <ul>
         <li><a href="#"><i class="fa-solid fa-copyright"></i>Copyright</a></li>
         <li><a onclick="return desconectar()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Desconectar</a></li>
-        <li><a href="#top">▲</a></li>
+        <li><a href="#top"><i class="fa-solid fa-arrow-up"></i>Subir</a></li>
       </ul>
     </nav>
   </footer>
