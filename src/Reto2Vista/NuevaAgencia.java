@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import Reto2Controlador.Controlador;
@@ -36,6 +37,7 @@ public class NuevaAgencia extends JFrame {
 	private JComboBox comboBoxNumeroEmpleados;
 	private JPanel panelColor;
 	private JLabel lblNewLabel_1;
+	private JTextField txtRepetirContraseña;
 
 	/**
 	 * Create the frame.
@@ -45,7 +47,7 @@ public class NuevaAgencia extends JFrame {
 		setBackground(new Color(255, 255, 255));
 		setTitle("Nueva agencia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 425, 688);
+		setBounds(100, 100, 425, 796);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -126,7 +128,7 @@ public class NuevaAgencia extends JFrame {
 
 			}
 		});
-		btnGuardar.setBounds(26, 588, 164, 38);
+		btnGuardar.setBounds(26, 673, 164, 38);
 		contentPane.add(btnGuardar);
 
 		JButton btnCancelar = new JButton("Cancelar");
@@ -138,7 +140,7 @@ public class NuevaAgencia extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(220, 588, 164, 38);
+		btnCancelar.setBounds(220, 673, 164, 38);
 		contentPane.add(btnCancelar);
 
 		JLabel lblContrasea = new JLabel("Contraseña");
@@ -146,7 +148,7 @@ public class NuevaAgencia extends JFrame {
 		lblContrasea.setBounds(24, 494, 309, 27);
 		contentPane.add(lblContrasea);
 
-		txtContraseña = new JTextField();
+		txtContraseña = new JPasswordField();
 		txtContraseña.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtContraseña.setColumns(10);
 		txtContraseña.setBounds(26, 530, 356, 35);
@@ -162,6 +164,17 @@ public class NuevaAgencia extends JFrame {
 		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 37));
 		lblNewLabel_1.setBounds(0, 11, 409, 57);
 		contentPane.add(lblNewLabel_1);
+		
+		txtRepetirContraseña = new JPasswordField();
+		txtRepetirContraseña.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtRepetirContraseña.setColumns(10);
+		txtRepetirContraseña.setBounds(26, 627, 356, 35);
+		contentPane.add(txtRepetirContraseña);
+		
+		JLabel lblRepetirContrasea = new JLabel("Repetir contraseña");
+		lblRepetirContrasea.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblRepetirContrasea.setBounds(24, 591, 309, 27);
+		contentPane.add(lblRepetirContrasea);
 	}
 
 	public boolean validarAgencia() {
@@ -171,6 +184,8 @@ public class NuevaAgencia extends JFrame {
 		String ColorMarca = txtColor.getText();
 		String Logo = txtLogo.getText();
 		String Contraseña = txtContraseña.getText();
+		String Rcontraseña = txtRepetirContraseña.getText();
+		
 
 		boolean valido = true;
 		if ((NombreAgencia.length() >= 1 || NombreAgencia.length() >= 30) == false) {
@@ -197,6 +212,14 @@ public class NuevaAgencia extends JFrame {
 			JOptionPane.showMessageDialog(null, "Contraseña incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
 			valido = false;
 		}
+		if(Rcontraseña.length()==0) {
+			JOptionPane.showMessageDialog(null, "El campo repetir contraseña no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		}
+		if (Contraseña.equals( Rcontraseña) == false) {
+			JOptionPane.showMessageDialog(null, "Las dos contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		}
 		if (valido == true) {
 			Agencia agencia = new Agencia();
 			agencia.setNombreAgencia(NombreAgencia);
@@ -205,7 +228,9 @@ public class NuevaAgencia extends JFrame {
 			agencia.setLogo(Logo);
 			agencia.setTipoAgencia(TipoAgencia);
 			agencia.setNumeroEmpleados(NumeroEmpleados);
-			controlador.insertarAgencia(agencia);
+			if(controlador.insertarAgencia(agencia)== true) {
+				JOptionPane.showMessageDialog(null, "Agencia creada correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		return valido;
 	}
