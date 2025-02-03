@@ -109,7 +109,7 @@ public class NuevoViaje extends JFrame {
 		btnDesconectar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Login ventana = new Login();
+				Inicio ventana = new Inicio(agencia);
 				ventana.setVisible(true);
 			}
 		});
