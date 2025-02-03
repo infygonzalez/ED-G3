@@ -16,13 +16,12 @@
 </head>
 
 <body>
-    <main id="principal">
-        <div  class="principal">
+    <main id="principal" class="modal">
+        <section class="principal">
             <a href="#" id="logoprincipal"><img src="<?php echo $logoAgencia; ?>;" alt=""></a>
-            <button id="Vuelo"><p>Registrar  Vuelo</p> <i class="fa-solid fa-plane xl"></i></button>
-            <button id="Evento"><p>Registrar  Evento</p> <i class="fa-solid fa-square-h xl"></i></button>
-           
-        </div>
+            <a href="viaje.php" id="Vuelo" class="boton">Registrar Viaje<i class="fa-solid fa-plane xl"></i></a>
+            <a href="evento.php" id="Evento" class="boton">Registrar Evento <i class="fa-solid fa-square-h xl"></i></a>
+        </section>
     </main>
 </body>
 
