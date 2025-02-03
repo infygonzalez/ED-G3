@@ -46,8 +46,9 @@ public class NuevaAgencia extends JFrame {
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setTitle("Nueva agencia");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 425, 796);
+		setLocationRelativeTo(null); 
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

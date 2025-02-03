@@ -59,6 +59,9 @@ public class Inicio extends JFrame {
 	private JTable tableEventos;
 	private JButton btnBorrarViajeSeleccionado;
 	private JButton btnBorrarEventoSeleccionado;
+	private JLabel lblEventos;
+	private JButton btnCrearEvento;
+	private JScrollPane scrollPane_1;
 
 	/**
 	 * Create the frame.
@@ -69,6 +72,7 @@ public class Inicio extends JFrame {
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1000, 650);
+		setLocationRelativeTo(null); 
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 
@@ -78,7 +82,7 @@ public class Inicio extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
 		panel.setBackground(Color.decode(agencia.getColorMarca()));
-		panel.setBounds(0, 0, 304, 611);
+		panel.setBounds(0, 0, 304, 700);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -151,7 +155,7 @@ public class Inicio extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(327, 91, 647, 208);
 		contentPane.add(scrollPane);
-		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(327, 392, 647, 208);
 		contentPane.add(scrollPane_1);
 
@@ -168,7 +172,7 @@ public class Inicio extends JFrame {
 		tableViajes.getColumnModel().getColumn(0).setMinWidth(0);
 		tableViajes.getColumnModel().getColumn(0).setMaxWidth(0);
 		tableViajes.getTableHeader().setReorderingAllowed(false);
-		cargarTabla(agencia);
+
 		scrollPane.setViewportView(tableViajes);
 		modeloEventos = new DefaultTableModel();
 		modeloEventos.addColumn("EventoID");
@@ -177,12 +181,15 @@ public class Inicio extends JFrame {
 		modeloEventos.addColumn("Fecha");
 		modeloEventos.addColumn("Precio");
 		tableEventos = new JTable(modeloEventos);
-		tableEventos.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		tableEventos.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		scrollPane_1.setViewportView(tableEventos);
+
 		tableEventos.setDefaultEditor(Object.class, null);
 		tableEventos.getColumnModel().getColumn(0).setMinWidth(0);
 		tableEventos.getColumnModel().getColumn(0).setMaxWidth(0);
 		tableEventos.getTableHeader().setReorderingAllowed(false);
+		tableEventos.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		tableViajes.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		tableViajes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
 				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
@@ -197,11 +204,11 @@ public class Inicio extends JFrame {
 				btnBorrarEventoSeleccionado.setVisible(true);
 			}
 		});
-		JLabel lblEventos = new JLabel("Eventos");
+		lblEventos = new JLabel("Eventos");
 		lblEventos.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		lblEventos.setBounds(327, 330, 139, 51);
 		contentPane.add(lblEventos);
-		JButton btnCrearEvento = new JButton("Crear evento");
+		btnCrearEvento = new JButton("Crear evento");
 		btnCrearEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NuevoEvento nuevoevento = new NuevoEvento(agencia,aeropuertos,aerolineas);
@@ -240,8 +247,12 @@ public class Inicio extends JFrame {
 		btnBorrarEventoSeleccionado.setBackground(Color.WHITE);
 		btnBorrarEventoSeleccionado.setBounds(537, 346, 231, 35);
 		btnBorrarEventoSeleccionado.setVisible(false);
-
 		contentPane.add(btnBorrarEventoSeleccionado);
+		btnCrearEvento.setVisible(false);
+		tableEventos.setVisible(false);
+		lblEventos.setVisible(false);
+		scrollPane_1.setVisible(false);
+		cargarTabla(agencia);
 	}
 
 	public Viaje viajeSeleccionado(Agencia agencia) {
@@ -258,6 +269,12 @@ public class Inicio extends JFrame {
 	}
 
 	public void mostrarEventos(Viaje viaje) {
+		
+		btnCrearEvento.setVisible(true);
+		tableEventos.setVisible(true);
+		lblEventos.setVisible(true);
+		scrollPane_1.setVisible(true);
+
 		modeloEventos.setRowCount(0);
 		ArrayList<Vuelo> vuelosArray = viaje.getVuelos();
 		for (int z = 0; z < vuelosArray.size(); z++) {
@@ -297,6 +314,11 @@ public class Inicio extends JFrame {
 		aeropuertos = controlador.getListaAeropuertos();
 		aerolineas = controlador.getListaAerolineas();
 		agencia.setViajes(controlador.getListaViajes(paises, agencia));
+		btnCrearEvento.setVisible(false);
+		tableEventos.setVisible(false);
+		lblEventos.setVisible(false);
+		scrollPane_1.setVisible(false);
+
 		ArrayList<Viaje> viajesArray = agencia.getViajes();
 		for (int i = 0; i < viajesArray.size(); i++) {
 			viajesArray.get(i).setVuelos(controlador.getListaVuelos(viajesArray.get(i), aeropuertos, aerolineas));
