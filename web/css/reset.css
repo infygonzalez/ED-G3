@@ -14,20 +14,18 @@ ul {
     text-decoration: none;
 }
 
-li {
-    list-style: none;
-}
+li {list-style: none;}
 
 h1 {
     text-align: center;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
     font-size: 1.7rem;
     text-transform: uppercase;
 }
 
 h2 {
     font-size: 1.5rem;
-    margin: 2rem 0;
+    margin: 0rem 0px 2rem;
     text-transform: uppercase;
 }
 
@@ -89,9 +87,7 @@ header nav ul li a {
     transition: all 300ms ease;
 }
 
-header nav ul li a:hover {
-    color: #fdfdfd;
-}
+header nav ul li a:hover {color: #fdfdfd;}
 
 header nav>label {
     display: none;
@@ -102,9 +98,7 @@ header nav>label {
     font-size: 2rem;
 }
 
-header nav input {
-    display: none;
-}
+header nav input {display: none;}
 
 footer {
     color: var(--coloragenciatexto);
@@ -124,9 +118,7 @@ footer nav ul {
     margin: 0;
 }
 
-footer nav li {
-    list-style: none;
-}
+footer nav li {list-style: none;}
 
 footer nav ul li a {
     display: block;
@@ -150,13 +142,7 @@ i {
     background-color: #ffffff;
 }
 
-button:hover {
-    background: black;
-    color: white
-}
-
-main {min-height: 78vh;}
-
+main {min-height: calc(100vh - 210px);}
 
 section {
     width: 800px;
@@ -166,7 +152,8 @@ section {
 form {
     display: flex;
     flex-direction: column;
-    min-width: 700px;
+    /* min-width: 700px; */
+    /* row-gap: 2rem; */
 }
 
 fieldset {
@@ -183,6 +170,7 @@ label,
 button {
     margin-bottom: 1rem;
     font-size: 1.7rem;
+    text-align: left;
     cursor: pointer;
 }
 
@@ -208,26 +196,44 @@ button {
     border: none;
     padding: .7rem;
     width: 100%;
+    text-align: center;
+    transition: all 300ms ease;
+    width: 800px;
+    margin: 2rem auto;
+}
+
+button:hover {
+    background: black;
+    color: white
+}
+
+input[type="radio"] {
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+input[type="radio"] + label {
+    margin-right: 1rem;
 }
 
 input[type="time"],
 input[type="number"],
 input[type="text"],
 input[type="date"],
+input[type="password"],
 input[type="radio"],
 textarea, button {
     border-radius: .7rem;
     padding: .8rem;
     border: 1px solid #959595;
+    font-family: inherit;
 }
 
 input[type="time"]::placeholder,
 input[type="number"]::placeholder,
 input[type="text"]::placeholder,
 input[type="date"]::placeholder,
-textarea::placeholder {
-  font-size: 1rem;
-}
+textarea::placeholder {font-size: 1rem;}
 
 @keyframes fondo {
     0% {background-image: url(/img/fondo1.jpg);}
@@ -254,17 +260,11 @@ textarea::placeholder {
         opacity: 0.5;
     }
 
-    header nav a {
-        color: black;
-    }
+    header nav a {color: black;}
 
-    header nav label {
-        display: block;
-    }
+    header nav label {display: block;}
 
-    header nav input:checked+ul {
-        display: block;
-    }
+    header nav input:checked + ul {display: block;}
 
     section {
         width: auto;
@@ -294,18 +294,20 @@ textarea::placeholder {
         width: 100%;
     }
 
-    input[type="time"], input[type="number"], input[type="text"], input[type="date"], input[type="radio"], textarea, button {
+    input[type="time"], 
+    input[type="number"], 
+    input[type="text"], 
+    input[type="date"], 
+    input[type="radio"], 
+    textarea, button {
         width: 100%;
         box-sizing: border-box;
     }
 
-    input[type="radio"]{
-        width: auto;
-    }
+    input[type="radio"]{width: auto;}
 }
 
 @media (max-width: 480px) {
     header {flex-direction: column;}
-
     header nav ul {top: 100%;}
 }
