@@ -137,7 +137,7 @@ public class Inicio extends JFrame {
 		JButton btnCrearViaje = new JButton("Crear viaje");
 		btnCrearViaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NuevoViaje nuevoviaje = new NuevoViaje(agencia);
+				NuevoViaje nuevoviaje = new NuevoViaje(agencia,paises);
 				setVisible(false);
 				nuevoviaje.setVisible(true);
 			}
@@ -204,7 +204,7 @@ public class Inicio extends JFrame {
 		JButton btnCrearEvento = new JButton("Crear evento");
 		btnCrearEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NuevoEvento nuevoevento = new NuevoEvento(agencia);
+				NuevoEvento nuevoevento = new NuevoEvento(agencia,aeropuertos,aerolineas);
 				setVisible(false);
 				nuevoevento.setVisible(true);
 			}

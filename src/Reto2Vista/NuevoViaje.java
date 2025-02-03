@@ -60,8 +60,8 @@ public class NuevoViaje extends JFrame {
 	private JTextField txtNombreViaje;
 	private JTextField txtDescripcion;
 	private JTextField txtServiciosNoIncluidos;
-
-	public NuevoViaje(Agencia agencia) {
+	private  DefaultComboBoxModel modeloPais;
+	public NuevoViaje(Agencia agencia,ArrayList<Pais> paises) {
 		setTitle("Crear viaje | "+agencia.getNombreAgencia());
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,18 +134,18 @@ public class NuevoViaje extends JFrame {
 		txtNombreViaje = new JTextField();
 		txtNombreViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtNombreViaje.setColumns(10);
-		txtNombreViaje.setBounds(334, 76, 273, 35);
+		txtNombreViaje.setBounds(334, 76, 580, 35);
 		contentPane.add(txtNombreViaje);
 		
 		JLabel lblTipoDelViaje = new JLabel("Tipo del viaje");
 		lblTipoDelViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblTipoDelViaje.setBounds(641, 33, 307, 32);
+		lblTipoDelViaje.setBounds(334, 139, 264, 32);
 		contentPane.add(lblTipoDelViaje);
 		
 		JComboBox cbTipoViaje = new JComboBox();
 		cbTipoViaje.setModel(new DefaultComboBoxModel(new String[] {"", "Novios", "Senior", "Grupos", "Grandes viajes(destinos exoticos)", "Combinado(vuelo+hotel)", "Escapadas", "Familias con niños menores"}));
 		cbTipoViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		cbTipoViaje.setBounds(641, 76, 273, 33);
+		cbTipoViaje.setBounds(334, 182, 273, 33);
 		contentPane.add(cbTipoViaje);
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.YEAR, -10);
@@ -153,44 +153,60 @@ public class NuevoViaje extends JFrame {
 		JDateChooser chooserFechaIncio = new JDateChooser(c.getTime());
 		chooserFechaIncio.getCalendarButton().setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		chooserFechaIncio.setSize(273, 35);
-		chooserFechaIncio.setLocation(334, 178);
+		chooserFechaIncio.setLocation(334, 269);
 		contentPane.add(chooserFechaIncio);
 		
 		JLabel lblFechaInicio = new JLabel("Fecha inicio");
 		lblFechaInicio.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblFechaInicio.setBounds(334, 135, 273, 32);
+		lblFechaInicio.setBounds(334, 226, 273, 32);
 		contentPane.add(lblFechaInicio);
 		
 		JLabel lblFechaFin = new JLabel("Fecha fin");
 		lblFechaFin.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblFechaFin.setBounds(641, 135, 273, 32);
+		lblFechaFin.setBounds(641, 226, 273, 32);
 		contentPane.add(lblFechaFin);
 		
 		JDateChooser chooserFechaFin = new JDateChooser(c.getTime());
 		chooserFechaFin.getCalendarButton().setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		chooserFechaFin.setBounds(641, 178, 273, 35);
+		chooserFechaFin.setBounds(641, 269, 273, 35);
 		contentPane.add(chooserFechaFin);
 		
 		txtDescripcion = new JTextField();
 		txtDescripcion.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtDescripcion.setColumns(10);
-		txtDescripcion.setBounds(334, 276, 580, 118);
+		txtDescripcion.setBounds(334, 391, 580, 60);
 		contentPane.add(txtDescripcion);
 		
 		JLabel lblDescripcin = new JLabel("Descripción");
 		lblDescripcin.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblDescripcin.setBounds(334, 233, 580, 32);
+		lblDescripcin.setBounds(334, 340, 580, 32);
 		contentPane.add(lblDescripcin);
 		
 		JLabel lblServiciosNoIncluidos = new JLabel("Servicios no incluidos");
 		lblServiciosNoIncluidos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblServiciosNoIncluidos.setBounds(334, 414, 580, 32);
+		lblServiciosNoIncluidos.setBounds(334, 474, 580, 32);
 		contentPane.add(lblServiciosNoIncluidos);
 		
 		txtServiciosNoIncluidos = new JTextField();
 		txtServiciosNoIncluidos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtServiciosNoIncluidos.setColumns(10);
-		txtServiciosNoIncluidos.setBounds(334, 457, 580, 118);
+		txtServiciosNoIncluidos.setBounds(334, 517, 580, 60);
 		contentPane.add(txtServiciosNoIncluidos);
+		
+		JLabel lblPais = new JLabel("Pais");
+		lblPais.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblPais.setBounds(638, 139, 273, 32);
+		contentPane.add(lblPais);
+		modeloPais = new DefaultComboBoxModel();
+		rellenarpaises(paises);
+		JComboBox cbPais = new JComboBox(modeloPais);
+		cbPais.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbPais.setBounds(638, 182, 273, 33);
+		contentPane.add(cbPais);
+	}
+	public void rellenarpaises(ArrayList<Pais> paises) {
+		for(Pais pais: paises) {
+			modeloPais.addElement(pais.getDescripcionPais());
+		}
 	}
 }
