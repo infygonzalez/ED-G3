@@ -21,8 +21,8 @@
       <label for="ico">☰</label>
       <input id="ico" type="checkbox">
       <ul>
-        <li><a href="#"><i class="fa-sharp fa-solid fa-plane"></i>Registrar Vuelo</a></li>
-        <li><a href="#"><i class="fa-regular fa-calendar-days"></i>Registrar Evento</a></li>
+        <li><a href="viaje.php"><i class="fa-sharp fa-solid fa-plane"></i>Registrar Viaje</a></li>
+        <li><a href="evento.php"><i class="fa-regular fa-calendar-days"></i>Registrar Evento</a></li>
       </ul>
     </nav>
   </header>
@@ -30,13 +30,25 @@
   <main>
     <section>
     <h1>Registrar Viaje</h1>
+    <h2>Nuevo Viaje</h2>
       <form action="#" method="get" id="RegistrarViaje">
-            <div class="campos">
               <fieldset>
-                  <label for="NombreViaje">Nombre del viaje</label>
-                  <input type="text" name="NombreViaje" required placeholder="Escriba el nombre del viaje">
+              <label for="NombreViaje">Nombre del viaje</label>
+              <input type="text" name="NombreViaje" required placeholder="Escriba el nombre del viaje">
+            </fieldset>
+            <div class="campos">
+            <fieldset>
+                  <label for="pais">Pais</label>
+                  <input type="text" list="pais">
+                  <datalist id="pais">
+                      <option>Novios</option>
+                      <option>Senior</option>
+                      <option>Grupos</option>
+                      <option>Grandes viajes(destinos exoticos)</option>
+                      <option>Combinado(vuelo+hotel)</option>
+                      <option>Escapadas</option>
+                      <option>Familias con niños menores</option>
               </fieldset>
-
               <fieldset>
                   <label for="TipoViaje">Tipo de viaje</label>
                   <input type="text" list="TipoViaje">
@@ -86,7 +98,7 @@
       <ul>
         <li><a href="#"><i class="fa-solid fa-copyright"></i>Copyright</a></li>
         <li><a onclick="return desconectar()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Desconectar</a></li>
-        <li><a href="#top">▲</a></li>
+        <li><a href="#top"><i class="fa-solid fa-arrow-up"></i>Subir</a></li>
       </ul>
     </nav>
   </footer>
