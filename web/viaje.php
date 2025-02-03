@@ -29,6 +29,7 @@
 
   <main>
     <section>
+    <h1>Registrar Viaje</h1>
       <form action="#" method="get" id="RegistrarViaje">
             <div class="campos">
               <fieldset>
@@ -48,7 +49,7 @@
                       <option>Escapadas</option>
                       <option>Familias con niños menores</option>
               </fieldset>
-              
+
               <fieldset>
                   <label for="FechaInicio">Fecha de inicio</label>
                   <input type="date" name="FechaInicio">
@@ -64,12 +65,12 @@
                 <label for="DuracionViaje"></label>
             </fieldset>
 
-            <fieldset class="largo">
+            <fieldset>
                 <label for="DescripcionViaje">Descripción</label>
                 <textarea maxlength="500" name="DescripcionViaje"  placeholder="Max. 500 palabras"></textarea>
             </fieldset>
 
-            <fieldset class="largo">
+            <fieldset>
                 <label for="ServiciosNoIncluidos">Servicios no incluidos</label>
                 <textarea maxlength="500" name="ServiciosNoIncluidos"  placeholder="Max. 500 palabras"></textarea>
             </fieldset>
