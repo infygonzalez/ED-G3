@@ -18,17 +18,18 @@
       <label for="ico">☰</label>
       <input id="ico" type="checkbox">
       <ul>
-        <li><a href="#"><i class="fa-sharp fa-solid fa-plane"></i>Registrar Vuelo</a></li>
-        <li><a href="#"><i class="fa-regular fa-calendar-days"></i>Registrar Evento</a></li>
+        <li><a href="viaje.php"><i class="fa-sharp fa-solid fa-plane"></i>Registrar Viaje</a></li>
+        <li><a href="evento.php"><i class="fa-regular fa-calendar-days"></i>Registrar Evento</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
+  <form>
         <section id="evento">
             <h1>Registrar Evento</h1>
             <h2>Nuevo Evento</h2>
-            <form>
+            
                 <fieldset>
                     <label for="vuelo-ida">Elegir Viaje</label>
                     <input type="text" id="vuelo-ida" name="servicio" required>
@@ -48,12 +49,12 @@
                     <input type="radio" id="otros" name="evento" value="otros">
                     <label for="otros">Otros</label>
                 </fieldset>
-            </form>
+            
         </section>
 
         <section id="vuelos">
             <h2>Nuevo Vuelo</h2>
-            <form>
+            
                 <fieldset class="inline">
                     <legend>Que tipo de vuelo es?</legend>
                     <input type="radio" id="ida" name="servicio" value="ida" checked>
@@ -115,14 +116,12 @@
                         <input type="number" id="duracion" name="duracion" required>
                     </fieldset>
                 </div>
-
-                <!-- <button type="submit">Guardar servicio</button> -->
-            </form>
+            
         </section>
 
         <section id="vuelovuelta">
             <h2>Vuelo de Vuelta</h2>
-            <form>
+            
                 <div class="campos">
                     <fieldset>
                         <label for="origen">Codigo de Vuelo</label>
@@ -158,14 +157,12 @@
                         <input type="number" id="duracion" name="duracion2" required>
                     </fieldset>
                 </div>
-
-                <!-- <button type="submit">Guardar servicio</button> -->
-            </form>
+            
         </section>
 
         <section id="alojamientos">
             <h2>Alojamientos</h2>
-            <form>
+            
                 <div class="campos">
                     <fieldset>
                         <label for="vuelo-ida">Entrada</label>
@@ -202,14 +199,12 @@
                             <option>Opcion3</option>
                     </fieldset>
                 </div>
-                
-                <!-- <button type="submit">Guardar servicio</button> -->
-            </form>
+                            
         </section>
 
         <section class="otros">
             <h2>Otros Servicios</h2>
-            <form>
+           
                 <div class="campos">
                     <fieldset>
                         <label for="fecha-otros">Fecha</label>
@@ -224,12 +219,14 @@
 
                 <fieldset>
                 <label for="descripcion">Descripción</label>
-                <textarea maxlength="500" name="Descripción"  placeholder="Max. 500 palabras"></textarea>
+                <textarea maxlength="500" name="Descripción" placeholder="Max. 500 palabras"></textarea>
             </fieldset>
 
-                <!-- <button type="submit">Guardar servicio</button> -->
-            </form>
+          
         </section>
+        <button type="submit">Guardar servicio</button>
+</form>
+
     </main>
 
   <footer>
@@ -237,16 +234,10 @@
       <ul>
         <li><a href="#"><i class="fa-solid fa-copyright"></i>Copyright</a></li>
         <li><a onclick="return desconectar()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Desconectar</a></li>
-        <li><a href="#top">▲</a></li>
+        <li><a href="#top"><i class="fa-solid fa-arrow-up"></i>Subir</a></li>
       </ul>
     </nav>
   </footer>
-  <script type="text/javascript">
-        function desconectar() {
-          document.cookie =  'PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-          window.location.href = "/login.php";
-        }
-    </script>
 </body>
 
 </html>
