@@ -62,7 +62,7 @@ public class NuevoViaje extends JFrame {
 	private JTextField txtServiciosNoIncluidos;
 
 	public NuevoViaje(Agencia agencia) {
-		setTitle(agencia.getNombreAgencia());
+		setTitle("Crear viaje | "+agencia.getNombreAgencia());
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1000, 650);
