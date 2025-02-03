@@ -123,4 +123,17 @@ public class Controlador {
 		}
 		return valido;
 	}
+	public void insertarViaje(Viaje viaje) {
+		Gestor gestor = new Gestor();
+		gestor.insertarViaje(viaje);
+	}
+	
+	public void insertarAlojamiento(Alojamiento alojamiento) {
+		Gestor gestor = new Gestor();
+		gestor.insertarAlojamiento(alojamiento);
+	}
+	public void insertarOtros(Otros otro) {
+		Gestor gestor = new Gestor();
+		gestor.insertarOtros(otro);
+	}
 }

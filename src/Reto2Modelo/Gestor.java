@@ -95,6 +95,114 @@ public class Gestor {
 		return valido;
 	
 	}
+	public boolean insertarViaje(Viaje viaje) {
+		boolean valido = false;
+		Connection conexion = null;
+		Statement sentencia = null;
+		
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			sentencia = conexion .createStatement();
+			String sql = SQLQueries.INSERT_VIAJE+ viaje.getDescripciónViaje()+ SQLQueries.SEPARATOR + viaje.getTipoViaje() + SQLQueries.SEPARATOR + viaje.getFechaInicio()
+						+ SQLQueries.SEPARATOR + viaje.getFechaFin()  + SQLQueries.SEPARATOR + viaje.getServiciosNoIncluidos() + SQLQueries.SEPARATOR + viaje.getNombreAgencia().getNombreAgencia()+ SQLQueries.SEPARATOR + viaje.getPaisDestino().getPaisCodigo() + SQLQueries.END_BLOCK;
+			
+			sentencia.executeUpdate(sql);
+			valido = true;
+		}
+		catch (SQLException sqle) {
+			System.out.println("Error con la base de datos " + sqle.getMessage());
+		}
+		catch (Exception e) {
+			System.out.println("Error generico " + e.getMessage());
+		}
+
+		try {
+			sentencia.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la sentencia.");
+		}
+		try {
+			conexion.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la conexion.");
+		}
+		return valido;
+	}
+	public boolean insertarAlojamiento(Alojamiento alojamiento) {
+		boolean valido = false;
+		Connection conexion = null;
+		Statement sentencia = null;
+		
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			sentencia = conexion .createStatement();
+			String sql = SQLQueries.INSERT_ALOJAMIENTO +alojamiento.getViajeID().getViajeID()+ SQLQueries.SEPARATOR + alojamiento.getNombreEvento()+ SQLQueries.SEPARATOR + alojamiento.getPrecio() + SQLQueries.SEPARATOR + alojamiento.getNombreHotel()
+						+ SQLQueries.SEPARATOR + alojamiento.getCiudad()  + SQLQueries.SEPARATOR + alojamiento.getFechaEntrada() + SQLQueries.SEPARATOR + alojamiento.getFechaSalida()+ SQLQueries.SEPARATOR + alojamiento.getTipoHabitacion() + SQLQueries.END_BLOCK;
+			
+			sentencia.executeUpdate(sql);
+			valido = true;
+		}
+		catch (SQLException sqle) {
+			System.out.println("Error con la base de datos " + sqle.getMessage());
+		}
+		catch (Exception e) {
+			System.out.println("Error generico " + e.getMessage());
+		}
+
+		try {
+			sentencia.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la sentencia.");
+		}
+		try {
+			conexion.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la conexion.");
+		}
+		return valido;
+	}
+	public boolean insertarOtros(Otros otro) {
+		boolean valido = false;
+		Connection conexion = null;
+		Statement sentencia = null;
+		
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			sentencia = conexion .createStatement();
+			String sql = SQLQueries.INSERT_OTROS+otro.getViajeID().getViajeID()+ SQLQueries.SEPARATOR + otro.getNombreEvento()+ SQLQueries.SEPARATOR + otro.getPrecio() + SQLQueries.SEPARATOR + otro.getFecha()
+						+ SQLQueries.SEPARATOR + otro.getDescripcion()  + SQLQueries.END_BLOCK;
+			
+			sentencia.executeUpdate(sql);
+			valido = true;
+		}
+		catch (SQLException sqle) {
+			System.out.println("Error con la base de datos " + sqle.getMessage());
+		}
+		catch (Exception e) {
+			System.out.println("Error generico " + e.getMessage());
+		}
+
+		try {
+			sentencia.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la sentencia.");
+		}
+		try {
+			conexion.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la conexion.");
+		}
+		return valido;
+	}
 	public ArrayList<Viaje> buscarTodosViajes(ArrayList<Pais> paises,Agencia agencia){
 		Connection conexion = null;
 		PreparedStatement sentencia = null;

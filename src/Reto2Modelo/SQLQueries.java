@@ -15,6 +15,12 @@ public class SQLQueries {
 
 	//INSERTS
 	public static final String INSERT_AGENCIA = "insert into Agencia  values ('";
+	public static final String INSERT_VIAJE = "insert into Viaje(ViajeID,NombreViaje ,DescripcionViaje ,TipoViaje,FechaInicio ,FechaFin ,ServiciosNoIncluidos,NombreAgencia,PaisDestino)  values ('";
+	public static final String INSERT_VUELOIDA = "insert into Vuelo(ViajeID,NombreEvento,Precio,CodigoVuelo,FechaSalida,HoraSalida,DuracionVuelo,Aerolinea,AeropuertoOrigen,AeropuertoDestino)  values ('";
+	public static final String INSERT_VUELOIDAVUELTA = "insert into Vuelo(ViajeID,NombreEvento,Precio,CodigoVuelo,FechaSalida,HoraSalida,DuracionVuelo,Aerolinea,AeropuertoOrigen,AeropuertoDestino,EventoIDVuelta)  values ('";
+	public static final String INSERT_ALOJAMIENTO = "insert into Alojamiento(ViajeID,NombreEvento,Precio,NombreHotel,Ciudad,FechaEntrada,FechaSalida,TipoHabitacion)  values ('";
+	public static final String INSERT_OTROS = "insert into Otros(ViajeID,NombreEvento,Precio,Fecha,Descripcion) values ('";
+
 	public static final String SEPARATOR = "' , '";
 	public static final String END_BLOCK = "' )";
 	
