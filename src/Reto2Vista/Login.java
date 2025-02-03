@@ -6,6 +6,7 @@ import java.io.InputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import Reto2Controlador.Controlador;
@@ -32,7 +33,7 @@ public class Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNombreAgencia;
-	private JTextField txtContraseña;
+	private JPasswordField txtContraseña;
 	private Controlador controlador = new Controlador();
 
 	/**
@@ -72,7 +73,7 @@ public class Login extends JFrame {
 		lblNewLabel_1_1.setBounds(32, 167, 332, 27);
 		pnl_login.add(lblNewLabel_1_1);
 
-		txtContraseña = new JTextField();
+		txtContraseña = new JPasswordField();
 		txtContraseña.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtContraseña.setColumns(10);
 		txtContraseña.setBounds(32, 205, 384, 38);
