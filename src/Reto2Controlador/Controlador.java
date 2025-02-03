@@ -124,17 +124,17 @@ public class Controlador {
 		}
 		return valido;
 	}
-	public void insertarViaje(Viaje viaje) {
+	public boolean insertarViaje(Viaje viaje) {
 		Gestor gestor = new Gestor();
-		gestor.insertarViaje(viaje);
+		return gestor.insertarViaje(viaje);
 	}
 	
-	public void insertarAlojamiento(Alojamiento alojamiento) {
+	public boolean insertarAlojamiento(Alojamiento alojamiento) {
 		Gestor gestor = new Gestor();
-		gestor.insertarAlojamiento(alojamiento);
+		return gestor.insertarAlojamiento(alojamiento);
 	}
-	public void insertarOtros(Otros otro) {
+	public boolean insertarOtros(Otros otro) {
 		Gestor gestor = new Gestor();
-		gestor.insertarOtros(otro);
+		return gestor.insertarOtros(otro);
 	}
 }

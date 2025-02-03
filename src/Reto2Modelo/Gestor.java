@@ -104,7 +104,7 @@ public class Gestor {
 			Class.forName(DBUtils.DRIVER);
 			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 			sentencia = conexion .createStatement();
-			String sql = SQLQueries.INSERT_VIAJE+ viaje.getDescripciónViaje()+ SQLQueries.SEPARATOR + viaje.getTipoViaje() + SQLQueries.SEPARATOR + viaje.getFechaInicio()
+			String sql = SQLQueries.INSERT_VIAJE+ viaje.getNombreViaje()+ SQLQueries.SEPARATOR + viaje.getDescripciónViaje()+ SQLQueries.SEPARATOR + viaje.getTipoViaje() + SQLQueries.SEPARATOR + viaje.getFechaInicio()
 						+ SQLQueries.SEPARATOR + viaje.getFechaFin()  + SQLQueries.SEPARATOR + viaje.getServiciosNoIncluidos() + SQLQueries.SEPARATOR + viaje.getNombreAgencia().getNombreAgencia()+ SQLQueries.SEPARATOR + viaje.getPaisDestino().getPaisCodigo() + SQLQueries.END_BLOCK;
 			
 			sentencia.executeUpdate(sql);
