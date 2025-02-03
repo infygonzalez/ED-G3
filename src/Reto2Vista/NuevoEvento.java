@@ -81,32 +81,35 @@ public class NuevoEvento extends JFrame {
 	private JPanel panelOtros;
 	private JPanel panelVueloVuelta;
 	private JPanel panelVuelo;
+	private JRadioButton rdbtnVueloIdaVuelta;
+	private JRadioButton rdbtnVueloIda;
+	private JPanel panelIzquierda;
 
 	public NuevoEvento(Agencia agencia) {
 		setResizable(false);
-		setTitle(agencia.getNombreAgencia());
+		setTitle("Crear evento | "+agencia.getNombreAgencia());
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1526, 692);
+		setBounds(0, 0, 1000, 650);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBorder(null);
-		panel.setBackground(Color.decode(agencia.getColorMarca()));
-		panel.setBounds(0, 0, 304, 611);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		panelIzquierda = new JPanel();
+		panelIzquierda.setBorder(null);
+		panelIzquierda.setBackground(Color.decode(agencia.getColorMarca()));
+		panelIzquierda.setBounds(0, 0, 304, 700);
+		contentPane.add(panelIzquierda);
+		panelIzquierda.setLayout(null);
 
 		JPanel panelLogo = new JPanel();
 		panelLogo.setOpaque(false);
 		panelLogo.setBorder(null);
 		panelLogo.setBackground(Color.decode(agencia.getColorMarca()));
 		panelLogo.setBounds(15, 15, 256, 173);
-		panel.add(panelLogo);
+		panelIzquierda.add(panelLogo);
 
 		panelLogo.setLayout(new BorderLayout(0, 0));
 
@@ -125,7 +128,7 @@ public class NuevoEvento extends JFrame {
 		lblNombreAgencia.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblNombreAgencia.setForeground(new Color(255, 255, 255));
 		lblNombreAgencia.setBounds(15, 196, 256, 58);
-		panel.add(lblNombreAgencia);
+		panelIzquierda.add(lblNombreAgencia);
 
 		JButton btnDesconectar = new JButton("Cancelar");
 		btnDesconectar.addActionListener(new ActionListener() {
@@ -139,14 +142,14 @@ public class NuevoEvento extends JFrame {
 		btnDesconectar.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		btnDesconectar.setBackground(new Color(255, 255, 255));
 		btnDesconectar.setBounds(10, 540, 284, 38);
-		panel.add(btnDesconectar);
+		panelIzquierda.add(btnDesconectar);
 
 		JButton btnGenerarOfertaViaje = new JButton("Guardar");
 		btnGenerarOfertaViaje.setForeground(new Color(0, 0, 0));
 		btnGenerarOfertaViaje.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		btnGenerarOfertaViaje.setBackground(new Color(255, 255, 255));
 		btnGenerarOfertaViaje.setBounds(10, 491, 284, 38);
-		panel.add(btnGenerarOfertaViaje);
+		panelIzquierda.add(btnGenerarOfertaViaje);
 
 		JLabel lblTipoDelViaje = new JLabel("Elegir viaje");
 		lblTipoDelViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -172,31 +175,31 @@ public class NuevoEvento extends JFrame {
 		rdbtnVuelo = new JRadioButton("Vuelo");
 		rdbtnVuelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cambiarPaneles("Vuelo");
+				cambiarTipoViaje("Vuelo");
 			}
 		});
-		rdbtnVuelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnVuelo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		rdbtnVuelo.setBounds(365, 159, 126, 41);
 		contentPane.add(rdbtnVuelo);
 
 		rdbtnAlojamiento = new JRadioButton("Alojamiento");
 		rdbtnAlojamiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cambiarPaneles("Alojamiento");
+				cambiarTipoViaje("Alojamiento");
 			}
 		});
-		rdbtnAlojamiento.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnAlojamiento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		rdbtnAlojamiento.setBounds(516, 159, 162, 41);
 		contentPane.add(rdbtnAlojamiento);
 
 		rdbtnOtros = new JRadioButton("Otros");
 		rdbtnOtros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cambiarPaneles("Otros");
+				cambiarTipoViaje("Otros");
 
 			}
 		});
-		rdbtnOtros.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnOtros.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		rdbtnOtros.setBounds(717, 159, 126, 47);
 		contentPane.add(rdbtnOtros);
 
@@ -359,12 +362,25 @@ public class NuevoEvento extends JFrame {
 		lblqueTipoDe.setBounds(10, 11, 250, 32);
 		panelVuelo.add(lblqueTipoDe);
 
-		JRadioButton rdbtnVueloIda = new JRadioButton("Vuelo ida");
+		rdbtnVueloIda = new JRadioButton("Ida");
+		rdbtnVueloIda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cambiarTipoVuelo("Ida");
+
+			}
+		});
+		rdbtnVueloIda.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		rdbtnVueloIda.setBounds(10, 60, 109, 23);
 		panelVuelo.add(rdbtnVueloIda);
 
-		JRadioButton rdbtnVueloIdaVuelta = new JRadioButton("Vuelo ida y vuelta\r\n");
-		rdbtnVueloIdaVuelta.setBounds(151, 60, 140, 23);
+		rdbtnVueloIdaVuelta = new JRadioButton("Ida y vuelta");
+		rdbtnVueloIdaVuelta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cambiarTipoVuelo("Ida y vuelta");
+			}
+		});
+		rdbtnVueloIdaVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		rdbtnVueloIdaVuelta.setBounds(121, 60, 170, 23);
 		panelVuelo.add(rdbtnVueloIdaVuelta);
 
 		JLabel lblVueloDeIda = new JLabel("Vuelo de ida");
@@ -556,7 +572,7 @@ public class NuevoEvento extends JFrame {
 		return panelVueloVuelta;
 	}
 
-	public void cambiarPaneles(String TipoViaje) {
+	public void cambiarTipoViaje(String TipoViaje) {
 
 		rdbtnVuelo.setSelected(TipoViaje == "Vuelo");
 		rdbtnAlojamiento.setSelected(TipoViaje == "Alojamiento");
@@ -566,17 +582,40 @@ public class NuevoEvento extends JFrame {
 			panelAlojamiento.setVisible(false);
 			panelOtros.setVisible(false);
 			panelVuelo.setVisible(true);
-
+			if (rdbtnVueloIdaVuelta.isSelected() == true) {
+				panelVueloVuelta.setVisible(true);
+				setBounds(0, 0, 1526, 692);
+			} else {
+				setBounds(0, 0, 1000, 692);
+			}
 		}
 		if (TipoViaje == "Alojamiento") {
 			panelVuelo.setVisible(false);
 			panelOtros.setVisible(false);
+			panelVueloVuelta.setVisible(false);
 			panelAlojamiento.setVisible(true);
+			setBounds(0, 0, 1000, 650);
 		}
 		if (TipoViaje == "Otros") {
 			panelVuelo.setVisible(false);
+			panelVueloVuelta.setVisible(false);
 			panelAlojamiento.setVisible(false);
 			panelOtros.setVisible(true);
+			setBounds(0, 0, 1000, 650);
+		}
+	}
+
+	public void cambiarTipoVuelo(String TipoVuelo) {
+
+		rdbtnVueloIda.setSelected(TipoVuelo == "Ida");
+		rdbtnVueloIdaVuelta.setSelected(TipoVuelo == "Ida y vuelta");
+		panelVueloVuelta.setVisible(TipoVuelo == "Ida y vuelta");
+		if (TipoVuelo == "Ida y vuelta") {
+			setBounds(0, 0, 1526, 692);
+
+		} else {
+			setBounds(0, 0, 1000, 692);
+
 		}
 	}
 }
