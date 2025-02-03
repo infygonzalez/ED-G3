@@ -4,6 +4,7 @@
 html,
 body {
     margin: 0;
+    padding: 0;
     font-family: "Inter", Arial, Helvetica, sans-serif;
     scroll-behavior: smooth;
 }
@@ -17,27 +18,25 @@ li {
     list-style: none;
 }
 
-nav ul li a:hover {
-    color: var(--coloragenciatexto);
-    opacity: 0.5;
-}
-
-#logo img {
-    width: 10rem;
-}
-
-#logoprincipal img {
-    max-height: 6rem;
+h1 {
+    text-align: center;
     margin-bottom: 2rem;
+    font-size: 1.7rem;
+    text-transform: uppercase;
 }
 
+h2 {
+    font-size: 1.5rem;
+    margin: 2rem 0;
+    text-transform: uppercase;
+}
 
 header {
     background-color: var(--coloragencia);
     display: flex;
     align-items: center;
     justify-content: space-around;
-    line-height: 1;
+    position: relative;
 }
 
 header > a {
@@ -62,14 +61,17 @@ header nav li {
     line-height: 0;
 }
 
+nav ul li a:hover {
+    color: var(--coloragenciatexto);
+    opacity: 0.5;
+}
+
 header nav a {
     color: var(--coloragenciatexto);
     text-decoration: none;
     font-size: 20px;
     padding: 10px 20px;
 }
-
-
 
 header nav ul {
     display: flex;
@@ -84,9 +86,14 @@ header nav ul li a {
     font-size: 20px;
     text-align: center;
     text-decoration: none;
+    transition: all 300ms ease;
 }
 
-header nav > label {
+header nav ul li a:hover {
+    color: #fdfdfd;
+}
+
+header nav>label {
     display: none;
     cursor: pointer;
     color: var(--coloragenciatexto);
@@ -128,37 +135,117 @@ footer nav ul li a {
     color: var(--coloragenciatexto);
     text-align: center;
     text-decoration: none;
+    cursor: pointer;
 }
+
+section {margin: 3rem auto;}
 
 i {
     width: auto;
     margin-right: 10px;
 }
 
-.xl {
-    font-size: 4rem;
-} 
-
 ::selection {
     color: rgb(0, 0, 0);
     background-color: #ffffff;
 }
 
-section {
-    margin: 3rem auto;
+button:hover {
+    background: black;
+    color: white
 }
 
+main {min-height: 78vh;}
 
+
+section {
+    width: 800px;
+    margin: 2rem auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    min-width: 700px;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border: none;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+}
+
+label,
+button {
+    margin-bottom: 1rem;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+input,
+button {
+    padding: 0.5rem;
+    border-radius: .5rem;
+    border: 1px solid grey;
+}
+
+legend {
+    margin-bottom: .8rem;
+    font-size: 1.7rem;
+}
+
+button {
+    display: block;
+    width: 190px;
+    margin-top: 1rem;
+    background: black;
+    color: white;
+    border-radius: 2px;
+    border: none;
+    padding: .7rem;
+    width: 100%;
+}
+
+input[type="time"],
+input[type="number"],
+input[type="text"],
+input[type="date"],
+input[type="radio"],
+textarea, button {
+    border-radius: .7rem;
+    padding: .8rem;
+    border: 1px solid #959595;
+}
+
+input[type="time"]::placeholder,
+input[type="number"]::placeholder,
+input[type="text"]::placeholder,
+input[type="date"]::placeholder,
+textarea::placeholder {
+  font-size: 1rem;
+}
+
+@keyframes fondo {
+    0% {background-image: url(/img/fondo1.jpg);}
+    33% {background-image: url(/img/fondo2.jpg);}
+    66% {background-image: url(/img/fondo3.jpg);}
+    100% {background-image: url(/img/fondo4.jpg);}
+}
 
 @media (max-width: 768px) {
     header nav ul {
         display: none;
         position: absolute;
-        top: 63px;
+        top: 100%;
         left: 0;
         width: 100%;
+        min-width: 100%;
         margin: 0;
-        background: white;
+        background: aliceblue;
         z-index: 9;
     }
 
@@ -179,15 +266,46 @@ section {
         display: block;
     }
 
+    section {
+        width: auto;
+        margin: 0 auto;
+    }
+
+    h1, h2 {text-align: center;}
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        min-width: auto;
+        width: 100%;
+        padding: 0 2rem;
+        box-sizing: border-box;
+    }
+
+    fieldset {
+        border: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    input[type="time"], input[type="number"], input[type="text"], input[type="date"], input[type="radio"], textarea, button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input[type="radio"]{
+        width: auto;
+    }
 }
 
 @media (max-width: 480px) {
-    header {
-        flex-direction: column;
-    }
+    header {flex-direction: column;}
 
-    header nav ul {
-        top: 121px;
-    }
+    header nav ul {top: 100%;}
 }
-
