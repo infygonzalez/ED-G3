@@ -26,14 +26,12 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
-
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
-
 </head>
 
 <body>
-    <main id="loginfondo">
+    <main id="loginfondo" class="modal">
         <section id="login" class="login">
             <h1>Iniciar sesión</h1>
             <form name="login" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validarLogin()"
