@@ -1,22 +1,13 @@
 package Reto2Vista;
 
-import java.awt.EventQueue;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -43,7 +34,6 @@ import javax.swing.table.DefaultTableModel;
 import Reto2Controlador.Controlador;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.ListSelectionModel;
 
 public class Inicio extends JFrame {
 
@@ -158,7 +148,8 @@ public class Inicio extends JFrame {
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(327, 392, 647, 208);
 		contentPane.add(scrollPane_1);
-
+	    scrollPane.getViewport().setBackground(Color.WHITE);
+	    scrollPane_1.getViewport().setBackground(Color.WHITE);
 		modeloViajes = new DefaultTableModel();
 		modeloViajes.addColumn("ViajeID");
 		modeloViajes.addColumn("Nombre");
@@ -167,13 +158,17 @@ public class Inicio extends JFrame {
 		modeloViajes.addColumn("Fecha fin");
 		modeloViajes.addColumn("Pais");
 		tableViajes = new JTable(modeloViajes);
-		tableViajes.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		tableViajes.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		tableViajes.setRowHeight(25);
+
+
 		tableViajes.setDefaultEditor(Object.class, null);
 		tableViajes.getColumnModel().getColumn(0).setMinWidth(0);
 		tableViajes.getColumnModel().getColumn(0).setMaxWidth(0);
 		tableViajes.getTableHeader().setReorderingAllowed(false);
-
+		tableViajes.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		scrollPane.setViewportView(tableViajes);
+
 		modeloEventos = new DefaultTableModel();
 		modeloEventos.addColumn("EventoID");
 		modeloEventos.addColumn("Nombre");
@@ -189,7 +184,6 @@ public class Inicio extends JFrame {
 		tableEventos.getColumnModel().getColumn(0).setMaxWidth(0);
 		tableEventos.getTableHeader().setReorderingAllowed(false);
 		tableEventos.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		tableViajes.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		tableViajes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
 				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
