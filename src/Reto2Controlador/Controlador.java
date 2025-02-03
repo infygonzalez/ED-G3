@@ -20,9 +20,10 @@ public class Controlador {
 		return gestor.login(usuario, contraseña);
 	}
 
-	public void insertarAgencia(Agencia agencia) {
+	public boolean insertarAgencia(Agencia agencia) {
+		
 		Gestor gestor = new Gestor();
-		gestor.insertarAgencia(agencia);
+		return gestor.insertarAgencia(agencia);
 	}
 
 	public ArrayList<Viaje> getListaViajes(ArrayList<Pais> paises, Agencia agencia) {
