@@ -64,6 +64,7 @@ public class Inicio extends JFrame {
 	 * Create the frame.
 	 */
 	public Inicio(Agencia agencia) {
+		setResizable(false);
 		setTitle(agencia.getNombreAgencia());
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

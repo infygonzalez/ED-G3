@@ -41,6 +41,7 @@ public class NuevaAgencia extends JFrame {
 	 * Create the frame.
 	 */
 	public NuevaAgencia() {
+		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setTitle("Nueva agencia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,15 +103,14 @@ public class NuevaAgencia extends JFrame {
 
 		comboBoxNumeroEmpleados = new JComboBox();
 		comboBoxNumeroEmpleados.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		comboBoxNumeroEmpleados.setModel(new DefaultComboBoxModel(
-				new String[] { "Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados" }));
+		comboBoxNumeroEmpleados.setModel(new DefaultComboBoxModel(new String[] {"", "Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados"}));
 		comboBoxNumeroEmpleados.setBounds(26, 288, 356, 33);
 		contentPane.add(comboBoxNumeroEmpleados);
 
 		comboBoxTipoAgencia = new JComboBox();
 		comboBoxTipoAgencia.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		comboBoxTipoAgencia
-				.setModel(new DefaultComboBoxModel(new String[] { "mayorista", "minorista", "mayorista-minorista" }));
+				.setModel(new DefaultComboBoxModel(new String[] {"", "mayorista", "minorista", "mayorista-minorista"}));
 		comboBoxTipoAgencia.setBounds(24, 371, 358, 33);
 		contentPane.add(comboBoxTipoAgencia);
 

@@ -86,6 +86,7 @@ public class NuevoEvento extends JFrame {
 	private JPanel panelVuelo;
 
 	public NuevoEvento(Agencia agencia) {
+		setResizable(false);
 		setTitle(agencia.getNombreAgencia());
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,7 +134,7 @@ public class NuevoEvento extends JFrame {
 		btnDesconectar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Login ventana = new Login();
+				Inicio ventana = new Inicio(agencia);
 				ventana.setVisible(true);
 			}
 		});
