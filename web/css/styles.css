@@ -1,13 +1,10 @@
-main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#logoprincipal img {
+    max-height: 6rem;
+    margin-bottom: 2rem;
 }
 
-#principal {
-    height: 100vh;
-    background-color: var(--coloragencia);
-
+#logo img {
+    width: 150px;
 }
 
 #loginfondo {
@@ -17,31 +14,6 @@ main {
     background-repeat: no-repeat;
 }
 
-#Vuelo {
-    /* text-align: left; */
-    display: flex;
-    justify-content: space-between;
-    padding: 1.5rem;
-    align-items: center;
-    background: linear-gradient(to right, white, rgb(0, 255, 234));
-    font-weight: bold;
-    margin: 0;
-    font-size: 2rem;
-    gap: 1rem;
-}
-
-#Evento {
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    padding: 1.5rem;
-    align-items: center;
-    background: linear-gradient(to right, white, rgb(2, 250, 105));
-    font-weight: bold;
-    margin: 0;
-    gap: 1rem;
-}
-
 #imagenVuelo {
     width: 90px;
 }
@@ -49,6 +21,8 @@ main {
 #imagenEvento {
     width: 90px;
 }
+
+.xl {font-size: 4rem;}
 
 .login {
     background-color: #f2f2f2;
@@ -71,69 +45,31 @@ main {
     justify-content: center;
 }
 
-h1 {
-    font-size: 3rem;
-    margin: 1rem 0;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    min-width: 800px;
-    width: 100%;
-}
-
-fieldset {
-    border: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 0;
+.inline {
+    display: inline-block;
+    align-items: center;
+    gap: 10px;
     padding: 0;
-    box-sizing: border-box;
-    width: 45%;
 }
 
-label {
-    padding-bottom: 10px;
+.campos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    column-gap: 4rem;
 }
 
-label,
-input,
-button,
-textarea {
-    font-size: 1.7rem;
+.campos fieldset {
+    width: 46%;
+    /* box-sizing: content-box; */
 }
 
-input,
-button,
-textarea {
-    border-radius: 1rem;
-    padding: .7rem;
-    border: 1px solid #959595;
-    box-sizing: border-box;
+.inline-radio input[type="radio"] {
+    margin-right: 5px;
 }
 
-textarea,
-input {
-    font-size: 1.5rem;
-}
-
-button {
-    margin: 1rem 0;
-    border: 2px solid #d3d3d3;
-    width: 100%;
-    background: lightgray;
-    color: black;
-    cursor: pointer;
-    transition: all 200ms ease;
-}
-
-
-button:hover {
-    background: black;
-    color: white
+.none {
+    display: none;
 }
 
 #Vuelo:hover {
@@ -146,64 +82,12 @@ button:hover {
     color: black
 }
 
-.campos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: space-between;
-    /* width: 50%; */
-}
-
-#RegistrarViaje {
-    align-items: center;
-}
-
-#RegistrarViaje input {
-    width: 100%;
-}
-
-#RegistrarViaje textarea {
-    width: 100%;
-}
-
-p {
-    margin: 0;
-    padding-right: 1rem;
-}
-
-.none {
-    display: none;
-}
-
-.largo {
-    width: 100%;
-}
-
-@keyframes fondo {
-    0% {
-        background-image: url(/img/fondo1.jpg);
-    }
-
-    33% {
-        background-image: url(/img/fondo2.jpg);
-    }
-
-    66% {
-        background-image: url(/img/fondo3.jpg);
-    }
-
-    100% {
-        background-image: url(/img/fondo4.jpg);
-    }
-}
-
 @media (max-width: 768px) {
-    .contenedor {
-        width: 100vh;
-        border-radius: 0px;
+    .campos fieldset {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* text-align: left; */
+        flex-wrap: wrap;
+        /* gap: 2rem; */
+        justify-content: space-between;
+        width: 100%;
     }
 }
