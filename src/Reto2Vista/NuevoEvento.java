@@ -107,7 +107,7 @@ public class NuevoEvento extends JFrame {
 	private JButton btnGuardar;
 	private JButton btnDesconectar;
 
-	public NuevoEvento(Agencia agencia, ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas) {
+	public NuevoEvento(Viaje viaje,Agencia agencia, ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas) {
 		setResizable(false);
 		setTitle("Crear evento | " + agencia.getNombreAgencia());
 		setBackground(new Color(255, 255, 255));
@@ -168,6 +168,11 @@ public class NuevoEvento extends JFrame {
 		panelIzquierda.add(btnDesconectar);
 
 		btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				validarEvento(viaje, agencia, aeropuertos, aerolineas);
+			}
+		});
 		btnGuardar.setForeground(new Color(0, 0, 0));
 		btnGuardar.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		btnGuardar.setBackground(new Color(255, 255, 255));
@@ -197,7 +202,6 @@ public class NuevoEvento extends JFrame {
 		lblTipoEvento.setBounds(355, 108, 250, 32);
 		contentPane.add(lblTipoEvento);
 
-
 		rdbtnVuelo = new JRadioButton("Vuelo");
 		rdbtnVuelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -226,7 +230,7 @@ public class NuevoEvento extends JFrame {
 		rdbtnOtros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rdbtnAlojamiento.setSelected(false);
-				rdbtnOtros.setSelected(false);
+				rdbtnVuelo.setSelected(false);
 				tipoEvento();
 			}
 		});
@@ -321,7 +325,7 @@ public class NuevoEvento extends JFrame {
 		cbTipoHabitacion = new JComboBox<String>();
 		cbTipoHabitacion.setBackground(new Color(255, 255, 255));
 		cbTipoHabitacion.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "", "Doble ", "Doble con uso individual", "Individual", "Triple" }));
+				new String[] { "", "Doble", "Doble con uso individual", "Individual", "Triple" }));
 		cbTipoHabitacion.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbTipoHabitacion.setBounds(270, 292, 219, 41);
 		panelAlojamiento.add(cbTipoHabitacion);
@@ -450,17 +454,17 @@ public class NuevoEvento extends JFrame {
 		lblVueloDeIda_2_1.setBounds(270, 222, 218, 41);
 		panelVuelo.add(lblVueloDeIda_2_1);
 
-		 cbA_Origen = new JComboBox<String>(modeloAeropuertosOrigen);
+		cbA_Origen = new JComboBox<String>(modeloAeropuertosOrigen);
 		cbA_Origen.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbA_Origen.setBounds(0, 131, 203, 41);
 		panelVuelo.add(cbA_Origen);
 
-		 cbA_Destino = new JComboBox<String>(modeloAeropuertosDestino);
+		cbA_Destino = new JComboBox<String>(modeloAeropuertosDestino);
 		cbA_Destino.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbA_Destino.setBounds(270, 131, 218, 41);
 		panelVuelo.add(cbA_Destino);
 
-		 cbAerolinea = new JComboBox<String>(modeloAerolineasIda);
+		cbAerolinea = new JComboBox<String>(modeloAerolineasIda);
 		cbAerolinea.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbAerolinea.setBounds(270, 263, 218, 41);
 		panelVuelo.add(cbAerolinea);
@@ -552,7 +556,7 @@ public class NuevoEvento extends JFrame {
 		lblVueloDeIda_2_1.setBounds(270, 222, 218, 41);
 		panelVueloVuelta.add(lblVueloDeIda_2_1);
 
-		 txtCodigoVueloVuelta = new JTextField();
+		txtCodigoVueloVuelta = new JTextField();
 		txtCodigoVueloVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtCodigoVueloVuelta.setColumns(10);
 		txtCodigoVueloVuelta.setBounds(0, 344, 250, 41);
@@ -676,8 +680,10 @@ public class NuevoEvento extends JFrame {
 		}
 	}
 
-	public boolean validarEvento() { 
+	public boolean validarEvento(Viaje viaje,Agencia agencia, ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dfh = new SimpleDateFormat("HH-mm");
+
 		// Atributos comunes de todos los eventos
 		String NombreEvento = txtNombreEvento.getText();
 		String TipoEvento = tipoEvento();
@@ -686,40 +692,193 @@ public class NuevoEvento extends JFrame {
 		case "Alojamiento":
 			Precio = (Integer) spinnerPrecioAlojamiento.getValue();
 			break;
-		case "Vuelo":
-			Precio =  (Integer) spinnerPrecioVuelo.getValue();
+		case "VueloIda":
+			Precio = (Integer) spinnerPrecioVuelo.getValue();
+			break;
+		case "VueloVuelta":
+			Precio = (Integer) spinnerPrecioVuelo.getValue();
 			break;
 		case "Otros":
-			Precio =  (Integer) spinnerPrecioOtros.getValue();
+			Precio = (Integer) spinnerPrecioOtros.getValue();
 			break;
+		default:
+			Precio = 0;
 		}
 		// Atributos ALOJAMIENTO
 		String NombreHotel = txtNombreHotel.getText();
-		String FechaEntrada_Alojamiento =df.format(chooserEntrada.getDate());
-		String FechaSalida_Alojamiento =df.format(chooserSalida.getDate());
+		String FechaEntrada_Alojamiento = df.format(chooserEntrada.getDate());
+		String FechaSalida_Alojamiento = df.format(chooserSalida.getDate());
 		String Ciudad = txtCiudad.getText();
-		String TipoHabitacion = cbTipoHabitacion.getSelectedItem()+"";
+		String TipoHabitacion = cbTipoHabitacion.getSelectedItem() + "";
 		// Atributos OTROS
-		String Fecha_Otros =df.format(chooserFechaOtros.getDate());
-		String Descripcion =txtDescripcionOtros.getText();
+		String Fecha_Otros = df.format(chooserFechaOtros.getDate());
+		String Descripcion = txtDescripcionOtros.getText();
 		// Atributos VUELO
-		String AeropuertoOrigen = cbA_Origen.getSelectedItem()+"";
-		String AeropuertoDestino = cbA_Destino.getSelectedItem()+"";
+		String AeropuertoOrigen = cbA_Origen.getSelectedItem() + "";
+		String AeropuertoDestino = cbA_Destino.getSelectedItem() + "";
 		// Atributos VUELO IDA
-		String Aerolinea = cbAerolinea.getSelectedItem()+"";
+		String Aerolinea = cbAerolinea.getSelectedItem() + "";
 		String CodigoVuelo = txtCodigoVuelo.getText();
-		String HoraSalida = (String) spinnerHoraSalida.getValue();	
-		String FechaSalida = df.format(chooserVueloFechaSalida.getDate());	
+		String HoraSalida =dfh.format((Date) spinnerHoraSalida.getValue());
+		String FechaSalida = df.format(chooserVueloFechaSalida.getDate());
 		// Atributos VUELO VUELTA
-		String AerolineaVuelta = cbAerolineaVuelta.getSelectedItem()+"";
+		String AerolineaVuelta = cbAerolineaVuelta.getSelectedItem() + "";
 		String CodigoVueloVuelta = txtCodigoVueloVuelta.getText();
-		String HoraSalidaVuelta = (String) spinnerHoraSalidaVuelta.getValue();	
+		String HoraSalidaVuelta = dfh.format((Date) spinnerHoraSalidaVuelta.getValue());
 		String FechaSalidaVuelta = df.format(chooserVueloFechaSalidaVuelta.getDate());
-		
+
 		ArrayList<String> mensajeError = new ArrayList<String>();
-		if(NombreEvento.length()>=1 || NombreEvento.length()<=30) {
+		if ((NombreEvento.length() >= 1 || NombreEvento.length() <= 30) == false) {
 			mensajeError.add("El nombre del Evento no puede estar vacío");
 		}
+		if (TipoEvento.length() == 0) {
+			mensajeError.add("El nombre del Evento no puede estar vacío");
 		}
+		if (TipoEvento.equals("Alojamiento")) {
+			if ((NombreHotel.length() >= 1 || NombreHotel.length() <= 30) == false) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (FechaEntrada_Alojamiento.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (FechaSalida_Alojamiento.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (Ciudad.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (TipoHabitacion.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+		}
+		if (TipoEvento.equals("VueloIda") || TipoEvento.equals("VueloVuelta")) {
+			if (AeropuertoOrigen.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (AeropuertoDestino.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (Aerolinea.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (CodigoVuelo.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (HoraSalida.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (FechaSalida.length() == 0) {
+				mensajeError.add("El nombre del Evento no puede estar vacío");
+			}
+			if (TipoEvento.equals("VueloVuelta")) {
+
+				if (AerolineaVuelta.length() == 0) {
+					mensajeError.add("El nombre del Evento no puede estar vacío");
+				}
+				if (CodigoVueloVuelta.length() == 0) {
+					mensajeError.add("El nombre del Evento no puede estar vacío");
+				}
+				if (HoraSalidaVuelta.length() == 0) {
+					mensajeError.add("El nombre del Evento no puede estar vacío");
+				}
+				if (FechaSalidaVuelta.length() == 0) {
+					mensajeError.add("El nombre del Evento no puede estar vacío");
+				}
+			}
+			}
+			if (TipoEvento.equals("Otros")) {
+				if (Fecha_Otros.length() == 0) {
+					mensajeError.add("El nombre del Evento no puede estar vacío");
+				}
+				if (Descripcion.length() == 0) {
+					mensajeError.add("El nombre del Evento no puede estar vacío");
+				}
+			}
+			if (mensajeError.size() == 0) {
+				boolean creado = false;
+				if (TipoEvento.equals("Alojamiento")) {
+					Alojamiento alojamiento = new Alojamiento();
+					alojamiento.setViajeID(viaje);
+					alojamiento.setNombreEvento(NombreEvento);
+					alojamiento.setPrecio(Precio + "");
+					alojamiento.setNombreHotel(NombreHotel);
+					alojamiento.setFechaEntrada(FechaEntrada_Alojamiento);
+					alojamiento.setFechaSalida(FechaSalida_Alojamiento);
+					alojamiento.setCiudad(Ciudad);
+					alojamiento.setTipoHabitacion(TipoHabitacion);
+					creado = controlador.insertarAlojamiento(alojamiento);
+				} else if (TipoEvento.equals("Otros")) {
+
+					Otros otros = new Otros();
+					otros.setViajeID(viaje);
+					otros.setNombreEvento(NombreEvento);
+					otros.setPrecio(Precio + "");
+					otros.setFecha(Fecha_Otros);
+					otros.setDescripcion(Descripcion);
+					creado = controlador.insertarOtros(otros);
+				} else if (TipoEvento.equals("VueloIda") || TipoEvento.equals("VueloVuelta")) {
+
+					Vuelo vuelo = new Vuelo();
+					vuelo.setViajeID(viaje);
+
+					vuelo.setNombreEvento(NombreEvento);
+					vuelo.setPrecio(Precio + "");
+					for (Aerolinea aerolinea : aerolineas) {
+						if (aerolinea.getNombreAerolinea().equals(Aerolinea)) {
+							vuelo.setAerolinea(aerolinea);
+						}
+					}
+
+					vuelo.setCodigoVuelo(CodigoVuelo);
+					vuelo.setHoraSalida(HoraSalida);
+					vuelo.setFechaSalida(FechaSalida);
+
+					Vuelo vueloVuelta = new Vuelo();
+					vueloVuelta.setNombreEvento(NombreEvento);
+					vueloVuelta.setPrecio(Precio + "");
+
+					if (TipoEvento.equals("VueloVuelta")) {
+
+						for (Aerolinea aerolineaVuelta : aerolineas) {
+							if (aerolineaVuelta.getNombreAerolinea().equals(AerolineaVuelta)) {
+								vueloVuelta.setAerolinea(aerolineaVuelta);
+							}
+						}
+						vueloVuelta.setCodigoVuelo(CodigoVueloVuelta);
+						vueloVuelta.setHoraSalida(HoraSalidaVuelta);
+						vueloVuelta.setFechaSalida(FechaSalidaVuelta);						
+					}
+					for (Aeropuerto aeropuerto : aeropuertos) {
+						if (aeropuerto.getNombreAeropuerto().equals(AeropuertoOrigen)) {
+							vuelo.setAeropuertoOrigen(aeropuerto);
+							if (TipoEvento.equals("VueloVuelta")) {
+								vueloVuelta.setAeropuertoDestino(aeropuerto);
+							}
+						}
+						if (aeropuerto.getNombreAeropuerto().equals(AeropuertoDestino)) {
+							vuelo.setAeropuertoDestino(aeropuerto);
+							if (TipoEvento.equals("VueloVuelta")) {
+								vueloVuelta.setAeropuertoOrigen(aeropuerto);
+							}
+						}
+					}
+				}
+
+				if (creado == true) {
+					dispose();
+					Inicio ventana = new Inicio(agencia);
+					ventana.setVisible(true);
+					JOptionPane.showMessageDialog(null, "!Evento creado correctamente!",
+							agencia.getNombreAgencia(), JOptionPane.INFORMATION_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "- " + String.join("\n - ", mensajeError),
+						"Error al crear evento | " + agencia.getNombreAgencia(), JOptionPane.ERROR_MESSAGE);
+			}
+
+		
+		return mensajeError.size() == 0;
+
+	}
 
 }

@@ -206,10 +206,14 @@ public class Inicio extends JFrame {
 		btnCrearEvento = new JButton("Crear evento");
 		btnCrearEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NuevoEvento nuevoevento = new NuevoEvento(agencia,aeropuertos,aerolineas);
+				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
+				if (viajeSeleccionado != null) {
+				NuevoEvento nuevoevento = new NuevoEvento(viajeSeleccionado,agencia,aeropuertos,aerolineas);
 				setVisible(false);
 				nuevoevento.setVisible(true);
+				}
 			}
+			
 		});
 		btnCrearEvento.setForeground(Color.BLACK);
 		btnCrearEvento.setFont(new Font("Segoe UI", Font.BOLD, 20));

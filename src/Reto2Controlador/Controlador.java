@@ -137,4 +137,8 @@ public class Controlador {
 		Gestor gestor = new Gestor();
 		return gestor.insertarOtros(otro);
 	}
+	public boolean insertarVuelo(Vuelo vuelo) {
+		Gestor gestor = new Gestor();
+		return gestor.insertarVuelo(vuelo);
+	}
 }

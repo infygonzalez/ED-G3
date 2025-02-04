@@ -203,6 +203,53 @@ public class Gestor {
 		}
 		return valido;
 	}
+	public boolean insertarVuelo(Vuelo vuelo) {
+		boolean valido = false;
+		Connection conexion = null;
+		Statement sentencia = null;
+		
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			sentencia = conexion .createStatement();
+			String sql;
+			if(vuelo.getEventoVueltaID() != null) {
+				sql=  SQLQueries.INSERT_VUELOIDA+ vuelo.getViajeID().getViajeID()+ SQLQueries.SEPARATOR + vuelo.getNombreEvento()+ SQLQueries.SEPARATOR + vuelo.getPrecio() 
+				+ SQLQueries.SEPARATOR + vuelo.getCodigoVuelo() + SQLQueries.SEPARATOR + vuelo.getFechaSalida() + SQLQueries.SEPARATOR + vuelo.getHoraSalida()
+				+ SQLQueries.SEPARATOR + vuelo.getDuracionVuelo() + SQLQueries.SEPARATOR + vuelo.getAerolinea() + SQLQueries.SEPARATOR + vuelo.getAeropuertoOrigen()
+				+ SQLQueries.SEPARATOR + vuelo.getAeropuertoDestino() + SQLQueries.SEPARATOR + vuelo.getEventoVueltaID() + SQLQueries.END_BLOCK;
+			}
+			else {
+				sql=	 SQLQueries.INSERT_VUELOIDAVUELTA+ vuelo.getViajeID().getViajeID()+ SQLQueries.SEPARATOR + vuelo.getNombreEvento()+ SQLQueries.SEPARATOR + vuelo.getPrecio()
+				+ SQLQueries.SEPARATOR + vuelo.getCodigoVuelo() + SQLQueries.SEPARATOR + vuelo.getFechaSalida() + SQLQueries.SEPARATOR + vuelo.getHoraSalida()
+				+ SQLQueries.SEPARATOR + vuelo.getDuracionVuelo() + SQLQueries.SEPARATOR + vuelo.getAerolinea() + SQLQueries.SEPARATOR + vuelo.getAeropuertoOrigen()
+				+ SQLQueries.SEPARATOR + vuelo.getAeropuertoDestino()+ SQLQueries.END_BLOCK;
+		
+			}
+			sentencia.executeUpdate(sql);
+			valido = true;
+		}
+		catch (SQLException sqle) {
+			System.out.println("Error con la base de datos " + sqle.getMessage());
+		}
+		catch (Exception e) {
+			System.out.println("Error generico " + e.getMessage());
+		}
+
+		try {
+			sentencia.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la sentencia.");
+		}
+		try {
+			conexion.close();
+		}
+		catch (SQLException sqle) {
+			System.out.println(" Error al cerrar la conexion.");
+		}
+		return valido;
+	}
 	public ArrayList<Viaje> buscarTodosViajes(ArrayList<Pais> paises,Agencia agencia){
 		Connection conexion = null;
 		PreparedStatement sentencia = null;
