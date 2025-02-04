@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -71,7 +72,19 @@ public class NuevoEvento extends JFrame {
 	private JTextField txtCiudad;
 	private JTextField txtNombreHotel;
 	private JSpinner spinnerPrecioAlojamiento;
+	private JSpinner spinnerPrecioVuelo;
 	private JSpinner spinnerPrecioOtros;
+	private JComboBox<String> cbA_Origen;
+	private JComboBox<String> cbA_Destino;
+	private JComboBox<String> cbAerolinea;
+	private JDateChooser chooserVueloFechaSalida;
+	private JSpinner spinnerHoraSalida;
+	private JDateChooser chooserEntrada;
+	private JDateChooser chooserSalida;
+	private JTextField txtCodigoVueloVuelta;
+	private JComboBox<String> cbAerolineaVuelta;
+	private JDateChooser chooserFechaOtros;
+	private JComboBox<String> cbTipoHabitacion;
 	private JTextArea txtDescripcionOtros;
 	private JTextField txtCodigoVuelo;
 	private JTextField txtDuracionVuelo;
@@ -85,22 +98,22 @@ public class NuevoEvento extends JFrame {
 	private JRadioButton rdbtnVueloIdaVuelta;
 	private JRadioButton rdbtnVueloIda;
 	private JPanel panelIzquierda;
-	private  DefaultComboBoxModel<String> modeloAeropuertosOrigen;
-	private  DefaultComboBoxModel<String> modeloAeropuertosDestino;
-	private  DefaultComboBoxModel<String> modeloAerolineasIda;
-	private  DefaultComboBoxModel<String> modeloAerolineasVuelta;
+	private DefaultComboBoxModel<String> modeloAeropuertosOrigen;
+	private DefaultComboBoxModel<String> modeloAeropuertosDestino;
+	private DefaultComboBoxModel<String> modeloAerolineasIda;
+	private DefaultComboBoxModel<String> modeloAerolineasVuelta;
 	private JDateChooser chooserVueloFechaSalidaVuelta;
 	private JSpinner spinnerHoraSalidaVuelta;
 	private JButton btnGuardar;
 	private JButton btnDesconectar;
 
-	public NuevoEvento(Agencia agencia,ArrayList<Aeropuerto> aeropuertos,ArrayList<Aerolinea> aerolineas) {
+	public NuevoEvento(Agencia agencia, ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas) {
 		setResizable(false);
-		setTitle("Crear evento | "+agencia.getNombreAgencia());
+		setTitle("Crear evento | " + agencia.getNombreAgencia());
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1000, 650);
-		setLocationRelativeTo(null); 
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 
@@ -159,9 +172,9 @@ public class NuevoEvento extends JFrame {
 		btnGuardar.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		btnGuardar.setBackground(new Color(255, 255, 255));
 		btnGuardar.setBounds(10, 491, 284, 38);
-		
+
 		panelIzquierda.add(btnGuardar);
-		
+
 		JLabel lblCrearEvento = new JLabel("Crear evento");
 		lblCrearEvento.setForeground(Color.WHITE);
 		lblCrearEvento.setFont(new Font("Segoe UI", Font.BOLD, 40));
@@ -184,10 +197,13 @@ public class NuevoEvento extends JFrame {
 		lblTipoEvento.setBounds(355, 108, 250, 32);
 		contentPane.add(lblTipoEvento);
 
+
 		rdbtnVuelo = new JRadioButton("Vuelo");
 		rdbtnVuelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cambiarTipoViaje("Vuelo");
+				rdbtnAlojamiento.setSelected(false);
+				rdbtnOtros.setSelected(false);
+				tipoEvento();
 			}
 		});
 		rdbtnVuelo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -197,7 +213,9 @@ public class NuevoEvento extends JFrame {
 		rdbtnAlojamiento = new JRadioButton("Alojamiento");
 		rdbtnAlojamiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cambiarTipoViaje("Alojamiento");
+				rdbtnVuelo.setSelected(false);
+				rdbtnOtros.setSelected(false);
+				tipoEvento();
 			}
 		});
 		rdbtnAlojamiento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -207,22 +225,23 @@ public class NuevoEvento extends JFrame {
 		rdbtnOtros = new JRadioButton("Otros");
 		rdbtnOtros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cambiarTipoViaje("Otros");
-
+				rdbtnAlojamiento.setSelected(false);
+				rdbtnOtros.setSelected(false);
+				tipoEvento();
 			}
 		});
 		rdbtnOtros.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		rdbtnOtros.setBounds(717, 146, 126, 47);
 		contentPane.add(rdbtnOtros);
 
-		modeloAeropuertosOrigen= new DefaultComboBoxModel<String>();
-		modeloAeropuertosDestino= new DefaultComboBoxModel<String>();
-		modeloAerolineasIda= new DefaultComboBoxModel<String>();
-		modeloAerolineasVuelta= new DefaultComboBoxModel<String>();
+		modeloAeropuertosOrigen = new DefaultComboBoxModel<String>();
+		modeloAeropuertosDestino = new DefaultComboBoxModel<String>();
+		modeloAerolineasIda = new DefaultComboBoxModel<String>();
+		modeloAerolineasVuelta = new DefaultComboBoxModel<String>();
 		contentPane.add(desplegarAlojamiento());
 		contentPane.add(desplegarOtros());
-		contentPane.add(desplegarVuelo(aeropuertos,aerolineas));
-		
+		contentPane.add(desplegarVuelo(aeropuertos, aerolineas));
+
 		contentPane.add(desplegarVueloVuelta());
 		panelAlojamiento.setVisible(false);
 		panelOtros.setVisible(false);
@@ -230,25 +249,24 @@ public class NuevoEvento extends JFrame {
 		panelVueloVuelta.setVisible(false);
 	}
 
-
 	public JPanel desplegarAlojamiento() {
 		panelAlojamiento = new JPanel();
 		panelAlojamiento.setBounds(354, 195, 492, 333);
 		// contentPane.add(panelAlojamiento);
 		panelAlojamiento.setLayout(null);
 		Calendar c = Calendar.getInstance();
-		JDateChooser chooserEntrada = new JDateChooser(c.getTime());
+		chooserEntrada = new JDateChooser(c.getTime());
 		chooserEntrada.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		chooserEntrada.setBounds(0, 42, 220, 41);
 		panelAlojamiento.add(chooserEntrada);
-		
+
 		JButton btnBuscarAlojamiento = new JButton("Buscar alojamiento en Booking");
 		btnBuscarAlojamiento.setBackground(new Color(255, 255, 255));
 		btnBuscarAlojamiento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		btnBuscarAlojamiento.setBounds(0, 200, 489, 41);
 		panelAlojamiento.add(btnBuscarAlojamiento);
 
-		JDateChooser chooserSalida = new JDateChooser(c.getTime());
+		chooserSalida = new JDateChooser(c.getTime());
 		chooserSalida.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		chooserSalida.setBounds(269, 42, 220, 41);
 		panelAlojamiento.add(chooserSalida);
@@ -288,17 +306,19 @@ public class NuevoEvento extends JFrame {
 		panelAlojamiento.add(txtNombreHotel);
 
 		spinnerPrecioAlojamiento = new JSpinner();
-		spinnerPrecioAlojamiento.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+		spinnerPrecioAlojamiento
+				.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 		spinnerPrecioAlojamiento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		spinnerPrecioAlojamiento.setBounds(269, 145, 195, 41);
-		panelAlojamiento.add(spinnerPrecioAlojamiento);;
+		panelAlojamiento.add(spinnerPrecioAlojamiento);
+		;
 
 		JLabel lblNombreHotel_1 = new JLabel("Precio");
 		lblNombreHotel_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		lblNombreHotel_1.setBounds(269, 106, 170, 41);
 		panelAlojamiento.add(lblNombreHotel_1);
 
-		JComboBox<String> cbTipoHabitacion = new JComboBox<String>();
+		cbTipoHabitacion = new JComboBox<String>();
 		cbTipoHabitacion.setBackground(new Color(255, 255, 255));
 		cbTipoHabitacion.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "", "Doble ", "Doble con uso individual", "Individual", "Triple" }));
@@ -327,7 +347,7 @@ public class NuevoEvento extends JFrame {
 
 		Calendar c = Calendar.getInstance();
 
-		JDateChooser chooserFechaOtros = new JDateChooser(c.getTime());
+		chooserFechaOtros = new JDateChooser(c.getTime());
 		chooserFechaOtros.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		chooserFechaOtros.setBounds(0, 41, 220, 41);
 		panelOtros.add(chooserFechaOtros);
@@ -338,11 +358,11 @@ public class NuevoEvento extends JFrame {
 		lblFecha.setBounds(0, 0, 203, 41);
 		panelOtros.add(lblFecha);
 		spinnerPrecioOtros = new JSpinner();
-		spinnerPrecioOtros.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+		spinnerPrecioOtros
+				.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 		spinnerPrecioOtros.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		spinnerPrecioOtros.setBounds(269, 41, 186, 41);
 		panelOtros.add(spinnerPrecioOtros);
-		
 
 		JLabel lblFecha_1 = new JLabel("Precio");
 		lblFecha_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -367,14 +387,15 @@ public class NuevoEvento extends JFrame {
 		return panelOtros;
 	}
 
-	public JPanel desplegarVuelo(ArrayList<Aeropuerto> aeropuertos,ArrayList<Aerolinea> aerolineas) {
+	public JPanel desplegarVuelo(ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas) {
 		Calendar c = Calendar.getInstance();
 		panelVuelo = new JPanel();
 		panelVuelo.setBounds(354, 195, 493, 473);
 		// contentPane.add(panelVuelo);
 		panelVuelo.setLayout(null);
-		JSpinner spinnerPrecioVuelo = new JSpinner();
-		spinnerPrecioVuelo.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+		spinnerPrecioVuelo = new JSpinner();
+		spinnerPrecioVuelo
+				.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 		spinnerPrecioVuelo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		spinnerPrecioVuelo.setBounds(270, 41, 195, 41);
 		panelVuelo.add(spinnerPrecioVuelo);
@@ -428,23 +449,21 @@ public class NuevoEvento extends JFrame {
 		lblVueloDeIda_2_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		lblVueloDeIda_2_1.setBounds(270, 222, 218, 41);
 		panelVuelo.add(lblVueloDeIda_2_1);
-	
-		
-		JComboBox<String> cbA_Origen = new JComboBox<String>(modeloAeropuertosOrigen);
+
+		 cbA_Origen = new JComboBox<String>(modeloAeropuertosOrigen);
 		cbA_Origen.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbA_Origen.setBounds(0, 131, 203, 41);
 		panelVuelo.add(cbA_Origen);
 
-		JComboBox<String> cbA_Destino = new JComboBox<String>(modeloAeropuertosDestino);
+		 cbA_Destino = new JComboBox<String>(modeloAeropuertosDestino);
 		cbA_Destino.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbA_Destino.setBounds(270, 131, 218, 41);
 		panelVuelo.add(cbA_Destino);
 
-		JComboBox<String> cbAerolinea = new JComboBox<String>(modeloAerolineasIda);
+		 cbAerolinea = new JComboBox<String>(modeloAerolineasIda);
 		cbAerolinea.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbAerolinea.setBounds(270, 263, 218, 41);
 		panelVuelo.add(cbAerolinea);
-		
 
 		rellenaraeropuertos(aeropuertos);
 		rellenaraerolineas(aerolineas);
@@ -460,7 +479,7 @@ public class NuevoEvento extends JFrame {
 		lblVueloDeIda_2_1_1.setBounds(0, 293, 250, 41);
 		panelVuelo.add(lblVueloDeIda_2_1_1);
 
-		JDateChooser chooserVueloFechaSalida = new JDateChooser(c.getTime());
+		chooserVueloFechaSalida = new JDateChooser(c.getTime());
 		chooserVueloFechaSalida.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		chooserVueloFechaSalida.setBounds(0, 427, 250, 41);
 		panelVuelo.add(chooserVueloFechaSalida);
@@ -498,11 +517,9 @@ public class NuevoEvento extends JFrame {
 		lblPrecio_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 
 		Calendar now = Calendar.getInstance();
-		int hour = now.get(Calendar.HOUR_OF_DAY);
-		int minute = now.get(Calendar.MINUTE);
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setValue(now.getTime());
-		JSpinner spinnerHoraSalida = new JSpinner(model);
+		spinnerHoraSalida = new JSpinner(model);
 		spinnerHoraSalida.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		spinnerHoraSalida.setLocation(270, 344);
 		spinnerHoraSalida.setSize(218, 41);
@@ -525,17 +542,17 @@ public class NuevoEvento extends JFrame {
 		lblVueloDeIda.setBounds(0, 251, 250, 32);
 		panelVueloVuelta.add(lblVueloDeIda);
 
-		JComboBox<String> cbAerolinea = new JComboBox<String>(modeloAerolineasVuelta);
-		cbAerolinea.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		cbAerolinea.setBounds(270, 263, 218, 41);
-		panelVueloVuelta.add(cbAerolinea);
-		
+		cbAerolineaVuelta = new JComboBox<String>(modeloAerolineasVuelta);
+		cbAerolineaVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbAerolineaVuelta.setBounds(270, 263, 218, 41);
+		panelVueloVuelta.add(cbAerolineaVuelta);
+
 		JLabel lblVueloDeIda_2_1 = new JLabel("Aerolínea");
 		lblVueloDeIda_2_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		lblVueloDeIda_2_1.setBounds(270, 222, 218, 41);
 		panelVueloVuelta.add(lblVueloDeIda_2_1);
-	
-		JTextField txtCodigoVueloVuelta = new JTextField();
+
+		 txtCodigoVueloVuelta = new JTextField();
 		txtCodigoVueloVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtCodigoVueloVuelta.setColumns(10);
 		txtCodigoVueloVuelta.setBounds(0, 344, 250, 41);
@@ -588,72 +605,121 @@ public class NuevoEvento extends JFrame {
 		return panelVueloVuelta;
 	}
 
-	public void cambiarTipoViaje(String TipoViaje) {
-
-		rdbtnVuelo.setSelected(TipoViaje == "Vuelo");
-		rdbtnAlojamiento.setSelected(TipoViaje == "Alojamiento");
-		rdbtnOtros.setSelected(TipoViaje == "Otros");
-
-		if (TipoViaje == "Vuelo") {
+	public String tipoEvento() {
+		if (rdbtnVuelo.isSelected()) {
 			panelAlojamiento.setVisible(false);
 			panelOtros.setVisible(false);
 			panelVuelo.setVisible(true);
 			btnGuardar.setBounds(10, 573, 284, 38);
 			btnDesconectar.setBounds(10, 622, 284, 38);
-			if ( rdbtnVueloIdaVuelta.isSelected() == true) {
+			if (rdbtnVueloIdaVuelta.isSelected() == true) {
 				panelVueloVuelta.setVisible(true);
-				setBounds(0, 0,1450, 720);
-				setLocationRelativeTo(null); 
+				setBounds(0, 0, 1450, 720);
+				setLocationRelativeTo(null);
+				return "VueloIdaVuelta";
 			} else {
 				setBounds(0, 0, 1000, 720);
-				setLocationRelativeTo(null); 
+				setLocationRelativeTo(null);
+				return "VueloIda";
 			}
 		}
-		if (TipoViaje == "Alojamiento") {
+		if (rdbtnAlojamiento.isSelected()) {
 			panelVuelo.setVisible(false);
 			panelOtros.setVisible(false);
 			panelVueloVuelta.setVisible(false);
 			panelAlojamiento.setVisible(true);
 			setBounds(0, 0, 1000, 650);
-			setLocationRelativeTo(null); 
+			setLocationRelativeTo(null);
 			btnGuardar.setBounds(10, 491, 284, 38);
 			btnDesconectar.setBounds(10, 540, 284, 38);
+			return "Alojamiento";
 		}
-		if (TipoViaje == "Otros") {
+		if (rdbtnOtros.isSelected()) {
 			panelVuelo.setVisible(false);
 			panelVueloVuelta.setVisible(false);
 			panelAlojamiento.setVisible(false);
 			panelOtros.setVisible(true);
 			setBounds(0, 0, 1000, 650);
-			setLocationRelativeTo(null); 
+			setLocationRelativeTo(null);
 			btnGuardar.setBounds(10, 491, 284, 38);
 			btnDesconectar.setBounds(10, 540, 284, 38);
+			return "Otros";
 		}
+		return null;
 	}
+
 	public void rellenaraeropuertos(ArrayList<Aeropuerto> aeropuertos) {
-		for(Aeropuerto aeropuerto: aeropuertos) {
+		for (Aeropuerto aeropuerto : aeropuertos) {
 			modeloAeropuertosOrigen.addElement(aeropuerto.getNombreAeropuerto());
 			modeloAeropuertosDestino.addElement(aeropuerto.getNombreAeropuerto());
 		}
 	}
+
 	public void rellenaraerolineas(ArrayList<Aerolinea> aerolineas) {
-		for(Aerolinea aerolinea: aerolineas) {
+		for (Aerolinea aerolinea : aerolineas) {
 			modeloAerolineasIda.addElement(aerolinea.getNombreAerolinea());
 			modeloAerolineasVuelta.addElement(aerolinea.getNombreAerolinea());
-		}	
-			
-	}
-	public void cambiarTipoVuelo(String TipoVuelo) {
+		}
 
+	}
+
+	public void cambiarTipoVuelo(String TipoVuelo) {
 		rdbtnVueloIda.setSelected(TipoVuelo == "Ida");
 		rdbtnVueloIdaVuelta.setSelected(TipoVuelo == "Ida y vuelta");
 		panelVueloVuelta.setVisible(TipoVuelo == "Ida y vuelta");
 		if (TipoVuelo == "Ida y vuelta") {
 			setBounds(0, 0, 1450, 720);
-			setLocationRelativeTo(null); 
+			setLocationRelativeTo(null);
 		} else {
 			setBounds(0, 0, 1000, 720);
-			setLocationRelativeTo(null); 
+			setLocationRelativeTo(null);
 		}
 	}
+
+	public boolean validarEvento() { 
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		// Atributos comunes de todos los eventos
+		String NombreEvento = txtNombreEvento.getText();
+		String TipoEvento = tipoEvento();
+		int Precio;
+		switch (TipoEvento) {
+		case "Alojamiento":
+			Precio = (Integer) spinnerPrecioAlojamiento.getValue();
+			break;
+		case "Vuelo":
+			Precio =  (Integer) spinnerPrecioVuelo.getValue();
+			break;
+		case "Otros":
+			Precio =  (Integer) spinnerPrecioOtros.getValue();
+			break;
+		}
+		// Atributos ALOJAMIENTO
+		String NombreHotel = txtNombreHotel.getText();
+		String FechaEntrada_Alojamiento =df.format(chooserEntrada.getDate());
+		String FechaSalida_Alojamiento =df.format(chooserSalida.getDate());
+		String Ciudad = txtCiudad.getText();
+		String TipoHabitacion = cbTipoHabitacion.getSelectedItem()+"";
+		// Atributos OTROS
+		String Fecha_Otros =df.format(chooserFechaOtros.getDate());
+		String Descripcion =txtDescripcionOtros.getText();
+		// Atributos VUELO
+		String AeropuertoOrigen = cbA_Origen.getSelectedItem()+"";
+		String AeropuertoDestino = cbA_Destino.getSelectedItem()+"";
+		// Atributos VUELO IDA
+		String Aerolinea = cbAerolinea.getSelectedItem()+"";
+		String CodigoVuelo = txtCodigoVuelo.getText();
+		String HoraSalida = (String) spinnerHoraSalida.getValue();	
+		String FechaSalida = df.format(chooserVueloFechaSalida.getDate());	
+		// Atributos VUELO VUELTA
+		String AerolineaVuelta = cbAerolineaVuelta.getSelectedItem()+"";
+		String CodigoVueloVuelta = txtCodigoVueloVuelta.getText();
+		String HoraSalidaVuelta = (String) spinnerHoraSalidaVuelta.getValue();	
+		String FechaSalidaVuelta = df.format(chooserVueloFechaSalidaVuelta.getDate());
+		
+		ArrayList<String> mensajeError = new ArrayList<String>();
+		if(NombreEvento.length()>=1 || NombreEvento.length()<=30) {
+			mensajeError.add("El nombre del Evento no puede estar vacío");
+		}
+		}
+
 }

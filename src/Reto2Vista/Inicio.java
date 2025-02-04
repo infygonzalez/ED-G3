@@ -184,6 +184,7 @@ public class Inicio extends JFrame {
 		tableEventos.getColumnModel().getColumn(0).setMaxWidth(0);
 		tableEventos.getTableHeader().setReorderingAllowed(false);
 		tableEventos.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		tableEventos.setRowHeight(25);
 		tableViajes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
 				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
