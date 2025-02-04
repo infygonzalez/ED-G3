@@ -1,5 +1,8 @@
 package Reto2Controlador;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import Reto2Modelo.Aerolinea;
@@ -147,5 +150,33 @@ public class Controlador {
 		return gestor.getSumaVuelos();
 	
 	}
+	public void generarOfertaViaje(Viaje viaje) {
+		String nombreArchivo = System.getProperty("user.home") + "/Desktop/"+viaje.getNombreViaje().replaceAll(" ", "")+".txt";
+		
+		ArrayList<String> cadenas = new ArrayList<String>();
+		cadenas.add("Nombre: "+viaje.getNombreViaje());
+		cadenas.add("Fechas: "+viaje.getFechaInicio() + " al "+viaje.getFechaFin());
+		cadenas.add("Tipo del viaje: "+viaje.getTipoViaje());
+		cadenas.add("Pais: "+viaje.getPaisDestino().getDescripcionPais());
+		cadenas.add("Descripción: "+viaje.getDescripciónViaje());
+		cadenas.add("Servicios no incluidos: "+viaje.getServiciosNoIncluidos());
+		cadenas.add("------------- EVENTOS -------------");
+		for(Alojamiento alojamiento:viaje.getAlojamientos()) {
+			cadenas.add("ALOJAMIENTO -- "+alojamiento.getNombreEvento());
+		//	cadenas.add("Fechas":)
+		}
+		try {
+		
+			FileWriter fichero = new FileWriter(nombreArchivo);
 
+			PrintWriter pw = new PrintWriter(fichero);
+			for (int i = 0; i < cadenas.size(); i++) {
+				pw.println(cadenas.get(i));
+			}
+			fichero.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

@@ -121,6 +121,17 @@ public class Inicio extends JFrame {
 		btnGenerarOfertaViaje.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		btnGenerarOfertaViaje.setBackground(new Color(255, 255, 255));
 		btnGenerarOfertaViaje.setBounds(10, 491, 284, 38);
+		btnGenerarOfertaViaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
+				if (viajeSeleccionado != null) {
+					controlador.generarOfertaViaje(viajeSeleccionado);
+				} else {
+					JOptionPane.showMessageDialog(null,"No se ha seleccionado ningún viaje.", "Error al generar oferta cliente | "+agencia.getNombreAgencia(),
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		panel.add(btnGenerarOfertaViaje);
 
 		JLabel lblViaje = new JLabel("Viajes");
