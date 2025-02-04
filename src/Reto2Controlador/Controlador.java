@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Reto2Modelo.Aerolinea;
 import Reto2Modelo.Aeropuerto;
 import Reto2Modelo.Agencia;
@@ -151,23 +153,60 @@ public class Controlador {
 	
 	}
 	public void generarOfertaViaje(Viaje viaje) {
-		String nombreArchivo = System.getProperty("user.home") + "/Desktop/"+viaje.getNombreViaje().replaceAll(" ", "")+".txt";
+		String nombreArchivo =viaje.getNombreViaje().replaceAll(" ", "")+".txt";
+
+		String urlArchivo = System.getProperty("user.home") + "/Desktop/"+nombreArchivo;
 		
 		ArrayList<String> cadenas = new ArrayList<String>();
 		cadenas.add("Nombre: "+viaje.getNombreViaje());
-		cadenas.add("Fechas: "+viaje.getFechaInicio() + " al "+viaje.getFechaFin());
+		cadenas.add("Fechas del viaje: "+viaje.getFechaInicio() + " al "+viaje.getFechaFin());
 		cadenas.add("Tipo del viaje: "+viaje.getTipoViaje());
 		cadenas.add("Pais: "+viaje.getPaisDestino().getDescripcionPais());
 		cadenas.add("Descripción: "+viaje.getDescripciónViaje());
 		cadenas.add("Servicios no incluidos: "+viaje.getServiciosNoIncluidos());
-		cadenas.add("------------- EVENTOS -------------");
+		cadenas.add("\n------------- EVENTOS -------------\n");
 		for(Alojamiento alojamiento:viaje.getAlojamientos()) {
-			cadenas.add("ALOJAMIENTO -- "+alojamiento.getNombreEvento());
-		//	cadenas.add("Fechas":)
+			cadenas.add("\n------------- ALOJAMIENTO - "+alojamiento.getNombreEvento()+" -------------");
+			cadenas.add("Fechas de estancia: "+ alojamiento.getFechaEntrada()+" al "+ alojamiento.getFechaSalida() );
+			String Tipo = "";
+			if (alojamiento.getTipoHabitacion().equals("DB")) {
+			    Tipo = "Doble";
+			} else if (alojamiento.getTipoHabitacion().equals("DUI")) {
+			    Tipo = "Doble con uso individual";
+			} else if (alojamiento.getTipoHabitacion().equals("SIN")) {
+			    Tipo = "Individual";
+			} else if (alojamiento.getTipoHabitacion().equals("TPL")) {
+			    Tipo = "Triple";
+			}
+			cadenas.add("Estancia en "+alojamiento.getNombreHotel() + " ("+alojamiento.getCiudad() + ") en una habitación " + Tipo );
+			cadenas.add("Precio de la estancia: "+alojamiento.getPrecio()+"€");
+		}
+		for(Otros otro:viaje.getOtros()) {
+			cadenas.add("\n------------- "+otro.getNombreEvento()+"-------------");
+			cadenas.add("Fecha: "+ otro.getFecha() );
+			cadenas.add("Precio: "+otro.getPrecio()+"€");
+			cadenas.add("Descripción: "+otro.getDescripcion());
+		}
+		for(Vuelo vuelo:viaje.getVuelos()) {
+			cadenas.add("\n------------- VUELO -- "+vuelo.getNombreEvento()+ "-------------");
+			cadenas.add("\n------------- VUELO DE IDA -------------");
+			cadenas.add(vuelo.getAeropuertoOrigen().getNombreAeropuerto() +" a "+vuelo.getAeropuertoDestino().getNombreAeropuerto() );
+			cadenas.add("Código de vuelo: "+vuelo.getCodigoVuelo() );
+			cadenas.add("Aerolinea: "+vuelo.getAerolinea().getNombreAerolinea() );
+			cadenas.add("Fecha y hora: "+ vuelo.getFechaSalida() +"a las "+ vuelo.getHoraSalida() + "y el vuelo dura "+vuelo.getDuracionVuelo() );
+			if(vuelo.getEventoVueltaID() != null) {
+				cadenas.add("\n------------- VUELO DE VUELTA -------------");
+				cadenas.add(vuelo.getEventoVueltaID().getAeropuertoOrigen().getNombreAeropuerto() +" a "+vuelo.getEventoVueltaID().getAeropuertoDestino().getNombreAeropuerto() );
+				cadenas.add("Código de vuelo: "+vuelo.getEventoVueltaID().getEventoVueltaID().getCodigoVuelo() );
+				cadenas.add("Aerolinea: "+vuelo.getEventoVueltaID().getAerolinea().getNombreAerolinea() );
+				cadenas.add("Fecha y hora: "+ vuelo.getEventoVueltaID().getFechaSalida() +"a las "+ vuelo.getEventoVueltaID().getHoraSalida() + " y el vuelo dura "+vuelo.getEventoVueltaID().getDuracionVuelo() );
+			
+			}
+		
 		}
 		try {
 		
-			FileWriter fichero = new FileWriter(nombreArchivo);
+			FileWriter fichero = new FileWriter(urlArchivo);
 
 			PrintWriter pw = new PrintWriter(fichero);
 			for (int i = 0; i < cadenas.size(); i++) {
@@ -177,6 +216,7 @@ public class Controlador {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		JOptionPane.showMessageDialog(null, "¡El informe del viaje "+viaje.getNombreViaje()+" se ha creado correctamente en el escritorio con el nombre "+nombreArchivo+"!",viaje.getNombreViaje(),
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 }

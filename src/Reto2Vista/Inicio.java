@@ -126,6 +126,7 @@ public class Inicio extends JFrame {
 				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
 				if (viajeSeleccionado != null) {
 					controlador.generarOfertaViaje(viajeSeleccionado);
+					
 				} else {
 					JOptionPane.showMessageDialog(null,"No se ha seleccionado ningún viaje.", "Error al generar oferta cliente | "+agencia.getNombreAgencia(),
 							JOptionPane.ERROR_MESSAGE);

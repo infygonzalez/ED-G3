@@ -272,6 +272,8 @@ public class Gestor {
 				viaje.setFechaInicio(resultSet.getString("FechaInicio"));
 				viaje.setFechaFin(resultSet.getString("FechaFin"));
 				viaje.setDuracionViaje(resultSet.getString("DuracionViaje"));
+				viaje.setServiciosNoIncluidos(resultSet.getString("ServiciosNoIncluidos"));
+
 				for(Pais pais: paises) {
 					if(resultSet.getString("PaisDestino").equals(pais.getPaisCodigo())== true) {
 						viaje.setPaisDestino(pais);
