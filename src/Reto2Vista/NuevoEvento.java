@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -108,6 +109,7 @@ public class NuevoEvento extends JFrame {
 	private JButton btnDesconectar;
 	private String TipoHabitacion = "";
 	private JTextField txtDuracionVueloVuelta;
+
 	public NuevoEvento(Viaje viaje, Agencia agencia, ArrayList<Aeropuerto> aeropuertos,
 			ArrayList<Aerolinea> aerolineas) {
 		setResizable(false);
@@ -473,17 +475,20 @@ public class NuevoEvento extends JFrame {
 
 		cbA_Origen = new JComboBox<String>(modeloAeropuertosOrigen);
 		cbA_Origen.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbA_Origen.setBackground(Color.white);
 		cbA_Origen.setBounds(0, 131, 203, 41);
 		panelVuelo.add(cbA_Origen);
 
 		cbA_Destino = new JComboBox<String>(modeloAeropuertosDestino);
 		cbA_Destino.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbA_Destino.setBounds(270, 131, 218, 41);
+		cbA_Destino.setBackground(Color.white);
 		panelVuelo.add(cbA_Destino);
 
 		cbAerolinea = new JComboBox<String>(modeloAerolineasIda);
 		cbAerolinea.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbAerolinea.setBounds(270, 263, 218, 41);
+		cbAerolinea.setBackground(Color.white);
 		panelVuelo.add(cbAerolinea);
 
 		rellenaraeropuertos(aeropuertos);
@@ -564,6 +569,7 @@ public class NuevoEvento extends JFrame {
 		panelVueloVuelta.add(lblVueloDeIda);
 
 		cbAerolineaVuelta = new JComboBox<String>(modeloAerolineasVuelta);
+		cbAerolineaVuelta.setBackground(Color.white);
 		cbAerolineaVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		cbAerolineaVuelta.setBounds(270, 263, 218, 41);
 		panelVueloVuelta.add(cbAerolineaVuelta);
@@ -639,6 +645,9 @@ public class NuevoEvento extends JFrame {
 				setLocationRelativeTo(null);
 				return "VueloIdaVuelta";
 			} else {
+				if (rdbtnVueloIda.isSelected() == false) {
+					rdbtnVueloIda.setSelected(true);
+				}
 				setBounds(0, 0, 1000, 720);
 				setLocationRelativeTo(null);
 				return "VueloIda";
@@ -670,6 +679,8 @@ public class NuevoEvento extends JFrame {
 	}
 
 	public void rellenaraeropuertos(ArrayList<Aeropuerto> aeropuertos) {
+		modeloAeropuertosOrigen.addElement("");
+		modeloAeropuertosDestino.addElement("");
 		for (Aeropuerto aeropuerto : aeropuertos) {
 			modeloAeropuertosOrigen.addElement(aeropuerto.getNombreAeropuerto());
 			modeloAeropuertosDestino.addElement(aeropuerto.getNombreAeropuerto());
@@ -677,6 +688,8 @@ public class NuevoEvento extends JFrame {
 	}
 
 	public void rellenaraerolineas(ArrayList<Aerolinea> aerolineas) {
+		modeloAerolineasIda.addElement("");
+		modeloAerolineasVuelta.addElement("");
 		for (Aerolinea aerolinea : aerolineas) {
 			modeloAerolineasIda.addElement(aerolinea.getNombreAerolinea());
 			modeloAerolineasVuelta.addElement(aerolinea.getNombreAerolinea());
@@ -705,22 +718,22 @@ public class NuevoEvento extends JFrame {
 		// Atributos comunes de todos los eventos
 		String NombreEvento = txtNombreEvento.getText();
 		String TipoEvento = tipoEvento();
-		int Precio;
-		switch (TipoEvento) {
-		case "Alojamiento":
-			Precio = (Integer) spinnerPrecioAlojamiento.getValue();
-			break;
-		case "VueloIda":
-			Precio = (Integer) spinnerPrecioVuelo.getValue();
-			break;
-		case "VueloIdaVuelta":
-			Precio = (Integer) spinnerPrecioVuelo.getValue();
-			break;
-		case "Otros":
-			Precio = (Integer) spinnerPrecioOtros.getValue();
-			break;
-		default:
-			Precio = 0;
+		int Precio = 0;
+		if (TipoEvento != null) {
+			switch (TipoEvento) {
+			case "Alojamiento":
+				Precio = (Integer) spinnerPrecioAlojamiento.getValue();
+				break;
+			case "VueloIda":
+				Precio = (Integer) spinnerPrecioVuelo.getValue();
+				break;
+			case "VueloIdaVuelta":
+				Precio = (Integer) spinnerPrecioVuelo.getValue();
+				break;
+			case "Otros":
+				Precio = (Integer) spinnerPrecioOtros.getValue();
+				break;
+			}
 		}
 		// Atributos ALOJAMIENTO
 		String NombreHotel = txtNombreHotel.getText();
@@ -736,7 +749,7 @@ public class NuevoEvento extends JFrame {
 		// Atributos VUELO IDA
 		String Aerolinea = cbAerolinea.getSelectedItem() + "";
 		String CodigoVuelo = txtCodigoVuelo.getText();
-		String DuracionVuelo = txtDuracionVuelo.getText() ;
+		String DuracionVuelo = txtDuracionVuelo.getText();
 		String HoraSalida = dfh.format((Date) spinnerHoraSalida.getValue());
 		String FechaSalida = df.format(chooserVueloFechaSalida.getDate());
 		// Atributos VUELO VUELTA
@@ -744,73 +757,81 @@ public class NuevoEvento extends JFrame {
 		String CodigoVueloVuelta = txtCodigoVueloVuelta.getText();
 		String HoraSalidaVuelta = dfh.format((Date) spinnerHoraSalidaVuelta.getValue());
 		String FechaSalidaVuelta = df.format(chooserVueloFechaSalidaVuelta.getDate());
-		String DuracionVueloVuelta = txtDuracionVueloVuelta.getText() ;
+		String DuracionVueloVuelta = txtDuracionVueloVuelta.getText();
 
 		ArrayList<String> mensajeError = new ArrayList<String>();
-		if ((NombreEvento.length() >= 1 || NombreEvento.length() <= 30) == false) {
-			mensajeError.add("El nombre del Evento no puede estar vacío");
+		if (NombreEvento.length() < 1 || NombreEvento.length() > 30) {
+			mensajeError.add("El nombre del evento no puede estar vacío");
 		}
-		if (TipoEvento.length() == 0) {
-			mensajeError.add("El Tipo del Evento no puede estar vacío");
-		}
-		if (TipoEvento.equals("Alojamiento")) {
-			if ((NombreHotel.length() >= 1 || NombreHotel.length() <= 30) == false) {
-				mensajeError.add("El nombre del hotel no puede estar vacío");
-			}
-			if (FechaEntrada_Alojamiento.length() == 0) {
-				mensajeError.add("La fecha de entrada al hotel no puede estar vacía");
-			}
-			if (FechaSalida_Alojamiento.length() == 0) {
-				mensajeError.add("La fecha de salida al hotel no puede estar vacío");
-			}
-			if (Ciudad.length() == 0) {
-				mensajeError.add("El nombre de la ciudad no puede estar vacío");
-			}
-			if (TipoHabitacion.length() == 0) {
-				mensajeError.add("El tipo de habitación  no puede estar vacío");
-			}
-		}
-		if (TipoEvento.equals("VueloIda") || TipoEvento.equals("VueloIdaVuelta")) {
-			if (AeropuertoOrigen.length() == 0) {
-				mensajeError.add("El aeropuerto no puede estar vacío");
-			}
-			if (AeropuertoDestino.length() == 0) {
-				mensajeError.add("El aeropuerto de destino  no puede estar vacío");
-			}
-			if (Aerolinea.length() == 0) {
-				mensajeError.add("El nombre de la aerolinea no puede estar vacío");
-			}
-			if (CodigoVuelo.length() == 0) {
-				mensajeError.add("El codigo del vuelo no puede estar vacío");
-			}
-			if (HoraSalida.length() == 0) {
-				mensajeError.add("La hora de salida del vuelo no puede estar vacía");
-			}
-			if (FechaSalida.length() == 0) {
-				mensajeError.add("La fecha de salida del vuelo no puede estar vacía");
-			}
-			if (TipoEvento.equals("VueloIdaVuelta")) {
+		if (TipoEvento == null) {
+			mensajeError.add("El tipo del Evento no puede estar vacío");
+		} else {
+			if (TipoEvento.equals("Alojamiento")) {
+				if (NombreHotel.length() < 1 || NombreHotel.length() > 30) {
+					mensajeError.add("El nombre del hotel no puede estar vacío");
+				}
+				if (FechaEntrada_Alojamiento.length() == 0) {
+					mensajeError.add("La fecha de entrada al hotel no puede estar vacía");
+				}
+				if (FechaSalida_Alojamiento.length() == 0) {
+					mensajeError.add("La fecha de salida al hotel no puede estar vacío");
+				}
+				if (Ciudad.length() == 0) {
+					mensajeError.add("El nombre de la ciudad no puede estar vacío");
+				}
+				if (TipoHabitacion.length() == 0) {
+					mensajeError.add("El tipo de habitación no puede estar vacío");
+				}
 
-				if (AerolineaVuelta.length() == 0) {
-					mensajeError.add("El nombre de la aerolinea de vuelta no puede estar vacío");
+			}
+			if (TipoEvento.equals("VueloIda") || TipoEvento.equals("VueloIdaVuelta")) {
+				if (AeropuertoOrigen.length() == 0) {
+					mensajeError.add("El aeropuerto de origen no puede estar vacío");
 				}
-				if (CodigoVueloVuelta.length() == 0) {
-					mensajeError.add("El codigo de vuelta del vuelo no puede estar vacío");
+				if (AeropuertoDestino.length() == 0) {
+					mensajeError.add("El aeropuerto de destino no puede estar vacío");
 				}
-				if (HoraSalidaVuelta.length() == 0) {
-					mensajeError.add("La hora de salida del vuelo de vuelta  no puede estar vacía");
+				if (Aerolinea.length() == 0) {
+					mensajeError.add("El nombre de la aerolinea no puede estar vacío");
 				}
-				if (FechaSalidaVuelta.length() == 0) {
-					mensajeError.add("La fecha de salida del vuelo de vuelta no puede estar vacía");
+				if (CodigoVuelo.length() == 0) {
+					mensajeError.add("El codigo del vuelo no puede estar vacío");
+				}
+				if (HoraSalida.length() == 0) {
+					mensajeError.add("La hora de salida del vuelo no puede estar vacía");
+				}
+				if (DuracionVuelo.length() == 0) {
+					mensajeError.add("La duración del vuelo no puede estar vacía");
+				}
+				if (FechaSalida.length() == 0) {
+					mensajeError.add("La fecha de salida del vuelo no puede estar vacía");
+				}
+				if (TipoEvento.equals("VueloIdaVuelta")) {
+
+					if (AerolineaVuelta.length() == 0) {
+						mensajeError.add("El nombre de la aerolinea de vuelta no puede estar vacío");
+					}
+					if (CodigoVueloVuelta.length() == 0) {
+						mensajeError.add("El codigo del vuelo de vuelta no puede estar vacío");
+					}
+					if (HoraSalidaVuelta.length() == 0) {
+						mensajeError.add("La hora de salida del vuelo de vuelta no puede estar vacía");
+					}
+					if (FechaSalidaVuelta.length() == 0) {
+						mensajeError.add("La fecha de salida del vuelo de vuelta no puede estar vacía");
+					}
+					if (DuracionVueloVuelta.length() == 0) {
+						mensajeError.add("La duración del vuelo de vuelta no puede estar vacía");
+					}
 				}
 			}
-		}
-		if (TipoEvento.equals("Otros")) {
-			if (Fecha_Otros.length() == 0) {
-				mensajeError.add("La fecha del evento no puede estar vacía");
-			}
-			if (Descripcion.length() == 0) {
-				mensajeError.add("La descripcion evento no puede estar vacía");
+			if (TipoEvento.equals("Otros")) {
+				if (Fecha_Otros.length() == 0) {
+					mensajeError.add("La fecha del evento no puede estar vacía");
+				}
+				if (Descripcion.length() == 0) {
+					mensajeError.add("La descripcion evento no puede estar vacía");
+				}
 			}
 		}
 		if (mensajeError.size() == 0) {
@@ -838,12 +859,12 @@ public class NuevoEvento extends JFrame {
 			} else if (TipoEvento.equals("VueloIda") || TipoEvento.equals("VueloIdaVuelta")) {
 
 				Vuelo vuelo = crearVuelo(viaje, NombreEvento, Precio, AeropuertoOrigen, AeropuertoDestino, Aerolinea,
-						CodigoVuelo, HoraSalida, FechaSalida, DuracionVuelo,aeropuertos, aerolineas);
+						CodigoVuelo, HoraSalida, FechaSalida, DuracionVuelo, aeropuertos, aerolineas);
 
 				if (TipoEvento.equals("VueloIdaVuelta")) {
 					Vuelo vueloVuelta = crearVuelo(viaje, NombreEvento, Precio, AeropuertoDestino, AeropuertoOrigen,
-							AerolineaVuelta, CodigoVueloVuelta, HoraSalidaVuelta, FechaSalidaVuelta,DuracionVueloVuelta, aeropuertos,
-							aerolineas);
+							AerolineaVuelta, CodigoVueloVuelta, HoraSalidaVuelta, FechaSalidaVuelta,
+							DuracionVueloVuelta, aeropuertos, aerolineas);
 					controlador.insertarVuelo(vueloVuelta);
 					System.out.println(controlador.getSumaVuelos());
 					vueloVuelta.setEventoID(controlador.getSumaVuelos() + "");
@@ -862,7 +883,7 @@ public class NuevoEvento extends JFrame {
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "- " + String.join("\n - ", mensajeError),
+			JOptionPane.showMessageDialog(null, " - " + String.join("\n - ", mensajeError),
 					"Error al crear evento | " + agencia.getNombreAgencia(), JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -871,8 +892,8 @@ public class NuevoEvento extends JFrame {
 	}
 
 	public Vuelo crearVuelo(Viaje viaje, String NombreEvento, int Precio, String AeropuertoOrigen,
-			String AeropuertoDestino, String Aerolinea, String CodigoVuelo, String HoraSalida, String FechaSalida,String DuracionVuelo,
-			ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas) {
+			String AeropuertoDestino, String Aerolinea, String CodigoVuelo, String HoraSalida, String FechaSalida,
+			String DuracionVuelo, ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas) {
 		Vuelo vuelo = new Vuelo();
 		vuelo.setViajeID(viaje);
 		vuelo.setNombreEvento(NombreEvento);
