@@ -156,7 +156,7 @@ public class Controlador {
 		String nombreArchivo =viaje.getNombreViaje().replaceAll(" ", "")+".txt";
 
 		String urlArchivo = System.getProperty("user.home") + "/Desktop/"+nombreArchivo;
-		
+		double precioTotal =0;
 		ArrayList<String> cadenas = new ArrayList<String>();
 		cadenas.add("Nombre: "+viaje.getNombreViaje());
 		cadenas.add("Fechas del viaje: "+viaje.getFechaInicio() + " al "+viaje.getFechaFin());
@@ -180,30 +180,36 @@ public class Controlador {
 			}
 			cadenas.add("Estancia en "+alojamiento.getNombreHotel() + " ("+alojamiento.getCiudad() + ") en una habitación " + Tipo );
 			cadenas.add("Precio de la estancia: "+alojamiento.getPrecio()+"€");
+			precioTotal = precioTotal+ Double.parseDouble(alojamiento.getPrecio());
 		}
 		for(Otros otro:viaje.getOtros()) {
 			cadenas.add("\n------------- "+otro.getNombreEvento()+"-------------");
 			cadenas.add("Fecha: "+ otro.getFecha() );
 			cadenas.add("Precio: "+otro.getPrecio()+"€");
 			cadenas.add("Descripción: "+otro.getDescripcion());
+			precioTotal = precioTotal+ Double.parseDouble(otro.getPrecio());
 		}
 		for(Vuelo vuelo:viaje.getVuelos()) {
 			cadenas.add("\n------------- VUELO -- "+vuelo.getNombreEvento()+ "-------------");
+			cadenas.add("Precio: "+vuelo.getPrecio()+"€" );
+			precioTotal = precioTotal+ Double.parseDouble(vuelo.getPrecio());
+
 			cadenas.add("\n------------- VUELO DE IDA -------------");
 			cadenas.add(vuelo.getAeropuertoOrigen().getNombreAeropuerto() +" a "+vuelo.getAeropuertoDestino().getNombreAeropuerto() );
 			cadenas.add("Código de vuelo: "+vuelo.getCodigoVuelo() );
 			cadenas.add("Aerolinea: "+vuelo.getAerolinea().getNombreAerolinea() );
-			cadenas.add("Fecha y hora: "+ vuelo.getFechaSalida() +"a las "+ vuelo.getHoraSalida() + "y el vuelo dura "+vuelo.getDuracionVuelo() );
+			cadenas.add("Fecha y hora: "+ vuelo.getFechaSalida() +" a las "+ vuelo.getHoraSalida() + " y el vuelo dura "+vuelo.getDuracionVuelo() );
 			if(vuelo.getEventoVueltaID() != null) {
 				cadenas.add("\n------------- VUELO DE VUELTA -------------");
 				cadenas.add(vuelo.getEventoVueltaID().getAeropuertoOrigen().getNombreAeropuerto() +" a "+vuelo.getEventoVueltaID().getAeropuertoDestino().getNombreAeropuerto() );
-				cadenas.add("Código de vuelo: "+vuelo.getEventoVueltaID().getEventoVueltaID().getCodigoVuelo() );
+				cadenas.add("Código de vuelo: "+vuelo.getEventoVueltaID().getCodigoVuelo() );
 				cadenas.add("Aerolinea: "+vuelo.getEventoVueltaID().getAerolinea().getNombreAerolinea() );
-				cadenas.add("Fecha y hora: "+ vuelo.getEventoVueltaID().getFechaSalida() +"a las "+ vuelo.getEventoVueltaID().getHoraSalida() + " y el vuelo dura "+vuelo.getEventoVueltaID().getDuracionVuelo() );
-			
+				cadenas.add("Fecha y hora: "+ vuelo.getEventoVueltaID().getFechaSalida() +" a las "+ vuelo.getEventoVueltaID().getHoraSalida() + " y el vuelo dura "+vuelo.getEventoVueltaID().getDuracionVuelo() );
 			}
 		
 		}
+		cadenas.add("---------------PRECIO TOTAL: "+precioTotal+"€ ---------------" );
+
 		try {
 		
 			FileWriter fichero = new FileWriter(urlArchivo);
