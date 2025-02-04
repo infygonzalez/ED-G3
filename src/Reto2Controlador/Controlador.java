@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import javax.swing.JOptionPane;
 
@@ -35,6 +36,7 @@ public class Controlador {
 		ArrayList<Viaje> viajes = null;
 		Gestor gestor = new Gestor();
 		viajes = gestor.buscarTodosViajes(paises, agencia);
+		viajes.sort(Comparator.comparing(Viaje::getFechaInicio));
 		return viajes;
 	}
 
@@ -64,6 +66,7 @@ public class Controlador {
 		ArrayList<Pais> paises = null;
 		Gestor gestor = new Gestor();
 		paises = gestor.buscarTodosPaises();
+		paises.sort(Comparator.comparing(Pais::getDescripcionPais));
 		return paises;
 	}
 
@@ -71,6 +74,7 @@ public class Controlador {
 		ArrayList<Aeropuerto> aeropuertos = null;
 		Gestor gestor = new Gestor();
 		aeropuertos = gestor.buscarTodosAeropuertos();
+		aeropuertos.sort(Comparator.comparing(Aeropuerto::getNombreAeropuerto));
 		return aeropuertos;
 	}
 
@@ -78,6 +82,7 @@ public class Controlador {
 		ArrayList<Aerolinea> aerolineas = null;
 		Gestor gestor = new Gestor();
 		aerolineas = gestor.buscarTodosAerolineas();
+		aerolineas.sort(Comparator.comparing(Aerolinea::getNombreAerolinea));
 		return aerolineas;
 	}
 
