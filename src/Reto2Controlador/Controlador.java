@@ -141,4 +141,11 @@ public class Controlador {
 		Gestor gestor = new Gestor();
 		return gestor.insertarVuelo(vuelo);
 	}
+
+	public int getSumaVuelos() {
+		Gestor gestor = new Gestor();
+		return gestor.getSumaVuelos();
+	
+	}
+
 }

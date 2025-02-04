@@ -213,17 +213,17 @@ public class Gestor {
 			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 			sentencia = conexion .createStatement();
 			String sql;
-			if(vuelo.getEventoVueltaID() != null) {
-				sql=  SQLQueries.INSERT_VUELOIDA+ vuelo.getViajeID().getViajeID()+ SQLQueries.SEPARATOR + vuelo.getNombreEvento()+ SQLQueries.SEPARATOR + vuelo.getPrecio() 
+			if(vuelo.getEventoVueltaID()!= null) {
+				sql=  SQLQueries.INSERT_VUELOIDAVUELTA+ vuelo.getViajeID().getViajeID()+ SQLQueries.SEPARATOR + vuelo.getNombreEvento()+ SQLQueries.SEPARATOR + vuelo.getPrecio() 
 				+ SQLQueries.SEPARATOR + vuelo.getCodigoVuelo() + SQLQueries.SEPARATOR + vuelo.getFechaSalida() + SQLQueries.SEPARATOR + vuelo.getHoraSalida()
-				+ SQLQueries.SEPARATOR + vuelo.getDuracionVuelo() + SQLQueries.SEPARATOR + vuelo.getAerolinea() + SQLQueries.SEPARATOR + vuelo.getAeropuertoOrigen()
-				+ SQLQueries.SEPARATOR + vuelo.getAeropuertoDestino() + SQLQueries.SEPARATOR + vuelo.getEventoVueltaID() + SQLQueries.END_BLOCK;
+				+ SQLQueries.SEPARATOR + vuelo.getDuracionVuelo() + SQLQueries.SEPARATOR + vuelo.getAerolinea().getCodigoAerolinea() + SQLQueries.SEPARATOR + vuelo.getAeropuertoOrigen().getCodigoAeropuerto()
+				+ SQLQueries.SEPARATOR + vuelo.getAeropuertoDestino().getCodigoAeropuerto() + SQLQueries.SEPARATOR + vuelo.getEventoVueltaID().getEventoID() + SQLQueries.END_BLOCK;
 			}
 			else {
-				sql=	 SQLQueries.INSERT_VUELOIDAVUELTA+ vuelo.getViajeID().getViajeID()+ SQLQueries.SEPARATOR + vuelo.getNombreEvento()+ SQLQueries.SEPARATOR + vuelo.getPrecio()
+				sql=	 SQLQueries.INSERT_VUELOIDA+ vuelo.getViajeID().getViajeID()+ SQLQueries.SEPARATOR + vuelo.getNombreEvento()+ SQLQueries.SEPARATOR + vuelo.getPrecio()
 				+ SQLQueries.SEPARATOR + vuelo.getCodigoVuelo() + SQLQueries.SEPARATOR + vuelo.getFechaSalida() + SQLQueries.SEPARATOR + vuelo.getHoraSalida()
-				+ SQLQueries.SEPARATOR + vuelo.getDuracionVuelo() + SQLQueries.SEPARATOR + vuelo.getAerolinea() + SQLQueries.SEPARATOR + vuelo.getAeropuertoOrigen()
-				+ SQLQueries.SEPARATOR + vuelo.getAeropuertoDestino()+ SQLQueries.END_BLOCK;
+				+ SQLQueries.SEPARATOR + vuelo.getDuracionVuelo() + SQLQueries.SEPARATOR + vuelo.getAerolinea().getCodigoAerolinea() + SQLQueries.SEPARATOR + vuelo.getAeropuertoOrigen().getCodigoAeropuerto()
+				+ SQLQueries.SEPARATOR + vuelo.getAeropuertoDestino().getCodigoAeropuerto()+ SQLQueries.END_BLOCK;
 		
 			}
 			sentencia.executeUpdate(sql);
@@ -838,5 +838,44 @@ public class Gestor {
 		}
 		return valido;
 	
+	}
+	public int getSumaVuelos() {
+		Connection conexion = null;
+		PreparedStatement sentencia = null;
+		ResultSet resultSet = null;
+		int suma = 0;
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+			String sql = SQLQueries.SELECT_SUMA_VUELO;
+			sentencia = conexion.prepareStatement(sql);
+			resultSet = sentencia.executeQuery();
+			 
+			if (resultSet.isBeforeFirst() &&resultSet.next()) {
+ suma = Integer.parseInt(resultSet.getString("max(EventoID)"));
+
+			}
+		} catch (SQLException sqle) {
+			System.out.println("Error con la base de datos" + sqle.getMessage());
+		} catch (Exception e) {
+			System.out.println("Error génerico" + e.getMessage());
+		}
+
+		try {
+			resultSet.close();
+		} catch (Exception e) {
+			System.out.println("Error al cerrar el resultSet" + e.getMessage());
+		}
+		try {
+			sentencia.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error al cerrar la sentencia" + sqle.getMessage());
+		}
+		try {
+			conexion.close();
+		} catch (SQLException sqle) {
+			System.out.println("Error al cerrar la conexión" + sqle.getMessage());
+		}
+		return suma;
 	}
 }
