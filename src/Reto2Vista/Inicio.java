@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -29,7 +30,11 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import Reto2Controlador.Controlador;
 import java.awt.event.ActionListener;
@@ -62,7 +67,7 @@ public class Inicio extends JFrame {
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1000, 650);
-		setLocationRelativeTo(null); 
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 
@@ -126,9 +131,10 @@ public class Inicio extends JFrame {
 				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
 				if (viajeSeleccionado != null) {
 					controlador.generarOfertaViaje(viajeSeleccionado);
-					
+
 				} else {
-					JOptionPane.showMessageDialog(null,"No se ha seleccionado ningún viaje.", "Error al generar oferta cliente | "+agencia.getNombreAgencia(),
+					JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún viaje.",
+							"Error al generar oferta cliente | " + agencia.getNombreAgencia(),
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -143,7 +149,7 @@ public class Inicio extends JFrame {
 		JButton btnCrearViaje = new JButton("Crear viaje");
 		btnCrearViaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NuevoViaje nuevoviaje = new NuevoViaje(agencia,paises);
+				NuevoViaje nuevoviaje = new NuevoViaje(agencia, paises);
 				setVisible(false);
 				nuevoviaje.setVisible(true);
 			}
@@ -160,8 +166,8 @@ public class Inicio extends JFrame {
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(327, 392, 647, 208);
 		contentPane.add(scrollPane_1);
-	    scrollPane.getViewport().setBackground(Color.WHITE);
-	    scrollPane_1.getViewport().setBackground(Color.WHITE);
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane_1.getViewport().setBackground(Color.WHITE);
 		modeloViajes = new DefaultTableModel();
 		modeloViajes.addColumn("ViajeID");
 		modeloViajes.addColumn("Nombre");
@@ -173,12 +179,16 @@ public class Inicio extends JFrame {
 		tableViajes.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		tableViajes.setRowHeight(25);
 
-
 		tableViajes.setDefaultEditor(Object.class, null);
 		tableViajes.getColumnModel().getColumn(0).setMinWidth(0);
 		tableViajes.getColumnModel().getColumn(0).setMaxWidth(0);
 		tableViajes.getTableHeader().setReorderingAllowed(false);
 		tableViajes.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		TableRowSorter<TableModel> sort = new TableRowSorter<>(modeloViajes);
+		tableViajes.setRowSorter(sort);
+
+		sort.setSortKeys(Collections.singletonList(new RowSorter.SortKey(3, SortOrder.ASCENDING)));
+
 		scrollPane.setViewportView(tableViajes);
 
 		modeloEventos = new DefaultTableModel();
@@ -197,6 +207,10 @@ public class Inicio extends JFrame {
 		tableEventos.getTableHeader().setReorderingAllowed(false);
 		tableEventos.getTableHeader().setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		tableEventos.setRowHeight(25);
+		TableRowSorter<TableModel> sortEventos = new TableRowSorter<>(modeloEventos);
+		tableEventos.setRowSorter(sortEventos);
+		sortEventos.setSortKeys(Collections.singletonList(new RowSorter.SortKey(3, SortOrder.ASCENDING)));
+
 		tableViajes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
 				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
@@ -220,12 +234,12 @@ public class Inicio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Viaje viajeSeleccionado = viajeSeleccionado(agencia);
 				if (viajeSeleccionado != null) {
-				NuevoEvento nuevoevento = new NuevoEvento(viajeSeleccionado,agencia,aeropuertos,aerolineas);
-				setVisible(false);
-				nuevoevento.setVisible(true);
+					NuevoEvento nuevoevento = new NuevoEvento(viajeSeleccionado, agencia, aeropuertos, aerolineas);
+					setVisible(false);
+					nuevoevento.setVisible(true);
 				}
 			}
-			
+
 		});
 		btnCrearEvento.setForeground(Color.BLACK);
 		btnCrearEvento.setFont(new Font("Segoe UI", Font.BOLD, 20));
@@ -280,7 +294,7 @@ public class Inicio extends JFrame {
 	}
 
 	public void mostrarEventos(Viaje viaje) {
-		
+
 		btnCrearEvento.setVisible(true);
 		tableEventos.setVisible(true);
 		lblEventos.setVisible(true);
