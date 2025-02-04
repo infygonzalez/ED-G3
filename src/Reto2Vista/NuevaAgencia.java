@@ -187,41 +187,32 @@ public class NuevaAgencia extends JFrame {
 		String Contraseña = txtContraseña.getText();
 		String Rcontraseña = txtRepetirContraseña.getText();
 		
-
-		boolean valido = true;
+		ArrayList<String> mensajeError = new ArrayList<String>();
 		if ((NombreAgencia.length() >= 1 || NombreAgencia.length() >= 30) == false) {
-			JOptionPane.showMessageDialog(null, "Nombre de agencia incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			mensajeError.add( "Nombre de agencia incorrecto.");
 		}
 		if (TipoAgencia.length() == 0) {
-			JOptionPane.showMessageDialog(null, "Tipo de agencia incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			mensajeError.add( "Tipo de agencia incorrecto");
 		}
 		if (NumeroEmpleados.length() == 0) {
-			JOptionPane.showMessageDialog(null, "Número de empleados incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			mensajeError.add( "Número de empleados incorrecto");
 		}
 		if (ColorMarca.length() != 7) {
-			JOptionPane.showMessageDialog(null, "Color de marca incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			mensajeError.add( "Color de marca incorrecto");
 		}
 		if (Logo.length() == 0) {
-			JOptionPane.showMessageDialog(null, "Logo incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			mensajeError.add( "Logo incorrecto");
 		}
 		if (Contraseña.length() == 0) {
-			JOptionPane.showMessageDialog(null, "Contraseña incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			mensajeError.add( "Contraseña incorrecto");
 		}
 		if(Rcontraseña.length()==0) {
-			JOptionPane.showMessageDialog(null, "El campo repetir contraseña no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			mensajeError.add( "El campo repetir contraseña no puede estar vacio");
 		}
 		if (Contraseña.equals( Rcontraseña) == false) {
-			JOptionPane.showMessageDialog(null, "Las dos contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			mensajeError.add( "Las dos contraseñas no coinciden");
 		}
-		if (valido == true) {
+		if (mensajeError.size()==0) {
 			Agencia agencia = new Agencia();
 			agencia.setNombreAgencia(NombreAgencia);
 			agencia.setColorMarca(ColorMarca);
@@ -232,7 +223,10 @@ public class NuevaAgencia extends JFrame {
 			if(controlador.insertarAgencia(agencia)== true) {
 				JOptionPane.showMessageDialog(null, "Agencia creada correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
 			}
+		} else {
+			JOptionPane.showMessageDialog(null,"- " + String.join("\n - ", mensajeError), "Error al crear agencia ",
+					JOptionPane.ERROR_MESSAGE);
 		}
-		return valido;
+		return mensajeError.size()==0;
 	}
 }
