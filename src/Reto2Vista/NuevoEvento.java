@@ -33,6 +33,7 @@ import Reto2Modelo.Alojamiento;
 import Reto2Modelo.Otros;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
@@ -269,6 +270,19 @@ public class NuevoEvento extends JFrame {
 		panelAlojamiento.add(chooserEntrada);
 
 		JButton btnBuscarAlojamiento = new JButton("Buscar alojamiento en Booking");
+		btnBuscarAlojamiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+				    try {
+						Desktop.getDesktop().browse(new URI("https://www.booking.com/"));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		btnBuscarAlojamiento.setBackground(new Color(255, 255, 255));
 		btnBuscarAlojamiento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		btnBuscarAlojamiento.setBounds(0, 200, 489, 41);
@@ -427,6 +441,19 @@ public class NuevoEvento extends JFrame {
 		lblqueTipoDe.setBounds(0, 0, 250, 41);
 		panelVuelo.add(lblqueTipoDe);
 		JButton btnBuscarViaje = new JButton("Buscar viaje en SkyScanner");
+		btnBuscarViaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+				    try {
+						Desktop.getDesktop().browse(new URI("https://www.skyscanner.es/"));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		btnBuscarViaje.setBackground(new Color(255, 255, 255));
 		btnBuscarViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		btnBuscarViaje.setBounds(0, 182, 488, 41);

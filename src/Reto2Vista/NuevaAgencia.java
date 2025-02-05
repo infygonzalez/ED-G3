@@ -82,7 +82,7 @@ public class NuevaAgencia extends JFrame {
 		contentPane.add(txtNombreAgencia);
 		txtNombreAgencia.setColumns(10);
 
-		txtColor = new JTextField();
+		txtColor = new JTextField("#");
 		txtColor.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		txtColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -198,7 +198,7 @@ public class NuevaAgencia extends JFrame {
 			mensajeError.add( "Número de empleados incorrecto");
 		}
 		if (ColorMarca.length() != 7) {
-			mensajeError.add( "Color de marca incorrecto");
+			mensajeError.add( "Color de marca incorrecto, tiene que tener 7 caracteres incluyendo el #");
 		}
 		if (Logo.length() == 0) {
 			mensajeError.add( "Logo incorrecto");
