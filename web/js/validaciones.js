@@ -1,6 +1,6 @@
 
 for (var i = 0; i < document.querySelectorAll(".desconectar").length; i++) {
-    document.getElementsByClassName("desconectar")[i].pushEventListener('click', desconectar, false);
+    document.getElementsByClassName("desconectar")[i].addEventListener('click', desconectar, false);
 }
 function desconectar() {
     document.cookie = 'PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
