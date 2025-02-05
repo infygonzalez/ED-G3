@@ -27,7 +27,7 @@ function tipoEvento(radio) {
     document.getElementById("otros").style = (radio.value == "otro") ? "display: block" : "display: none";
 }
 function tipoVuelo() {
-    document.getElementById("vuelovuelta").style = (document.getElementById('ida-vuelta').checked == true && document.getElementById('vuelo').value == "vuelo") ? "display: block" : "display: none";
+    document.getElementById("vuelovuelta").style = (document.getElementById('ida-vuelta').checked == true && document.getElementById('vuelo').checked== true) ? "display: block" : "display: none";
 }
 function calcularDias() {
     if(document.getElementById("FechaInicio").value != "" && document.getElementById("FechaFin").value != "" ){
