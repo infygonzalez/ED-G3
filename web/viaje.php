@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php include_once('conexion-php/agencia.php'); ?>
-  <title>Registar Viaje | <?php echo $nombreAgencia; ?></title>
+  <title>Registrar Viaje | <?php echo $nombreAgencia; ?></title>
 
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -38,20 +38,15 @@
         <div class="campos">
           <fieldset>
             <label for="pais">Pais</label>
-            <input type="text" list="pais">
-            <datalist id="pais">
-              <option>Novios</option>
-              <option>Senior</option>
-              <option>Grupos</option>
-              <option>Grandes viajes(destinos exoticos)</option>
-              <option>Combinado(vuelo+hotel)</option>
-              <option>Escapadas</option>
-              <option>Familias con niños menores</option>
+            <select id="pais">
+              <option></option>
+              <?php include_once('conexion-php/pais.php'); ?>
+            </select>
           </fieldset>
           <fieldset>
             <label for="TipoViaje">Tipo de viaje</label>
-            <input type="text" list="TipoViaje">
-            <datalist id="TipoViaje">
+            <select id="TipoViaje">
+              <option></option>
               <option>Novios</option>
               <option>Senior</option>
               <option>Grupos</option>
@@ -59,21 +54,22 @@
               <option>Combinado(vuelo+hotel)</option>
               <option>Escapadas</option>
               <option>Familias con niños menores</option>
+            </select>
           </fieldset>
 
           <fieldset>
             <label for="FechaInicio">Fecha de inicio</label>
-            <input type="date" name="FechaInicio">
+            <input type="date" onchange="calcularDias()" id="FechaInicio" name="FechaInicio">
           </fieldset>
 
           <fieldset>
             <label for="FechaFin">Fecha de fin</label>
-            <input type="date" name="FechaFin">
+            <input type="date" onchange="calcularDias()" id="FechaFin" name="FechaFin">
           </fieldset>
         </div>
 
-        <fieldset class="none">
-          <label for="DuracionViaje"></label>
+        <fieldset>
+          <span id="DuracionViaje"></span>
         </fieldset>
 
         <fieldset>

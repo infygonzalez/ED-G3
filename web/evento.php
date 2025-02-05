@@ -31,8 +31,11 @@
             <section id="evento">
                 <h1>Registrar Evento</h1>
                 <fieldset>
-                    <label for="vuelo-ida">Elegir Viaje</label>
-                    <input type="text" id="vuelo-ida" name="servicio" required>
+                    <label for="viajeID">Elegir Viaje</label>
+                    <select id="viajeID" required>
+                        <option></option>
+                        <?php include('conexion-php/viajes.php'); ?>
+                    </select>
                 </fieldset>
                 <fieldset>
                     <label for="vuelo-ida">Nombre del Evento</label>
@@ -40,46 +43,45 @@
                 </fieldset>
                 <fieldset class="inline">
                     <legend>Tipo de Evento</legend>
-                    <input type="radio" id="vuelo" name="evento" value="vuelo">
+                    <input type="radio" id="vuelo" name="evento" onclick="tipoEvento(this)" value="vuelo">
                     <label for="vuelo">Vuelo</label>
 
-                    <input type="radio" id="alojamiento" name="evento" value="alojamiento">
-                    <label for="alojamiento">Alojamiento</label>
+                    <input type="radio" id="alojamientoRadio" name="evento" onclick="tipoEvento(this)"
+                        value="alojamientoRadio">
+                    <label for="alojamientoRadio">Alojamiento</label>
 
-                    <input type="radio" id="otro" name="evento" value="otro">
+                    <input type="radio" id="otro" name="evento" onclick="tipoEvento(this)" value="otro">
                     <label for="otro">Otros</label>
                 </fieldset>
 
             </section>
 
             <section id="vuelos">
-                <h2>Nuevo Vuelo</h2>
+                <h2>Vuelo de ida</h2>
 
                 <fieldset class="inline">
                     <legend>Que tipo de vuelo es?</legend>
-                    <input type="radio" id="ida" name="servicio" value="ida" checked>
+                    <input type="radio" id="ida" name="servicio" onclick="tipoVuelo()" value="ida" checked>
                     <label for="ida">Ida</label>
-                    <input type="radio" id="ida-vuelta" name="servicio" value="ida-vuelta">
+                    <input type="radio" id="ida-vuelta" name="servicio" onclick="tipoVuelo()" value="ida-vuelta">
                     <label for="ida-vuelta">Ida/Vuelta</label>
                 </fieldset>
 
                 <div class="campos">
                     <fieldset>
                         <label for="aeropuertoOrigen">Aeropuerto de Origen</label>
-                        <input type="text" list="origen" name="aeropuertoOrigen" required>
-                        <datalist id="aeropuertoOrigen">
-                            <option>Opcion1</option>
-                            <option>Opcion2</option>
-                            <option>Opcion3</option>
+                        <select id="aeropuertoOrigen" required>
+                            <option></option>
+                            <?php include('conexion-php/aeropuerto.php'); ?>
+                        </select>
                     </fieldset>
 
                     <fieldset>
                         <label for="aeropuertoDestino">Aeropuerto de destino</label>
-                        <input type="text" list="aeropuertoDestino" name="aeropuertoDestino" required>
-                        <datalist id="aeropuertoDestino">
-                            <option>Opcion1</option>
-                            <option>Opcion2</option>
-                            <option>Opcion3</option>
+                        <select id="aeropuertoDestino" required>
+                            <option></option>
+                            <?php include('conexion-php/aeropuerto.php'); ?>
+                        </select>
                     </fieldset>
 
                     <fieldset>
@@ -89,11 +91,10 @@
 
                     <fieldset>
                         <label for="aerolinea">Aerolinea</label>
-                        <input type="text" list="aerolinea" name="aerolinea" required>
-                        <datalist id="aerolinea">
-                            <option>Opcion1</option>
-                            <option>Opcion2</option>
-                            <option>Opcion3</option>
+                        <select id="aerolinea" required>
+                            <option></option>
+                            <?php include('conexion-php/aerolinea.php'); ?>
+                        </select>
                     </fieldset>
 
                     <fieldset>
@@ -107,8 +108,11 @@
                     </fieldset>
 
                     <fieldset>
-                        <label for="PrecioVuelo">Precios (€)</label>
-                        <input type="number" id="PrecioVuelo" name="PrecioVuelo" step="0.01" required>
+                        <label for="PrecioVuelo">Precio</label>
+                        <div class="precio">
+                            <input type="number" id="PrecioVuelo" name="PrecioVuelo" step="0.1" required>
+                            <span>€</span>
+                        </div>
                     </fieldset>
 
                     <fieldset>
@@ -130,11 +134,10 @@
 
                     <fieldset>
                         <label for="aerolineaVuelta">Aerolinea</label>
-                        <input type="text" list="aerolineaVuelta" name="aerolineaVuelta" required>
-                        <datalist id="aerolineaVuelta">
-                            <option>Opcion1</option>
-                            <option>Opcion2</option>
-                            <option>Opcion3</option>
+                        <select id="aerolineaVuelta" required>
+                            <option></option>
+                            <?php include('conexion-php/aerolinea.php'); ?>
+                        </select>
                     </fieldset>
 
                     <fieldset>
@@ -181,23 +184,29 @@
 
                 <div class="campos">
                     <fieldset>
-                        <label for="PrecioAlojamiento">Precios (€)</label>
-                        <input type="number" id="PrecioAlojamiento" name="PrecioAlojamiento" step="0.01" required>
+                        <label for="PrecioAlojamiento">Precio</label>
+                        <div class="precio">
+                            <input type="number" id="PrecioAlojamiento" name="PrecioAlojamiento" step="0.1" required>
+                            <span>€</span>
+                        </div>
                     </fieldset>
 
                     <fieldset>
                         <label for="TipoHabitacion">Tipo de Habitación</label>
-                        <input type="text" list="TipoHabitacion" name="TipoHabitacion" required>
-                        <datalist id="TipoHabitacion">
-                            <option>Opcion1</option>
-                            <option>Opcion2</option>
-                            <option>Opcion3</option>
+                        <select id="TipoHabitacion" required>
+                            <option></option>
+                            <option value="DB">Doble</option>
+                            <option value="DUI">Doble con uso individual</option>        
+                            <option value="SIN">Individual</option>                   
+                            <option value="TPL">Triple</option>                   
+                         </select>
+
                     </fieldset>
                 </div>
 
             </section>
 
-            <section class="otros">
+            <section id="otros">
                 <h2>Otros Servicios</h2>
 
                 <div class="campos">
@@ -207,8 +216,11 @@
                     </fieldset>
 
                     <fieldset>
-                        <label for="PrecioOtros">Precios (€)</label>
-                        <input type="number" id="PrecioOtros" name="PrecioOtros" step="0.01" required>
+                        <label for="PrecioOtros">Precio</label>
+                        <div class="precio">
+                            <input type="number" id="PrecioOtros" name="PrecioOtros" step="0.1" required>
+                            <span>€</span>
+                        </div>
                     </fieldset>
                 </div>
 
@@ -219,7 +231,7 @@
 
 
             </section>
-            <button type="submit" class="botonformulario">Guardar servicio</button>
+            <button type="submit" class="botonformulario">Guardar evento</button>
         </form>
 
     </main>
