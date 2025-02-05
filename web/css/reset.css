@@ -252,7 +252,7 @@ textarea::placeholder {font-size: 1rem;}
         width: 100%;
         min-width: 100%;
         margin: 0;
-        background: aliceblue;
+        background: var(--coloragencia);
         z-index: 9;
     }
 
@@ -261,7 +261,7 @@ textarea::placeholder {font-size: 1rem;}
         opacity: 0.5;
     }
 
-    header nav a {color: black;}
+    header nav a {color:  var(--coloragenciatexto);}
 
     header nav label {display: block;}
 
