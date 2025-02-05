@@ -54,8 +54,10 @@
 .inline {
     display: inline-block;
     align-items: center;
-    gap: 10px;
     padding: 0;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    gap: 10px;
 }
 
 .campos {
@@ -95,6 +97,18 @@
 }
 .textoagencia{
     color: var(--coloragenciatexto)
+}
+#vuelos,#vuelovuelta,#alojamientos,#otros{
+    display:none;
+}
+.precio{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+span{
+    font-size: 1.2rem;
+    margin-left: 5px;
 }
 @media (max-width: 768px) {
     .campos fieldset {

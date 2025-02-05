@@ -212,11 +212,18 @@ input[type="text"],
 input[type="date"],
 input[type="password"],
 input[type="radio"],
-textarea, button {
+textarea, button ,select{
     border-radius: .7rem;
     padding: .8rem;
     border: 1px solid #959595;
     font-family: inherit;
+}
+select{
+    width: 100%;
+}
+#PrecioVuelo,#PrecioAlojamiento,#PrecioOtros{
+    width: 100%;
+
 }
 
 input[type="time"]::placeholder,
@@ -233,6 +240,8 @@ textarea::placeholder {font-size: 1rem;}
 }
 .botonformulario{
     width: 800px;
+    background-color: var(--coloragencia);
+    color: var(--coloragenciatexto);
 }
 @media (max-width: 768px) {
     header nav ul {
@@ -291,7 +300,7 @@ textarea::placeholder {font-size: 1rem;}
     input[type="text"], 
     input[type="date"], 
     input[type="radio"], 
-    textarea, button,.botonformulario {
+    textarea, button,.botonformulario,select {
         width: 100%;
         box-sizing: border-box;
     }
