@@ -103,7 +103,7 @@ public class Inicio extends JFrame {
 
 		JLabel lblNombreAgencia = new JLabel(agencia.getNombreAgencia());
 		lblNombreAgencia.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblNombreAgencia.setForeground(new Color(255, 255, 255));
+		lblNombreAgencia.setForeground(colorTexto(Color.decode(agencia.getColorMarca())));
 		lblNombreAgencia.setBounds(15, 196, 256, 58);
 		panel.add(lblNombreAgencia);
 
@@ -410,4 +410,9 @@ public class Inicio extends JFrame {
 		}
 
 	}
+	public static Color colorTexto(Color fondo) {
+        double iluminacion = (0.299 * fondo.getRed() + 0.587 * fondo.getGreen() + 0.114 * fondo.getBlue()) / 255;
+        return iluminacion < 0.5 ? Color.WHITE : Color.BLACK;
+    }
+	
 }

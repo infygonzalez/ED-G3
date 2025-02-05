@@ -119,7 +119,7 @@ public class NuevoViaje extends JFrame {
 
 		JLabel lblNombreAgencia = new JLabel(agencia.getNombreAgencia());
 		lblNombreAgencia.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblNombreAgencia.setForeground(new Color(255, 255, 255));
+		lblNombreAgencia.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
 		lblNombreAgencia.setBounds(15, 196, 256, 38);
 		panel.add(lblNombreAgencia);
 
@@ -150,7 +150,7 @@ public class NuevoViaje extends JFrame {
 		panel.add(btnGenerarOfertaViaje);
 
 		JLabel lblTitulo2 = new JLabel("Crear viaje");
-		lblTitulo2.setForeground(Color.WHITE);
+		lblTitulo2.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
 		lblTitulo2.setFont(new Font("Segoe UI", Font.BOLD, 40));
 		lblTitulo2.setBounds(15, 244, 256, 54);
 		panel.add(lblTitulo2);
@@ -295,7 +295,7 @@ public class NuevoViaje extends JFrame {
 		if (FechaFin.length() == 0) {
 			mensajeError.add("Fecha de fin no puede estar vacio");
 		}
-		if (chooserFechaIncio.getDate().before(chooserFechaFin.getDate()) == false) {
+		if ((chooserFechaIncio.getDate().before(chooserFechaFin.getDate()) || chooserFechaIncio.getDate().equals(chooserFechaFin.getDate())) == false) {
 			mensajeError.add("Fecha fin no puede ser antes que fecha inicio");
 		}
 		if (Descripcion.length() == 0) {

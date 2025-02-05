@@ -31,6 +31,7 @@ import Reto2Modelo.Viaje;
 import Reto2Modelo.Vuelo;
 import Reto2Modelo.Alojamiento;
 import Reto2Modelo.Otros;
+import Reto2Vista.Inicio;
 
 import java.awt.Color;
 import java.awt.Desktop;
@@ -110,6 +111,7 @@ public class NuevoEvento extends JFrame {
 	private JButton btnDesconectar;
 	private String TipoHabitacion = "";
 	private JTextField txtDuracionVueloVuelta;
+	
 
 	public NuevoEvento(Viaje viaje, Agencia agencia, ArrayList<Aeropuerto> aeropuertos,
 			ArrayList<Aerolinea> aerolineas) {
@@ -154,7 +156,7 @@ public class NuevoEvento extends JFrame {
 
 		JLabel lblNombreAgencia = new JLabel(agencia.getNombreAgencia());
 		lblNombreAgencia.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblNombreAgencia.setForeground(new Color(255, 255, 255));
+		lblNombreAgencia.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
 		lblNombreAgencia.setBounds(15, 196, 256, 38);
 		panelIzquierda.add(lblNombreAgencia);
 
@@ -186,7 +188,8 @@ public class NuevoEvento extends JFrame {
 		panelIzquierda.add(btnGuardar);
 
 		JLabel lblCrearEvento = new JLabel("Crear evento");
-		lblCrearEvento.setForeground(Color.WHITE);
+		lblCrearEvento.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
+
 		lblCrearEvento.setFont(new Font("Segoe UI", Font.BOLD, 40));
 		lblCrearEvento.setBounds(15, 244, 256, 54);
 		panelIzquierda.add(lblCrearEvento);
