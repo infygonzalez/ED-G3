@@ -1,6 +1,6 @@
 
 for (var i = 0; i < document.querySelectorAll(".desconectar").length; i++) {
-    document.getElementsByClassName("desconectar")[i].addEventListener('click', desconectar, false);
+    document.getElementsByClassName("desconectar")[i].pushEventListener('click', desconectar, false);
 }
 function desconectar() {
     document.cookie = 'PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -42,4 +42,45 @@ function calcularDias() {
     }else {
         document.getElementById("DuracionViaje").innerHTML = ""
     }
+}
+function validarViaje() {
+    let NombreViaje = document.forms["RegistrarViaje"]["NombreViaje"].value;
+    let TipoViaje = document.forms["RegistrarViaje"]["TipoViaje"].value;
+    let Pais = document.forms["RegistrarViaje"]["pais"].value;
+    let FechaInicio = document.forms["RegistrarViaje"]["FechaInicio"].value;
+    let FechaFin = document.forms["RegistrarViaje"]["FechaFin"].value;
+    let Descripcion = document.forms["RegistrarViaje"]["DescripcionViaje"].value;
+    let ServiciosNoIncluidos = document.forms["RegistrarViaje"]["ServiciosNoIncluidos"].value;
+
+     mensajeError = [];
+    if ((NombreViaje.length >= 1 || NombreViaje.length >= 30) == false) {
+        mensajeError.push("Nombre no puede estar vacio");
+    }
+    if (TipoViaje.length == 0) {
+        mensajeError.push("Tipo de viaje no puede estar vacio");
+    }
+    if (Pais.length == 0) {
+        mensajeError.push("Pais no puede estar vacio");
+    }
+    if (FechaInicio.length == 0) {
+        mensajeError.push("Fecha de inicio no puede estar vacio");
+    }
+    if (FechaFin.length == 0) {
+        mensajeError.push("Fecha de fin no puede estar vacio");
+    }
+    if (FechaFin.length != 0 && FechaInicio.length != 0  &&((new Date(FechaInicio)<new Date(FechaFin) || new Date(FechaInicio)== new Date(FechaFin)) == false)) {
+        mensajeError.push("Fecha fin no puede ser antes que fecha inicio");
+    }
+    if (Descripcion.length == 0) {
+        mensajeError.push("Descripción no puede estar vacio");
+
+    }
+    if (ServiciosNoIncluidos.length == 0) {
+        mensajeError.push("Servicios no incluidos no puede estar vacio");
+    }
+    if (mensajeError.length != 0) {
+      alert("- " + mensajeError.join("\n - "))
+        
+    }
+    return mensajeError.length ==0;
 }

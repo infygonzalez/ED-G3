@@ -30,10 +30,11 @@
   <main>
     <section>
       <h1>Registrar Viaje</h1>
-      <form action="#" method="get" id="RegistrarViaje">
+      <form  action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validarViaje()"
+      method="post" id="RegistrarViaje">
         <fieldset>
           <label for="NombreViaje">Nombre del viaje</label>
-          <input type="text" name="NombreViaje" required placeholder="Escriba el nombre del viaje">
+          <input type="text" name="NombreViaje"  placeholder="Escriba el nombre del viaje">
         </fieldset>
         <div class="campos">
           <fieldset>
