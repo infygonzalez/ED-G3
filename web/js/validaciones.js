@@ -79,8 +79,135 @@ function validarViaje() {
         mensajeError.push("Servicios no incluidos no puede estar vacio");
     }
     if (mensajeError.length != 0) {
-      alert("- " + mensajeError.join("\n - "))
-        
+      alert("- " + mensajeError.join("\n - "))  
     }
     return mensajeError.length ==0;
 }
+function validarEvento() {
+    // Atributos comunes de todos los eventos
+    let NombreEvento =  document.forms["RegistrarEvento"]["nombre-evento"].value;
+    let TipoEvento =  document.forms["RegistrarEvento"]["tipoEventoRadio"].value;
+    let TipoVuelo =  document.forms["RegistrarEvento"]["tipoVuelo"].value;
+
+
+    let Precio = 0;
+    if (TipoEvento != null) {
+        switch (TipoEvento) {
+        case "alojamientoRadio":
+            Precio =   document.forms["RegistrarEvento"]["PrecioAlojamiento"].value;
+            break;
+        case "vuelo":
+            Precio = document.forms["RegistrarEvento"]["PrecioVuelo"].value;
+            break;
+        case "otro":
+            Precio = document.forms["RegistrarEvento"]["PrecioOtros"].value;
+            break;
+        }
+    }
+    // Atributos ALOJAMIENTO
+    let NombreHotel =  document.forms["RegistrarEvento"]["NombreHotel"].value;
+    let FechaEntrada_Alojamiento = document.forms["RegistrarEvento"]["FechaEntrada"].value;
+    let FechaSalida_Alojamiento = document.forms["RegistrarEvento"]["FechaSalida"].value;
+    let Ciudad = document.forms["RegistrarEvento"]["Ciudad"].value;
+    // Atributos OTROS
+    let Fecha_Otros =document.forms["RegistrarEvento"]["FechaOtros"].value;
+    let Descripcion = document.forms["RegistrarEvento"]["Descripción"].value;
+    // Atributos VUELO
+    let AeropuertoOrigen = document.forms["RegistrarEvento"]["aeropuertoOrigen"].value;
+    let AeropuertoDestino = document.forms["RegistrarEvento"]["aeropuertoDestino"].value;
+    // Atributos VUELO IDA
+    let Aerolinea = document.forms["RegistrarEvento"]["aerolinea"].value;
+    let CodigoVuelo =document.forms["RegistrarEvento"]["codigoVuelo"].value;
+    let DuracionVuelo = document.forms["RegistrarEvento"]["DuracionVuelo"].value;
+    let HoraSalida = document.forms["RegistrarEvento"]["HoraSalida"].value;
+    let FechaSalida =document.forms["RegistrarEvento"]["fechaSalida"].value;
+    // Atributos VUELO VUELTA
+    let AerolineaVuelta = document.forms["RegistrarEvento"]["aerolineaVuelta"].value;
+    let CodigoVueloVuelta = document.forms["RegistrarEvento"]["codigoVueloVuelta"].value;
+    let HoraSalidaVuelta =document.forms["RegistrarEvento"]["horaSalidaVuelta"].value;
+    let FechaSalidaVuelta = document.forms["RegistrarEvento"]["fechaSalidaVuelta"].value;
+    let DuracionVueloVuelta = document.forms["RegistrarEvento"]["DuracionVueloVuelta"].value;;
+    
+    mensajeError = [];
+    if (NombreEvento.length < 1 || NombreEvento.length > 30) {
+        mensajeError.push("El nombre del evento no puede estar vacío");
+    }
+    if (TipoEvento == null) {
+        mensajeError.push("El tipo del Evento no puede estar vacío");
+    } else {
+        if (TipoEvento=="alojamientoRadio") {
+            if (NombreHotel.length < 1 || NombreHotel.length > 30) {
+                mensajeError.push("El nombre del hotel no puede estar vacío");
+            }
+            if (FechaEntrada_Alojamiento.length == 0) {
+                mensajeError.push("La fecha de entrada al hotel no puede estar vacía");
+            }
+            if (FechaSalida_Alojamiento.length == 0) {
+                mensajeError.push("La fecha de salida al hotel no puede estar vacío");
+            }
+            if (Ciudad.length == 0) {
+                mensajeError.push("El nombre de la ciudad no puede estar vacío");
+            }
+            if (TipoHabitacion.length == 0) {
+                mensajeError.push("El tipo de habitación no puede estar vacío");
+            }
+    
+        }
+        if (TipoEvento=="vuelo" || TipoVuelo=="ida-vuelta") {
+            if (AeropuertoOrigen.length == 0) {
+                mensajeError.push("El aeropuerto de origen no puede estar vacío");
+            }
+            if (AeropuertoDestino.length == 0) {
+                mensajeError.push("El aeropuerto de destino no puede estar vacío");
+            }
+            if (Aerolinea.length == 0) {
+                mensajeError.push("El nombre de la aerolinea no puede estar vacío");
+            }
+            if (CodigoVuelo.length == 0) {
+                mensajeError.push("El codigo del vuelo no puede estar vacío");
+            }
+            if (HoraSalida.length == 0) {
+                mensajeError.push("La hora de salida del vuelo no puede estar vacía");
+            }
+            if (DuracionVuelo.length == 0) {
+                mensajeError.push("La duración del vuelo no puede estar vacía");
+            }
+            if (FechaSalida.length == 0) {
+                mensajeError.push("La fecha de salida del vuelo no puede estar vacía");
+            }
+            if (TipoVuelo=="ida-vuelta") {
+    
+                if (AerolineaVuelta.length == 0) {
+                    mensajeError.push("El nombre de la aerolinea de vuelta no puede estar vacío");
+                }
+                if (CodigoVueloVuelta.length == 0) {
+                    mensajeError.push("El codigo del vuelo de vuelta no puede estar vacío");
+                }
+                if (HoraSalidaVuelta.length == 0) {
+                    mensajeError.push("La hora de salida del vuelo de vuelta no puede estar vacía");
+                }
+                if (FechaSalidaVuelta.length == 0) {
+                    mensajeError.push("La fecha de salida del vuelo de vuelta no puede estar vacía");
+                }
+                if (DuracionVueloVuelta.length == 0) {
+                    mensajeError.push("La duración del vuelo de vuelta no puede estar vacía");
+                }
+            }
+        }
+        if (TipoEvento=="otro") {
+            if (Fecha_Otros.length == 0) {
+                mensajeError.push("La fecha del evento no puede estar vacía");
+            }
+            if (Descripcion.length == 0) {
+                mensajeError.push("La descripcion evento no puede estar vacía");
+            }
+        }
+    }
+    if (mensajeError.length != 0) {
+        alert("- " + mensajeError.join("\n - "))  
+      }
+    
+    return mensajeError.length == 0;
+    
+    }
+    
