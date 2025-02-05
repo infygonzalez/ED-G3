@@ -2,34 +2,34 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php include_once('conexion-php/agencia.php'); ?>
-  <title><?php echo $nombreAgencia; ?></title>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include_once('conexion-php/agencia.php'); ?>
+    <title>Registrar Evento | <?php echo $nombreAgencia; ?></title>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <script src="js/validaciones.js"></script>
 </head>
 
 <body id="top">
-  <header>
-    <a href="/" id="logo"><img src="<?php echo $logoAgencia; ?>;" alt=""></a>
-    <nav>
-      <label for="ico">☰</label>
-      <input id="ico" type="checkbox">
-      <ul>
-        <li><a href="viaje.php"><i class="fa-sharp fa-solid fa-plane"></i>Registrar Viaje</a></li>
-        <li><a href="evento.php"><i class="fa-regular fa-calendar-days"></i>Registrar Evento</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <a href="/" id="logo"><img src="<?php echo $logoAgencia; ?>;" alt=""></a>
+        <nav>
+            <label for="ico">☰</label>
+            <input id="ico" type="checkbox">
+            <ul>
+                <li><a href="viaje.php"><i class="fa-sharp fa-solid fa-plane"></i>Registrar Viaje</a></li>
+                <li><a href="evento.php"><i class="fa-regular fa-calendar-days"></i>Registrar Evento</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main>
-  <form>
-        <section id="evento">
-            <h1>Registrar Evento</h1>
-            <h2>Nuevo Evento</h2>
-            
+    <main>
+        <form>
+            <section id="evento">
+                <h1>Registrar Evento</h1>
                 <fieldset>
                     <label for="vuelo-ida">Elegir Viaje</label>
                     <input type="text" id="vuelo-ida" name="servicio" required>
@@ -40,8 +40,8 @@
                 </fieldset>
                 <fieldset class="inline">
                     <legend>Tipo de Evento</legend>
-                    <input type="radio" id="vuelos0" name="evento" value="vuelos0">
-                    <label for="vuelos0">Vuelo</label>
+                    <input type="radio" id="vuelos" name="evento" value="vuelos0">
+                    <label for="vuelos">Vuelo</label>
 
                     <input type="radio" id="alojamiento" name="evento" value="alojamiento">
                     <label for="alojamiento">Alojamiento</label>
@@ -49,12 +49,12 @@
                     <input type="radio" id="otros" name="evento" value="otros">
                     <label for="otros">Otros</label>
                 </fieldset>
-            
-        </section>
 
-        <section id="vuelos">
-            <h2>Nuevo Vuelo</h2>
-            
+            </section>
+
+            <section id="vuelos">
+                <h2>Nuevo Vuelo</h2>
+
                 <fieldset class="inline">
                     <legend>Que tipo de vuelo es?</legend>
                     <input type="radio" id="ida" name="servicio" value="ida" checked>
@@ -74,7 +74,7 @@
                     </fieldset>
 
                     <fieldset>
-                        <label for="llegada">Aeropuerto de Llegada</label>
+                        <label for="llegada">Aeropuerto de destino</label>
                         <input type="text" list="llegada" name="llegada" required>
                         <datalist id="llegada">
                             <option>Opcion1</option>
@@ -116,12 +116,12 @@
                         <input type="number" id="duracion" name="duracion" required>
                     </fieldset>
                 </div>
-            
-        </section>
 
-        <section id="vuelovuelta">
-            <h2>Vuelo de Vuelta</h2>
-            
+            </section>
+
+            <section id="vuelovuelta">
+                <h2>Vuelo de Vuelta</h2>
+
                 <div class="campos">
                     <fieldset>
                         <label for="origen">Codigo de Vuelo</label>
@@ -157,12 +157,12 @@
                         <input type="number" id="duracion" name="duracion2" required>
                     </fieldset>
                 </div>
-            
-        </section>
 
-        <section id="alojamientos">
-            <h2>Alojamientos</h2>
-            
+            </section>
+
+            <section id="alojamientos">
+                <h2>Alojamientos</h2>
+
                 <div class="campos">
                     <fieldset>
                         <label for="vuelo-ida">Entrada</label>
@@ -199,12 +199,12 @@
                             <option>Opcion3</option>
                     </fieldset>
                 </div>
-                            
-        </section>
 
-        <section class="otros">
-            <h2>Otros Servicios</h2>
-           
+            </section>
+
+            <section class="otros">
+                <h2>Otros Servicios</h2>
+
                 <div class="campos">
                     <fieldset>
                         <label for="fecha-otros">Fecha</label>
@@ -218,26 +218,27 @@
                 </div>
 
                 <fieldset>
-                <label for="descripcion">Descripción</label>
-                <textarea maxlength="500" name="Descripción" placeholder="Max. 500 palabras"></textarea>
-            </fieldset>
+                    <label for="descripcion">Descripción</label>
+                    <textarea maxlength="500" name="Descripción" placeholder="Max. 500 palabras"></textarea>
+                </fieldset>
 
-          
-        </section>
-        <button type="submit">Guardar servicio</button>
-</form>
+
+            </section>
+            <button type="submit" class="botonformulario">Guardar servicio</button>
+        </form>
 
     </main>
 
-  <footer>
-    <nav>
-      <ul>
-        <li><a href="#"><i class="fa-solid fa-copyright"></i>Copyright</a></li>
-        <li><a onclick="return desconectar()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Desconectar</a></li>
-        <li><a href="#top"><i class="fa-solid fa-arrow-up"></i>Subir</a></li>
-      </ul>
-    </nav>
-  </footer>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#">© <?php echo $nombreAgencia; ?></a></li>
+                <li><a onclick="return desconectar()" class="desconectar"><i
+                            class="fa-solid fa-arrow-right-from-bracket"></i>Desconectar</a></li>
+                <li><a href="#top"><i class="fa-solid fa-arrow-up"></i>Subir</a></li>
+            </ul>
+        </nav>
+    </footer>
 </body>
 
 </html>

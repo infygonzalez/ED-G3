@@ -174,13 +174,6 @@ button {
     cursor: pointer;
 }
 
-input,
-button {
-    padding: 0.5rem;
-    border-radius: .5rem;
-    border: 1px solid grey;
-}
-
 legend {
     margin-bottom: .8rem;
     font-size: 1.7rem;
@@ -188,8 +181,6 @@ legend {
 
 button {
     display: block;
-    width: 190px;
-    margin-top: 1rem;
     background: black;
     color: white;
     border-radius: 2px;
@@ -198,7 +189,6 @@ button {
     width: 100%;
     text-align: center;
     transition: all 300ms ease;
-    width: 800px;
     margin: 2rem auto;
 }
 
@@ -241,7 +231,9 @@ textarea::placeholder {font-size: 1rem;}
     66% {background-image: url(/img/fondo3.jpg);}
     100% {background-image: url(/img/fondo4.jpg);}
 }
-
+.botonformulario{
+    width: 800px;
+}
 @media (max-width: 768px) {
     header nav ul {
         display: none;
@@ -299,12 +291,15 @@ textarea::placeholder {font-size: 1rem;}
     input[type="text"], 
     input[type="date"], 
     input[type="radio"], 
-    textarea, button {
+    textarea, button,.botonformulario {
         width: 100%;
         box-sizing: border-box;
     }
 
     input[type="radio"]{width: auto;}
+    .campos{
+        gap:2rem;
+    }
 }
 
 @media (max-width: 480px) {
