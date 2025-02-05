@@ -15,7 +15,7 @@
 
 <body id="top">
     <header>
-        <a href="/" id="logo"><img src="<?php echo $logoAgencia; ?>;" alt=""></a>
+        <a href="/" id="logo"><img src="<?php echo $logoAgencia ?>" alt=""></a>
         <nav>
             <label for="ico">☰</label>
             <input id="ico" type="checkbox">

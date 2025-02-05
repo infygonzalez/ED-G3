@@ -15,7 +15,7 @@
 <body>
     <main class="modal">
         <section class="principal">
-            <a href="#" id="logoprincipal"><img src="<?php echo $logoAgencia; ?>;" alt=""></a>
+            <a href="#" id="logoprincipal"><img src="<?php echo $logoAgencia ?>" alt=""></a>
             <h2 class="textoagencia"><?php echo $nombreAgencia; ?></h2>
             <a href="viaje.php" id="Vuelo" class="boton">Registrar Viaje<i class="fa-solid fa-plane xl"></i></a>
             <a href="evento.php" id="Evento" class="boton">Registrar Evento <i class="fa-solid fa-square-h xl"></i></a>
