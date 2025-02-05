@@ -62,9 +62,9 @@
 
                 <fieldset class="inline">
                     <legend>Que tipo de vuelo es?</legend>
-                    <input type="radio" id="ida" name="tipoVuelo" onclick="tipoVuelo()" value="ida" checked>
+                    <input type="radio" id="ida" name="tipoVueloRadio" onclick="tipoVuelo()" value="ida" checked>
                     <label for="ida">Ida</label>
-                    <input type="radio" id="ida-vuelta" name="tipoVuelo" onclick="tipoVuelo()" value="ida-vuelta">
+                    <input type="radio" id="ida-vuelta" name="tipoVueloRadio" onclick="tipoVuelo()" value="ida-vuelta">
                     <label for="ida-vuelta">Ida/Vuelta</label>
                 </fieldset>
 

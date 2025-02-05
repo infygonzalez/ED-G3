@@ -27,7 +27,7 @@ function tipoEvento(radio) {
     document.getElementById("otros").style = (radio.value == "otro") ? "display: block" : "display: none";
 }
 function tipoVuelo() {
-    document.getElementById("vuelovuelta").style = (document.getElementById('ida-vuelta').checked == true && document.getElementById('ida').value == "vuelo") ? "display: block" : "display: none";
+    document.getElementById("vuelovuelta").style = (document.getElementById('ida-vuelta').checked == true && document.getElementById('vuelo').value == "vuelo") ? "display: block" : "display: none";
 }
 function calcularDias() {
     if(document.getElementById("FechaInicio").value != "" && document.getElementById("FechaFin").value != "" ){
@@ -87,7 +87,7 @@ function validarEvento() {
     // Atributos comunes de todos los eventos
     let NombreEvento =  document.forms["RegistrarEvento"]["nombre-evento"].value;
     let TipoEvento =  document.forms["RegistrarEvento"]["tipoEventoRadio"].value;
-    let TipoVuelo =  document.forms["RegistrarEvento"]["tipoVuelo"].value;
+    let TipoVuelo =  document.forms["RegistrarEvento"]["tipoVueloRadio"].value;
 
 
     let Precio = 0;
