@@ -40,14 +40,14 @@
                 </fieldset>
                 <fieldset class="inline">
                     <legend>Tipo de Evento</legend>
-                    <input type="radio" id="vuelos" name="evento" value="vuelos0">
-                    <label for="vuelos">Vuelo</label>
+                    <input type="radio" id="vuelo" name="evento" value="vuelo">
+                    <label for="vuelo">Vuelo</label>
 
                     <input type="radio" id="alojamiento" name="evento" value="alojamiento">
                     <label for="alojamiento">Alojamiento</label>
 
-                    <input type="radio" id="otros" name="evento" value="otros">
-                    <label for="otros">Otros</label>
+                    <input type="radio" id="otro" name="evento" value="otro">
+                    <label for="otro">Otros</label>
                 </fieldset>
 
             </section>
@@ -65,26 +65,26 @@
 
                 <div class="campos">
                     <fieldset>
-                        <label for="origen">Aeropuerto de Origen</label>
-                        <input type="text" list="origen" name="origen" required>
-                        <datalist id="origen">
+                        <label for="aeropuertoOrigen">Aeropuerto de Origen</label>
+                        <input type="text" list="origen" name="aeropuertoOrigen" required>
+                        <datalist id="aeropuertoOrigen">
                             <option>Opcion1</option>
                             <option>Opcion2</option>
                             <option>Opcion3</option>
                     </fieldset>
 
                     <fieldset>
-                        <label for="llegada">Aeropuerto de destino</label>
-                        <input type="text" list="llegada" name="llegada" required>
-                        <datalist id="llegada">
+                        <label for="aeropuertoDestino">Aeropuerto de destino</label>
+                        <input type="text" list="aeropuertoDestino" name="aeropuertoDestino" required>
+                        <datalist id="aeropuertoDestino">
                             <option>Opcion1</option>
                             <option>Opcion2</option>
                             <option>Opcion3</option>
                     </fieldset>
 
                     <fieldset>
-                        <label for="codigo-vuelo">Codigo de Vuelo</label>
-                        <input type="text" id="codigo-vuelo" name="codigo-vuelo" required>
+                        <label for="codigoVuelo">Codigo de Vuelo</label>
+                        <input type="text" id="codigoVuelo" name="codigoVuelo" required>
                     </fieldset>
 
                     <fieldset>
@@ -97,23 +97,23 @@
                     </fieldset>
 
                     <fieldset>
-                        <label for="fecha-salida">Fecha de Salida</label>
-                        <input type="date" id="fecha-salida" name="fecha-salida" required>
+                        <label for="fechaSalida">Fecha de Salida</label>
+                        <input type="date" id="fechaSalida" name="fechaSalida" required>
                     </fieldset>
 
                     <fieldset>
-                        <label for="hora-salida">Hora de Salida</label>
-                        <input type="time" id="hora-salida" name="hora-salida" required>
+                        <label for="HoraSalida">Hora de Salida</label>
+                        <input type="time" id="HoraSalida" name="HoraSalida" required>
                     </fieldset>
 
                     <fieldset>
-                        <label for="precio">Precios (€)</label>
-                        <input type="number" id="precio" name="precio" step="0.01" required>
+                        <label for="PrecioVuelo">Precios (€)</label>
+                        <input type="number" id="PrecioVuelo" name="PrecioVuelo" step="0.01" required>
                     </fieldset>
 
                     <fieldset>
-                        <label for="duracion">Duración del Viaje (Horas)</label>
-                        <input type="number" id="duracion" name="duracion" required>
+                        <label for="DuracionVuelo">Duración del Viaje (Horas)</label>
+                        <input type="number" id="DuracionVuelo" name="DuracionVuelo" required>
                     </fieldset>
                 </div>
 
@@ -124,37 +124,32 @@
 
                 <div class="campos">
                     <fieldset>
-                        <label for="origen">Codigo de Vuelo</label>
-                        <input type="text" id="origen" name="origen" required>
+                        <label for="aeropuertoOrigenVuelta">Codigo de Vuelo</label>
+                        <input type="text" id="aeropuertoOrigenVuelta" name="aeropuertoOrigenVuelta" required>
                     </fieldset>
 
                     <fieldset>
-                        <label for="aerolinea2">Aerolinea</label>
-                        <input type="text" list="aerolinea2" name="aerolinea2" required>
-                        <datalist id="aerolinea2">
+                        <label for="aerolineaVuelta">Aerolinea</label>
+                        <input type="text" list="aerolineaVuelta" name="aerolineaVuelta" required>
+                        <datalist id="aerolineaVuelta">
                             <option>Opcion1</option>
                             <option>Opcion2</option>
                             <option>Opcion3</option>
                     </fieldset>
 
                     <fieldset>
-                        <label for="fecha-salida2">Fecha de Salida</label>
-                        <input type="date" id="fecha-salida2" name="fecha-salida2" required>
+                        <label for="fechaSalidaVuelta">Fecha de Salida</label>
+                        <input type="date" id="fechaSalidaVuelta" name="fechaSalidaVuelta" required>
                     </fieldset>
 
                     <fieldset>
-                        <label for="hora-salida2">Hora de Salida</label>
-                        <input type="time" id="hora-salida2" name="hora-salida2" required>
+                        <label for="horaSalidaVuelta">Hora de Salida</label>
+                        <input type="time" id="horaSalidaVuelta" name="horaSalidaVuelta" required>
                     </fieldset>
 
                     <fieldset>
-                        <label for="precio2">Precios (€)</label>
-                        <input type="number" id="precio2" name="precio" step="0.01" required>
-                    </fieldset>
-
-                    <fieldset>
-                        <label for="duracion2">Duración del Viaje (Horas)</label>
-                        <input type="number" id="duracion" name="duracion2" required>
+                        <label for="DuracionVueloVuelta">Duración del Viaje (Horas)</label>
+                        <input type="number" id="DuracionVueloVuelta" name="DuracionVueloVuelta" required>
                     </fieldset>
                 </div>
 
@@ -165,35 +160,35 @@
 
                 <div class="campos">
                     <fieldset>
-                        <label for="vuelo-ida">Entrada</label>
-                        <input type="date" id="vuelo-ida" name="vuelo-ida" required>
+                        <label for="FechaEntrada"> Fecha de entrada</label>
+                        <input type="date" id="FechaEntrada" name="FechaEntrada" required>
                     </fieldset>
                     <fieldset>
-                        <label for="salida">Salida</label>
-                        <input type="date" id="salida" name="salida" required>
+                        <label for="FechaSalida">Fecha de salida</label>
+                        <input type="date" id="FechaSalida" name="FechaSalida" required>
                     </fieldset>
                 </div>
 
                 <fieldset>
-                    <label for="llegada">Ciudad</label>
-                    <input type="text" id="llegada" name="llegada" required>
+                    <label for="Ciudad">Ciudad</label>
+                    <input type="text" id="Ciudad" name="Ciudad" required>
                 </fieldset>
 
                 <fieldset>
-                    <label for="codigo-vuelo">Nombre del Hotel</label>
-                    <input type="text" id="codigo-vuelo" name="codigo-vuelo" required>
+                    <label for="NombreHotel">Nombre del Hotel</label>
+                    <input type="text" id="NombreHotel" name="NombreHotel" required>
                 </fieldset>
 
                 <div class="campos">
                     <fieldset>
-                        <label for="precio3">Precios (€)</label>
-                        <input type="number" id="precio3" name="precio3" step="0.01" required>
+                        <label for="PrecioAlojamiento">Precios (€)</label>
+                        <input type="number" id="PrecioAlojamiento" name="PrecioAlojamiento" step="0.01" required>
                     </fieldset>
 
                     <fieldset>
-                        <label for="tipo-habitacion">Tipo de Habitación</label>
-                        <input type="text" list="tipo-habitacion" name="tipo-habitacion" required>
-                        <datalist id="tipo-habitacion">
+                        <label for="TipoHabitacion">Tipo de Habitación</label>
+                        <input type="text" list="TipoHabitacion" name="TipoHabitacion" required>
+                        <datalist id="TipoHabitacion">
                             <option>Opcion1</option>
                             <option>Opcion2</option>
                             <option>Opcion3</option>
@@ -207,18 +202,18 @@
 
                 <div class="campos">
                     <fieldset>
-                        <label for="fecha-otros">Fecha</label>
-                        <input type="date" id="fecha-otros" name="fecha-otros" required>
+                        <label for="FechaOtros">Fecha</label>
+                        <input type="date" id="FechaOtros" name="FechaOtros" required>
                     </fieldset>
 
                     <fieldset>
-                        <label for="precio4">Precios (€)</label>
-                        <input type="number" id="precio4" name="precio4" step="0.01" required>
+                        <label for="PrecioOtros">Precios (€)</label>
+                        <input type="number" id="PrecioOtros" name="PrecioOtros" step="0.01" required>
                     </fieldset>
                 </div>
 
                 <fieldset>
-                    <label for="descripcion">Descripción</label>
+                    <label for="Descripcion">Descripción</label>
                     <textarea maxlength="500" name="Descripción" placeholder="Max. 500 palabras"></textarea>
                 </fieldset>
 
