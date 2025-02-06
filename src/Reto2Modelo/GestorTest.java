@@ -18,14 +18,15 @@ public class GestorTest {
 	String hola;
 	ArrayList<Pais> paises;
 	ArrayList<Aeropuerto> aeropuertos;
-    ArrayList<Aerolinea> aerolineas;
+	ArrayList<Aerolinea> aerolineas;
+
 	@Before
 	public void iniciarGestor() {
 		gestor = new Gestor();
 		agencia = new Agencia();
 		paises = gestor.buscarTodosPaises();
 		aeropuertos = gestor.buscarTodosAeropuertos();
-	    aerolineas = gestor.buscarTodosAerolineas();
+		aerolineas = gestor.buscarTodosAerolineas();
 		agencia.setNombreAgencia("Agencia Test");
 		agencia.setColorMarca("#ff5733");
 		agencia.setLogo("https://google.com");
@@ -68,127 +69,185 @@ public class GestorTest {
 	@Test
 	public void test4_InsertarAlojamiento() {
 		Alojamiento alojamiento = new Alojamiento();
-		alojamiento.setViajeID(viaje);
-		alojamiento.setNombreEvento("Alojamiento Madrid");
-		alojamiento.setPrecio("100");
-		alojamiento.setNombreHotel("Hotel 1");
-		alojamiento.setFechaEntrada("2025/03/01");
-		alojamiento.setFechaSalida("2025/03/05");
-		alojamiento.setCiudad("Madrid");
-		alojamiento.setTipoHabitacion("DB");
-		boolean alojamientoCreado = gestor.insertarAlojamiento(alojamiento);
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		boolean alojamientoCreado = false;
+		if (viajes.size() != 0) {
+			alojamiento.setViajeID(viajes.get(0));
+			alojamiento.setNombreEvento("Alojamiento Madrid");
+			alojamiento.setPrecio("100");
+			alojamiento.setNombreHotel("Hotel 1");
+			alojamiento.setFechaEntrada("2025/03/01");
+			alojamiento.setFechaSalida("2025/03/05");
+			alojamiento.setCiudad("Madrid");
+			alojamiento.setTipoHabitacion("DB");
+			alojamientoCreado = gestor.insertarAlojamiento(alojamiento);
+		}
 		assertTrue("El alojamiento no se crea correctamente", alojamientoCreado);
 
 	}
 
 	@Test
-	public void test5_InsertarOtros() {
+	public void test4_InsertarOtros() {
 		Otros otros = new Otros();
-		otros.setViajeID(viaje);
-		otros.setNombreEvento("Buceos Madrid");
-		otros.setPrecio("100");
-		otros.setFecha("2025/03/03");
-		otros.setDescripcion("Es muy divertido poder bucear en la fuente de la ciudad");
-		boolean OtroCreado = gestor.insertarOtros(otros);
+		boolean OtroCreado = false;
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		if (viajes.size() != 0) {
+			otros.setViajeID(viajes.get(0));
+			otros.setNombreEvento("Buceos Madrid");
+			otros.setPrecio("100");
+			otros.setFecha("2025/03/03");
+			otros.setDescripcion("Es muy divertido poder bucear en la fuente de la ciudad");
+			OtroCreado = gestor.insertarOtros(otros);
+		}
 		assertTrue("El evento  no se crea correctamente", OtroCreado);
 	}
 
 	@Test
-	public void testInsertarVuelo() {
-		Vuelo vuelo= new Vuelo();
-		vuelo.setViajeID(viaje);
-		vuelo.setNombreEvento("Vuelo a Madrid");
-		vuelo.setPrecio("200");
-		vuelo.setDuracionVuelo("1:30");
-		for (Aerolinea aerolinea : aerolineas) {
-			if (aerolinea.getNombreAerolinea().equals("RYNAIR")) {
-				vuelo.setAerolinea(aerolinea);
-			}
-		}
-		vuelo.setCodigoVuelo("4352f");
-		vuelo.setHoraSalida("07:33");
-		vuelo.setFechaSalida("2025/03/01");
-		for (Aeropuerto aeropuerto : aeropuertos) {
-			if (aeropuerto.getNombreAeropuerto().equals("Santiago de Compostela")) {
-				vuelo.setAeropuertoOrigen(aeropuerto);
+	public void test4_InsertarVuelo() {
+		Vuelo vuelo = new Vuelo();
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		boolean VueloCreado = false;
 
+		if (viajes.size() != 0) {
+			vuelo.setViajeID(viajes.get(0));
+			vuelo.setNombreEvento("Vuelo a Madrid");
+			vuelo.setPrecio("200");
+			vuelo.setDuracionVuelo("1:30");
+			for (Aerolinea aerolinea : aerolineas) {
+				if (aerolinea.getNombreAerolinea().equals("RYNAIR")) {
+					vuelo.setAerolinea(aerolinea);
+				}
 			}
-			if (aeropuerto.getNombreAeropuerto().equals("Madrid")) {
-				vuelo.setAeropuertoDestino(aeropuerto);
+			vuelo.setCodigoVuelo("4352f");
+			vuelo.setHoraSalida("07:33");
+			vuelo.setFechaSalida("2025/03/01");
+			for (Aeropuerto aeropuerto : aeropuertos) {
+				if (aeropuerto.getNombreAeropuerto().equals("Santiago de Compostela")) {
+					vuelo.setAeropuertoOrigen(aeropuerto);
+
+				}
+				if (aeropuerto.getNombreAeropuerto().equals("Madrid")) {
+					vuelo.setAeropuertoDestino(aeropuerto);
+				}
 			}
+			VueloCreado = gestor.insertarVuelo(vuelo);
 		}
-		boolean VueloCreado = gestor.insertarVuelo(vuelo);
 		assertTrue("El vuelo no se crea correctamente", VueloCreado);
-		
-		
+
 	}
 
 	@Test
-    public void testBuscarTodosViajes() {
-        ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
-        assertTrue("La lista de viajes no se carga correctamente", viajes.size() !=0);
-    }
-
-    @Test
-    public void testBuscarTodosVuelos() {
-        ArrayList<Vuelo> vuelos = gestor.buscarTodosVuelos(viaje,aeropuertos,aerolineas);
-        assertTrue("La lista de vuelos no se carga correctamente", vuelos.size() !=0);
-    }
-
-    @Test
-    public void testBuscarTodosAlojamiento() {
-        ArrayList<Alojamiento> alojamientos = gestor.buscarTodosAlojamiento(viaje);
-        assertTrue("La lista de viajes no se carga correctamente", alojamientos.size() !=0);
-    }
-
-    @Test
-    public void testBuscarTodosOtros() {
-        ArrayList<Otros> otros = gestor.buscarTodosOtros(viaje);
-        assertTrue("La lista de otros no se carga correctamente", otros.size() !=0);
-
-    }
-
-    @Test
-    public void testBuscarTodosPaises() {
-        assertTrue("La lista de paises no se carga correctamente", paises.size() !=0);
-    }
-
-    @Test
-    public void testBuscarTodosAeropuertos() {
-        assertTrue("La lista de aeropuertos no se carga correctamente", aeropuertos.size() !=0);
-    }
-
-    @Test
-    public void testBuscarTodosAerolineas() {
-        assertTrue("La lista de aerolineas no se carga correctamente", aerolineas.size() !=0);
-    }
-	@Test
-	public void testGetVuelo() {
-		fail("Not yet implemented");
+	public void test5_BuscarTodosViajes() {
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		assertTrue("La lista de viajes no se carga correctamente", viajes.size() != 0);
 	}
 
 	@Test
-	public void testEliminarVuelo() {
-		
+	public void test5_BuscarTodosVuelos() {
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		boolean busquedaCorrecta = false;
+		if (viajes.size() != 0) {
+			ArrayList<Vuelo> vuelos = gestor.buscarTodosVuelos(viajes.get(0), aeropuertos, aerolineas);
+			busquedaCorrecta = vuelos.size() != 0;
+		}
+
+		assertTrue("La lista de vuelos no se carga correctamente", busquedaCorrecta);
+
 	}
 
 	@Test
-	public void testEliminarAlojamiento() {
-		fail("Not yet implemented");
+	public void test5_BuscarTodosAlojamiento() {
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		boolean busquedaCorrecta = false;
+		if (viajes.size() != 0) {
+			ArrayList<Alojamiento> alojamientos = gestor.buscarTodosAlojamiento(viajes.get(0));
+			busquedaCorrecta = alojamientos.size() != 0;
+		}
+		assertTrue("La lista de viajes no se carga correctamente", busquedaCorrecta);
 	}
 
 	@Test
-	public void testEliminarOtros() {
-		fail("Not yet implemented");
+	public void test5_BuscarTodosOtros() {
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		boolean busquedaCorrecta = false;
+		if (viajes.size() != 0) {
+			ArrayList<Otros> otros = gestor.buscarTodosOtros(viajes.get(0));
+			busquedaCorrecta = otros.size() != 0;
+
+		}
+		assertTrue("La lista de otros no se carga correctamente", busquedaCorrecta);
+
 	}
 
 	@Test
-	public void testEliminarViaje() {
-		fail("Not yet implemented");
+	public void test5_BuscarTodosPaises() {
+		assertTrue("La lista de paises no se carga correctamente", paises.size() != 0);
 	}
 
 	@Test
-	public void testGetSumaVuelos() {
-		fail("Not yet implemented");
+	public void test5_BuscarTodosAeropuertos() {
+		assertTrue("La lista de aeropuertos no se carga correctamente", aeropuertos.size() != 0);
 	}
+
+	@Test
+	public void test5_BuscarTodosAerolineas() {
+		assertTrue("La lista de aerolineas no se carga correctamente", aerolineas.size() != 0);
+	}
+
+	@Test
+	public void test5_GetVuelo() {
+		Vuelo vueloObtenido = gestor.getVuelo(gestor.getSumaVuelos() + "", aeropuertos, aerolineas, viaje);
+		assertTrue("El vuelo no se ha obtenido correctamente", vueloObtenido instanceof Vuelo);
+	}
+
+	@Test
+	public void test5_EliminarVuelo() {
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		boolean eliminar = false;
+		if (viajes.size() != 0) {
+			ArrayList<Vuelo> vuelos = gestor.buscarTodosVuelos(viajes.get(0), aeropuertos, aerolineas);
+			if (vuelos.size() != 0) {
+				eliminar = gestor.eliminarVuelo(vuelos.get(0));
+			}
+		}
+		assertTrue("El vuelo no se elimina correctamente", eliminar);
+	}
+
+	@Test
+	public void test5_EliminarAlojamiento() {
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		boolean eliminar = false;
+		if (viajes.size() != 0) {
+			ArrayList<Alojamiento> alojamientos = gestor.buscarTodosAlojamiento(viajes.get(0));
+			if (alojamientos.size() != 0) {
+				eliminar = gestor.eliminarAlojamiento(alojamientos.get(0));
+			}
+		}
+		assertTrue("El alojamiento no se elimina correctamente", eliminar);
+	}
+
+	@Test
+	public void test5_EliminarOtros() {
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		boolean eliminar = false;
+		if (viajes.size() != 0) {
+			ArrayList<Otros> otros = gestor.buscarTodosOtros(viajes.get(0));
+			if (otros.size() != 0) {
+				eliminar = gestor.eliminarOtros(otros.get(0));
+			}
+		}
+		assertTrue("El servicio otros no se elimina correctamente", eliminar);
+	}
+
+	@Test
+	public void test6_EliminarViaje() {
+		ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+		boolean eliminar = false;
+		if (viajes.size() != 0) {
+			eliminar = gestor.eliminarViaje(viajes.get(0));
+		}
+		assertTrue("El viaje no se elimina correctamente", eliminar);
+
+	}
+
 }
