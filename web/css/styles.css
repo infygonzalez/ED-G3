@@ -78,7 +78,7 @@
     color: black;
 }
 
-#Evento:hover {
+#BotonEvento:hover {
      background: linear-gradient(to right, white, rgb(1, 163, 69)); 
     color: black
 }
