@@ -109,6 +109,8 @@ function validarEvento() {
     let FechaEntrada_Alojamiento = document.forms["RegistrarEvento"]["FechaEntrada"].value;
     let FechaSalida_Alojamiento = document.forms["RegistrarEvento"]["FechaSalida"].value;
     let Ciudad = document.forms["RegistrarEvento"]["Ciudad"].value;
+    let TipoHabitacion = document.forms["RegistrarEvento"]["TipoHabitacion"].value;
+
     // Atributos OTROS
     let Fecha_Otros =document.forms["RegistrarEvento"]["FechaOtros"].value;
     let Descripcion = document.forms["RegistrarEvento"]["Descripción"].value;
@@ -126,7 +128,7 @@ function validarEvento() {
     let CodigoVueloVuelta = document.forms["RegistrarEvento"]["codigoVueloVuelta"].value;
     let HoraSalidaVuelta =document.forms["RegistrarEvento"]["horaSalidaVuelta"].value;
     let FechaSalidaVuelta = document.forms["RegistrarEvento"]["fechaSalidaVuelta"].value;
-    let DuracionVueloVuelta = document.forms["RegistrarEvento"]["DuracionVueloVuelta"].value;;
+    let DuracionVueloVuelta = document.forms["RegistrarEvento"]["DuracionVueloVuelta"].value;
     
     mensajeError = [];
     if (NombreEvento.length < 1 || NombreEvento.length > 30) {
