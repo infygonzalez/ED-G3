@@ -16,11 +16,16 @@ public class GestorTest {
 	Viaje viaje;
 	Gestor gestor;
 	String hola;
+	ArrayList<Pais> paises;
+	ArrayList<Aeropuerto> aeropuertos;
+    ArrayList<Aerolinea> aerolineas;
 	@Before
 	public void iniciarGestor() {
 		gestor = new Gestor();
 		agencia = new Agencia();
-		ArrayList<Pais> paises = gestor.buscarTodosPaises();
+		paises = gestor.buscarTodosPaises();
+		aeropuertos = gestor.buscarTodosAeropuertos();
+	    aerolineas = gestor.buscarTodosAerolineas();
 		agencia.setNombreAgencia("Agencia Test");
 		agencia.setColorMarca("#ff5733");
 		agencia.setLogo("https://google.com");
@@ -68,22 +73,54 @@ public class GestorTest {
 		alojamiento.setPrecio("100");
 		alojamiento.setNombreHotel("Hotel 1");
 		alojamiento.setFechaEntrada("2025/03/01");
-		alojamiento.setFechaSalida("2023/03/05");
+		alojamiento.setFechaSalida("2025/03/05");
 		alojamiento.setCiudad("Madrid");
 		alojamiento.setTipoHabitacion("DB");
-		boolean viajeCreado = gestor.insertarViaje(viaje);
-		assertTrue("El alojamiento no se crea correctamente", viajeCreado);
+		boolean alojamientoCreado = gestor.insertarAlojamiento(alojamiento);
+		assertTrue("El alojamiento no se crea correctamente", alojamientoCreado);
 
 	}
 
 	@Test
-	public void testInsertarOtros() {
-		fail("Not yet implemented");
+	public void test5_InsertarOtros() {
+		Otros otros = new Otros();
+		otros.setViajeID(viaje);
+		otros.setNombreEvento("Buceos Madrid");
+		otros.setPrecio("100");
+		otros.setFecha("2025/03/03");
+		otros.setDescripcion("Es muy divertido poder bucear en la fuente de la ciudad");
+		boolean OtroCreado = gestor.insertarOtros(otros);
+		assertTrue("El evento  no se crea correctamente", OtroCreado);
 	}
 
 	@Test
 	public void testInsertarVuelo() {
-		fail("Not yet implemented");
+		Vuelo vuelo= new Vuelo();
+		vuelo.setViajeID(viaje);
+		vuelo.setNombreEvento("Vuelo a Madrid");
+		vuelo.setPrecio("200");
+		vuelo.setDuracionVuelo("1:30");
+		for (Aerolinea aerolinea : aerolineas) {
+			if (aerolinea.getNombreAerolinea().equals("RYNAIR")) {
+				vuelo.setAerolinea(aerolinea);
+			}
+		}
+		vuelo.setCodigoVuelo("4352f");
+		vuelo.setHoraSalida("07:33");
+		vuelo.setFechaSalida("2025/03/01");
+		for (Aeropuerto aeropuerto : aeropuertos) {
+			if (aeropuerto.getNombreAeropuerto().equals("Santiago de Compostela")) {
+				vuelo.setAeropuertoOrigen(aeropuerto);
+
+			}
+			if (aeropuerto.getNombreAeropuerto().equals("Madrid")) {
+				vuelo.setAeropuertoDestino(aeropuerto);
+			}
+		}
+		boolean VueloCreado = gestor.insertarVuelo(vuelo);
+		assertTrue("El vuelo no se crea correctamente", VueloCreado);
+		
+		
 	}
 
 	@Test
@@ -128,7 +165,7 @@ public class GestorTest {
 
 	@Test
 	public void testEliminarVuelo() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
