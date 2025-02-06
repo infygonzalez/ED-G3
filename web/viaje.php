@@ -1,10 +1,35 @@
+<?php
+include_once('conexion-php/agencia.php');
+$mensajeError = null;
+
+if (isset($_POST['NombreViaje'])) {
+  $NombreAgencia = $_SESSION['Agencia'];
+  $NombreViaje = $_POST["NombreViaje"];
+  $TipoViaje = $_POST["TipoViaje"];
+  $Pais = $_POST["pais"];
+  $FechaInicio = $_POST["FechaInicio"];
+  $FechaFin = $_POST["FechaFin"];
+  $DescripcionViaje = $_POST["DescripcionViaje"];
+  $ServiciosNoIncluidos = $_POST["ServiciosNoIncluidos"];
+
+  $sql = "insert into Viaje(NombreViaje ,DescripcionViaje ,TipoViaje,FechaInicio ,FechaFin ,ServiciosNoIncluidos,NombreAgencia,PaisDestino) 
+     values ('$NombreViaje','$DescripcionViaje','$TipoViaje','$FechaInicio' ,'$FechaFin','$ServiciosNoIncluidos','$NombreAgencia','$Pais')";
+  echo $sql;
+  if ($conn->query($sql) === TRUE) {
+    header("Location: /?viajeCreado=true");
+  } else {
+    $mensajeError = "Viaje no creado correctamente.";
+  }
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php include_once('conexion-php/agencia.php'); ?>
   <title>Registrar Viaje | <?php echo $nombreAgencia; ?></title>
 
   <link rel="stylesheet" type="text/css"
@@ -30,23 +55,23 @@
   <main>
     <section>
       <h1>Registrar Viaje</h1>
-      <form  action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validarViaje()"
-      method="post" id="RegistrarViaje">
+      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validarViaje()" method="post"
+        name="RegistrarViaje">
         <fieldset>
           <label for="NombreViaje">Nombre del viaje</label>
-          <input type="text" name="NombreViaje"  placeholder="Escriba el nombre del viaje">
+          <input type="text" name="NombreViaje" placeholder="Escriba el nombre del viaje">
         </fieldset>
         <div class="campos">
           <fieldset>
             <label for="pais">Pais</label>
-            <select id="pais">
+            <select id="pais" name="pais">
               <option></option>
               <?php include_once('conexion-php/pais.php'); ?>
             </select>
           </fieldset>
           <fieldset>
             <label for="TipoViaje">Tipo de viaje</label>
-            <select id="TipoViaje">
+            <select name="TipoViaje" id="TipoViaje">
               <option></option>
               <option>Novios</option>
               <option>Senior</option>
@@ -99,6 +124,13 @@
       </ul>
     </nav>
   </footer>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function (event) {
+      <?php if (!empty($mensajeError)) {
+        echo 'alert("' . $mensajeError . '");';
+      } ?>
+    });
+  </script>
 </body>
 
 </html>

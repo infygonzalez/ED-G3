@@ -1,3 +1,14 @@
+<?php
+ include_once('conexion-php/agencia.php'); 
+$mensajeError = null;
+
+if (isset($_GET['viajeCreado'])) {
+        $mensajeError = "Viaje creado correctamente.";
+}
+if (isset($_GET['eventoCreado'])) {
+    $mensajeError = "Evento creado correctamente.";
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,10 +29,15 @@
             <a href="#" id="logoprincipal"><img src="<?php echo $logoAgencia ?>" alt=""></a>
             <h2 class="textoagencia"><?php echo $nombreAgencia; ?></h2>
             <a href="viaje.php" id="Vuelo" class="boton">Registrar Viaje<i class="fa-solid fa-plane xl"></i></a>
-            <a href="evento.php" id="Evento" class="boton">Registrar Evento <i class="fa-solid fa-square-h xl"></i></a>
+            <a href="evento.php" id="BotonEvento" class="boton">Registrar Evento <i class="fa-solid fa-square-h xl"></i></a>
             <a id="Desconectar" class="boton desconectar" >Desconectar<i class="fa-solid fa-arrow-right-from-bracket xl"></i></a>
         </section>
     </main>
+    <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        <?php if(!empty($mensajeError)){ echo'alert("' . $mensajeError . '");';} ?>
+    });
+    </script>
     <script src="js/validaciones.js"></script>
 </body>
 
