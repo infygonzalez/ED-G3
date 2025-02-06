@@ -124,40 +124,44 @@ public class GestorTest {
 	}
 
 	@Test
-	public void testBuscarTodosViajes() {
-		fail("Not yet implemented");
-	}
+    public void testBuscarTodosViajes() {
+        ArrayList<Viaje> viajes = gestor.buscarTodosViajes(paises, agencia);
+        assertTrue("La lista de viajes no se carga correctamente", viajes.size() !=0);
+    }
 
-	@Test
-	public void testBuscarTodosVuelos() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testBuscarTodosVuelos() {
+        ArrayList<Vuelo> vuelos = gestor.buscarTodosVuelos(viaje,aeropuertos,aerolineas);
+        assertTrue("La lista de vuelos no se carga correctamente", vuelos.size() !=0);
+    }
 
-	@Test
-	public void testBuscarTodosAlojamiento() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testBuscarTodosAlojamiento() {
+        ArrayList<Alojamiento> alojamientos = gestor.buscarTodosAlojamiento(viaje);
+        assertTrue("La lista de viajes no se carga correctamente", alojamientos.size() !=0);
+    }
 
-	@Test
-	public void testBuscarTodosOtros() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testBuscarTodosOtros() {
+        ArrayList<Otros> otros = gestor.buscarTodosOtros(viaje);
+        assertTrue("La lista de otros no se carga correctamente", otros.size() !=0);
 
-	@Test
-	public void testBuscarTodosPaises() {
-		fail("Not yet implemented");
-	}
+    }
 
-	@Test
-	public void testBuscarTodosAeropuertos() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testBuscarTodosPaises() {
+        assertTrue("La lista de paises no se carga correctamente", paises.size() !=0);
+    }
 
-	@Test
-	public void testBuscarTodosAerolineas() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testBuscarTodosAeropuertos() {
+        assertTrue("La lista de aeropuertos no se carga correctamente", aeropuertos.size() !=0);
+    }
 
+    @Test
+    public void testBuscarTodosAerolineas() {
+        assertTrue("La lista de aerolineas no se carga correctamente", aerolineas.size() !=0);
+    }
 	@Test
 	public void testGetVuelo() {
 		fail("Not yet implemented");
