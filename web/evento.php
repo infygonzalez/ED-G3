@@ -209,7 +209,7 @@ function getMaxVuelos($conn)
 
                     <fieldset>
                         <label for="DuracionVuelo">Duración del Viaje (Horas)</label>
-                        <input type="number" id="DuracionVuelo" name="DuracionVuelo">
+                        <input type="time" id="DuracionVuelo" min="0" name="DuracionVuelo">
                     </fieldset>
                 </div>
 
@@ -244,7 +244,7 @@ function getMaxVuelos($conn)
 
                     <fieldset>
                         <label for="DuracionVueloVuelta">Duración del Viaje (Horas)</label>
-                        <input type="number" id="DuracionVueloVuelta" name="DuracionVueloVuelta">
+                        <input type="time" id="DuracionVueloVuelta" min="0" name="DuracionVueloVuelta">
                     </fieldset>
                 </div>
 
