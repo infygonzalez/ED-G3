@@ -47,6 +47,11 @@ public class Controlador {
 		vuelos = gestor.buscarTodosVuelos(viaje, aeropuertos, aerolineas);
 		return vuelos;
 	}
+	public int getSumaVuelos() {
+		Gestor gestor = new Gestor();
+		return gestor.getSumaVuelos();
+	
+	}
 
 	public ArrayList<Alojamiento> getListaAlojamiento(Viaje viaje) {
 		ArrayList<Alojamiento> alojamientos = null;
@@ -84,6 +89,23 @@ public class Controlador {
 		aerolineas = gestor.buscarTodosAerolineas();
 		aerolineas.sort(Comparator.comparing(Aerolinea::getNombreAerolinea));
 		return aerolineas;
+	}
+	public boolean insertarViaje(Viaje viaje) {
+		Gestor gestor = new Gestor();
+		return gestor.insertarViaje(viaje);
+	}
+	
+	public boolean insertarAlojamiento(Alojamiento alojamiento) {
+		Gestor gestor = new Gestor();
+		return gestor.insertarAlojamiento(alojamiento);
+	}
+	public boolean insertarOtros(Otros otro) {
+		Gestor gestor = new Gestor();
+		return gestor.insertarOtros(otro);
+	}
+	public boolean insertarVuelo(Vuelo vuelo) {
+		Gestor gestor = new Gestor();
+		return gestor.insertarVuelo(vuelo);
 	}
 
 	public boolean eliminarVuelo(Vuelo vuelo) {
@@ -134,29 +156,9 @@ public class Controlador {
 		}
 		return valido;
 	}
-	public boolean insertarViaje(Viaje viaje) {
-		Gestor gestor = new Gestor();
-		return gestor.insertarViaje(viaje);
-	}
 	
-	public boolean insertarAlojamiento(Alojamiento alojamiento) {
-		Gestor gestor = new Gestor();
-		return gestor.insertarAlojamiento(alojamiento);
-	}
-	public boolean insertarOtros(Otros otro) {
-		Gestor gestor = new Gestor();
-		return gestor.insertarOtros(otro);
-	}
-	public boolean insertarVuelo(Vuelo vuelo) {
-		Gestor gestor = new Gestor();
-		return gestor.insertarVuelo(vuelo);
-	}
 
-	public int getSumaVuelos() {
-		Gestor gestor = new Gestor();
-		return gestor.getSumaVuelos();
-	
-	}
+
 	public void generarOfertaViaje(Viaje viaje) {
 		String nombreArchivo =viaje.getNombreViaje().replaceAll(" ", "")+".txt";
 
