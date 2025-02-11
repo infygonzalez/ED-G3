@@ -49,7 +49,7 @@ if (isset($_POST['nombre-evento'])) {
     $DuracionVueloVuelta = $_POST["DuracionVueloVuelta"];
     if ($TipoEvento == "vuelo") {
         if ($TipoVuelo == "ida-vuelta") {
-            $sql = "insert into Vuelo(ViajeID,NombreEvento,Precio,CodigoVuelo,FechaSalida,HoraSalida,DuracionVuelo,Aerolinea,AeropuertoOrigen,AeropuertoDestino)  values ('$ViajeID','$NombreEvento','$Precio','$CodigoVuelo','$FechaSalida','$HoraSalida','$DuracionVuelo','$Aerolinea','$AeropuertoOrigen','$AeropuertoDestino')";
+            $sql = "insert into Vuelo(ViajeID,NombreEvento,Precio,CodigoVuelo,FechaSalida,HoraSalida,DuracionVuelo,Aerolinea,AeropuertoOrigen,AeropuertoDestino)  values ('$ViajeID','$NombreEvento','$Precio','$CodigoVuelo','$FechaSalida','$HoraSalida','$DuracionVuelo','$Aerolinea','$AeropuertoDestino','$AeropuertoOrigen')";
             insertar($sql, $conn);
             $EventoVueltaID = getMaxVuelos($conn);
             $sql = "insert into Vuelo(ViajeID,NombreEvento,Precio,CodigoVuelo,FechaSalida,HoraSalida,DuracionVuelo,Aerolinea,AeropuertoOrigen,AeropuertoDestino,EventoVueltaID)  values ('$ViajeID','$NombreEvento','$Precio','$CodigoVuelo','$FechaSalida','$HoraSalida','$DuracionVuelo','$Aerolinea','$AeropuertoOrigen','$AeropuertoDestino',$EventoVueltaID)";
