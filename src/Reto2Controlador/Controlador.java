@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 import javax.swing.JOptionPane;
@@ -27,7 +28,7 @@ public class Controlador {
 	}
 
 	public boolean insertarAgencia(Agencia agencia) {
-		
+
 		Gestor gestor = new Gestor();
 		return gestor.insertarAgencia(agencia);
 	}
@@ -47,10 +48,11 @@ public class Controlador {
 		vuelos = gestor.buscarTodosVuelos(viaje, aeropuertos, aerolineas);
 		return vuelos;
 	}
+
 	public int getSumaVuelos() {
 		Gestor gestor = new Gestor();
 		return gestor.getSumaVuelos();
-	
+
 	}
 
 	public ArrayList<Alojamiento> getListaAlojamiento(Viaje viaje) {
@@ -90,19 +92,22 @@ public class Controlador {
 		aerolineas.sort(Comparator.comparing(Aerolinea::getNombreAerolinea));
 		return aerolineas;
 	}
+
 	public boolean insertarViaje(Viaje viaje) {
 		Gestor gestor = new Gestor();
 		return gestor.insertarViaje(viaje);
 	}
-	
+
 	public boolean insertarAlojamiento(Alojamiento alojamiento) {
 		Gestor gestor = new Gestor();
 		return gestor.insertarAlojamiento(alojamiento);
 	}
+
 	public boolean insertarOtros(Otros otro) {
 		Gestor gestor = new Gestor();
 		return gestor.insertarOtros(otro);
 	}
+
 	public boolean insertarVuelo(Vuelo vuelo) {
 		Gestor gestor = new Gestor();
 		return gestor.insertarVuelo(vuelo);
@@ -156,69 +161,11 @@ public class Controlador {
 		}
 		return valido;
 	}
-	
 
-
-	public void generarOfertaViaje(Viaje viaje) {
-		String nombreArchivo =viaje.getNombreViaje().replaceAll(" ", "")+".txt";
-
-		String urlArchivo = System.getProperty("user.home") + "/Desktop/"+nombreArchivo;
-		double precioTotal =0;
-		ArrayList<String> cadenas = new ArrayList<String>();
-		cadenas.add("Nombre: "+viaje.getNombreViaje());
-		cadenas.add("Fechas del viaje: "+viaje.getFechaInicio() + " al "+viaje.getFechaFin());
-		cadenas.add("Tipo del viaje: "+viaje.getTipoViaje());
-		cadenas.add("Pais: "+viaje.getPaisDestino().getDescripcionPais());
-		cadenas.add("Descripción: "+viaje.getDescripciónViaje());
-		cadenas.add("Servicios no incluidos: "+viaje.getServiciosNoIncluidos());
-		cadenas.add("\n------------- EVENTOS -------------\n");
-		for(Alojamiento alojamiento:viaje.getAlojamientos()) {
-			cadenas.add("\n------------- ALOJAMIENTO - "+alojamiento.getNombreEvento()+" -------------");
-			cadenas.add("Fechas de estancia: "+ alojamiento.getFechaEntrada()+" al "+ alojamiento.getFechaSalida() );
-			String Tipo = "";
-			if (alojamiento.getTipoHabitacion().equals("DB")) {
-			    Tipo = "Doble";
-			} else if (alojamiento.getTipoHabitacion().equals("DUI")) {
-			    Tipo = "Doble con uso individual";
-			} else if (alojamiento.getTipoHabitacion().equals("SIN")) {
-			    Tipo = "Individual";
-			} else if (alojamiento.getTipoHabitacion().equals("TPL")) {
-			    Tipo = "Triple";
-			}
-			cadenas.add("Estancia en "+alojamiento.getNombreHotel() + " ("+alojamiento.getCiudad() + ") en una habitación " + Tipo );
-			cadenas.add("Precio de la estancia: "+alojamiento.getPrecio()+"€");
-			precioTotal = precioTotal+ Double.parseDouble(alojamiento.getPrecio());
-		}
-		for(Otros otro:viaje.getOtros()) {
-			cadenas.add("\n------------- "+otro.getNombreEvento()+"-------------");
-			cadenas.add("Fecha: "+ otro.getFecha() );
-			cadenas.add("Precio: "+otro.getPrecio()+"€");
-			cadenas.add("Descripción: "+otro.getDescripcion());
-			precioTotal = precioTotal+ Double.parseDouble(otro.getPrecio());
-		}
-		for(Vuelo vuelo:viaje.getVuelos()) {
-			cadenas.add("\n------------- VUELO -- "+vuelo.getNombreEvento()+ "-------------");
-			cadenas.add("Precio: "+vuelo.getPrecio()+"€" );
-			precioTotal = precioTotal+ Double.parseDouble(vuelo.getPrecio());
-
-			cadenas.add("\n------------- VUELO DE IDA -------------");
-			cadenas.add(vuelo.getAeropuertoOrigen().getNombreAeropuerto() +" a "+vuelo.getAeropuertoDestino().getNombreAeropuerto() );
-			cadenas.add("Código de vuelo: "+vuelo.getCodigoVuelo() );
-			cadenas.add("Aerolinea: "+vuelo.getAerolinea().getNombreAerolinea() );
-			cadenas.add("Fecha y hora: "+ vuelo.getFechaSalida() +" a las "+ vuelo.getHoraSalida() + " y el vuelo dura "+vuelo.getDuracionVuelo() );
-			if(vuelo.getEventoVueltaID() != null) {
-				cadenas.add("\n------------- VUELO DE VUELTA -------------");
-				cadenas.add(vuelo.getEventoVueltaID().getAeropuertoOrigen().getNombreAeropuerto() +" a "+vuelo.getEventoVueltaID().getAeropuertoDestino().getNombreAeropuerto() );
-				cadenas.add("Código de vuelo: "+vuelo.getEventoVueltaID().getCodigoVuelo() );
-				cadenas.add("Aerolinea: "+vuelo.getEventoVueltaID().getAerolinea().getNombreAerolinea() );
-				cadenas.add("Fecha y hora: "+ vuelo.getEventoVueltaID().getFechaSalida() +" a las "+ vuelo.getEventoVueltaID().getHoraSalida() + " y el vuelo dura "+vuelo.getEventoVueltaID().getDuracionVuelo() );
-			}
-		
-		}
-		cadenas.add("---------------PRECIO TOTAL: "+precioTotal+"€ ---------------" );
-
+	public boolean crearFichero(String urlArchivo, ArrayList<String> cadenas) {
+		boolean valido = false;
 		try {
-		
+
 			FileWriter fichero = new FileWriter(urlArchivo);
 
 			PrintWriter pw = new PrintWriter(fichero);
@@ -226,10 +173,192 @@ public class Controlador {
 				pw.println(cadenas.get(i));
 			}
 			fichero.close();
+			valido = true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		JOptionPane.showMessageDialog(null, "¡El informe del viaje "+viaje.getNombreViaje()+" se ha creado correctamente en el escritorio con el nombre "+nombreArchivo+"!",viaje.getNombreViaje(),
-				JOptionPane.INFORMATION_MESSAGE);
+		return valido;
 	}
+	public void generarOfertaViaje(Viaje viaje) {
+		String nombreArchivo = viaje.getNombreViaje().replaceAll(" ", "") + ".txt";
+		String urlArchivo = System.getProperty("user.home") + "/Desktop/" + nombreArchivo;
+		ArrayList<String> cadenas = new ArrayList<String>();
+		cadenas = generarViaje(viaje);
+		cadenas.addAll(generarEventos(viaje, null));
+		if (crearFichero(urlArchivo, cadenas) == true) {
+			JOptionPane.showMessageDialog(null,
+					"¡El informe del viaje " + viaje.getNombreViaje()
+							+ " se ha creado correctamente en el escritorio con el nombre " + nombreArchivo + "!",
+					viaje.getNombreViaje(), JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	public String generarViajes(Agencia agencia) {
+		ArrayList<String> cadenas = new ArrayList<String>();
+		cadenas.add("\n------------- VIAJES DE LA AGENCIA - " + agencia.getNombreAgencia() + "-------------\n");
+		for (Viaje viaje : agencia.getViajes()) {
+			cadenas.addAll(generarViaje(viaje));
+			cadenas.add("\n");
+
+		}
+		String nombreArchivo = "informes-viajes-" + agencia.getNombreAgencia().replaceAll(" ", "") + ".txt";
+		String urlArchivo = System.getProperty("user.home") + "/Desktop/" + nombreArchivo;
+		crearFichero(urlArchivo, cadenas);
+		return nombreArchivo;
+	}
+
+	public String generarViajesPais(Agencia agencia) {
+		ArrayList<String> cadenas = new ArrayList<String>();
+		cadenas.add("\n------------- VIAJES DE LA AGENCIA - " + agencia.getNombreAgencia() + "-------------\n");
+		ArrayList<Viaje> viajes = agencia.getViajes();
+		ArrayList<String> paisesrecorridos = new ArrayList<String>();
+		viajes.sort(Comparator.comparing(viaje -> viaje.getPaisDestino().getDescripcionPais()));
+		for (Viaje viaje : agencia.getViajes()) {
+			if (!paisesrecorridos.contains(viaje.getPaisDestino().getDescripcionPais())) {
+				cadenas.add(
+						"\n------------- VIAJES EN " + viaje.getPaisDestino().getDescripcionPais() + "-------------\n");
+				paisesrecorridos.add(viaje.getPaisDestino().getDescripcionPais());
+			}
+			cadenas.addAll(generarViaje(viaje));
+			cadenas.add("\n");
+
+		}
+		String nombreArchivo = "informes-viajes-pais-" + agencia.getNombreAgencia().replaceAll(" ", "") + ".txt";
+		String urlArchivo = System.getProperty("user.home") + "/Desktop/" + nombreArchivo;
+		crearFichero(urlArchivo, cadenas);
+		return nombreArchivo;
+	}
+
+	public String generarViajesEventos(Agencia agencia) {
+		ArrayList<String> cadenas = new ArrayList<String>();
+		cadenas.add(
+				"\n------------- VIAJES y EVENTOS DE LA AGENCIA - " + agencia.getNombreAgencia() + "-------------\n");
+		for (Viaje viaje : agencia.getViajes()) {
+			cadenas.addAll(generarViaje(viaje));
+			cadenas.addAll(generarEventos(viaje, null));
+			cadenas.add("\n");
+		}
+		String nombreArchivo = "informes-viajes-eventos-" + agencia.getNombreAgencia().replaceAll(" ", "") + ".txt";
+		String urlArchivo = System.getProperty("user.home") + "/Desktop/" + nombreArchivo;
+		crearFichero(urlArchivo, cadenas);
+		return nombreArchivo;
+	}
+
+	public String generarEventosPrecio(Agencia agencia) {
+		ArrayList<String> cadenas = new ArrayList<String>();
+		cadenas.add("\n------------- VIAJES y EVENTOS DE LA AGENCIA ORDENADOS POR PRECIO - "
+				+ agencia.getNombreAgencia() + "-------------\n");
+		for (Viaje viaje : agencia.getViajes()) {
+			cadenas.addAll(generarViaje(viaje));
+			cadenas.addAll(generarEventos(viaje, "precio"));
+			cadenas.add("\n");
+		}
+		String nombreArchivo = "informes-eventos-precio-" + agencia.getNombreAgencia().replaceAll(" ", "") + ".txt";
+		String urlArchivo = System.getProperty("user.home") + "/Desktop/" + nombreArchivo;
+		crearFichero(urlArchivo, cadenas);
+		return nombreArchivo;
+	}
+
+	public ArrayList<String> generarViaje(Viaje viaje) {
+		ArrayList<String> cadenas = new ArrayList<String>();
+		cadenas.add("Nombre: " + viaje.getNombreViaje());
+		cadenas.add("Fechas del viaje: " + viaje.getFechaInicio() + " al " + viaje.getFechaFin());
+		cadenas.add("Tipo del viaje: " + viaje.getTipoViaje());
+		cadenas.add("Pais: " + viaje.getPaisDestino().getDescripcionPais());
+		cadenas.add("Descripción: " + viaje.getDescripciónViaje());
+		cadenas.add("Servicios no incluidos: " + viaje.getServiciosNoIncluidos());
+		return cadenas;
+	}
+
+	public ArrayList<String> generarEventos(Viaje viaje, String ordenar) {
+		double precioTotal = 0;
+		String[][] eventos = new String[1000][2];
+		int i = 0;
+
+		for (Alojamiento alojamiento : viaje.getAlojamientos()) {
+			ArrayList<String> cadenas = new ArrayList<String>();
+			cadenas.add("\n------------- ALOJAMIENTO - " + alojamiento.getNombreEvento() + " -------------");
+			cadenas.add("Fechas de estancia: " + alojamiento.getFechaEntrada() + " al " + alojamiento.getFechaSalida());
+			String Tipo = "";
+			if (alojamiento.getTipoHabitacion().equals("DB")) {
+				Tipo = "Doble";
+			} else if (alojamiento.getTipoHabitacion().equals("DUI")) {
+				Tipo = "Doble con uso individual";
+			} else if (alojamiento.getTipoHabitacion().equals("SIN")) {
+				Tipo = "Individual";
+			} else if (alojamiento.getTipoHabitacion().equals("TPL")) {
+				Tipo = "Triple";
+			}
+			cadenas.add("Estancia en " + alojamiento.getNombreHotel() + " (" + alojamiento.getCiudad()
+					+ ") en una habitación " + Tipo);
+			cadenas.add("Precio de la estancia: " + alojamiento.getPrecio() + "€");
+			precioTotal = precioTotal + Double.parseDouble(alojamiento.getPrecio());
+			eventos[i][0] = alojamiento.getPrecio();
+			eventos[i][1] = String.join("\n", cadenas);
+			i++;
+		}
+		for (Otros otro : viaje.getOtros()) {
+			ArrayList<String> cadenas = new ArrayList<String>();
+			cadenas.add("\n------------- " + otro.getNombreEvento() + "-------------");
+			cadenas.add("Fecha: " + otro.getFecha());
+			cadenas.add("Precio: " + otro.getPrecio() + "€");
+			cadenas.add("Descripción: " + otro.getDescripcion());
+			precioTotal = precioTotal + Double.parseDouble(otro.getPrecio());
+			eventos[i][0] = otro.getPrecio();
+			eventos[i][1] = String.join("\n", cadenas);
+			i++;
+		}
+		for (Vuelo vuelo : viaje.getVuelos()) {
+			ArrayList<String> cadenas = new ArrayList<String>();
+			cadenas.add("\n------------- VUELO -- " + vuelo.getNombreEvento() + "-------------");
+			cadenas.add("Precio: " + vuelo.getPrecio() + "€");
+			precioTotal = precioTotal + Double.parseDouble(vuelo.getPrecio());
+
+			cadenas.add("\n------------- VUELO DE IDA -------------");
+			cadenas.add(vuelo.getAeropuertoOrigen().getNombreAeropuerto() + " a "
+					+ vuelo.getAeropuertoDestino().getNombreAeropuerto());
+			cadenas.add("Código de vuelo: " + vuelo.getCodigoVuelo());
+			cadenas.add("Aerolinea: " + vuelo.getAerolinea().getNombreAerolinea());
+			cadenas.add("Fecha y hora: " + vuelo.getFechaSalida() + " a las " + vuelo.getHoraSalida()
+					+ " y el vuelo dura " + vuelo.getDuracionVuelo());
+			if (vuelo.getEventoVueltaID() != null) {
+				cadenas.add("\n------------- VUELO DE VUELTA -------------");
+				cadenas.add(vuelo.getEventoVueltaID().getAeropuertoOrigen().getNombreAeropuerto() + " a "
+						+ vuelo.getEventoVueltaID().getAeropuertoDestino().getNombreAeropuerto());
+				cadenas.add("Código de vuelo: " + vuelo.getEventoVueltaID().getCodigoVuelo());
+				cadenas.add("Aerolinea: " + vuelo.getEventoVueltaID().getAerolinea().getNombreAerolinea());
+				cadenas.add("Fecha y hora: " + vuelo.getEventoVueltaID().getFechaSalida() + " a las "
+						+ vuelo.getEventoVueltaID().getHoraSalida() + " y el vuelo dura "
+						+ vuelo.getEventoVueltaID().getDuracionVuelo());
+			}
+			eventos[i][0] = vuelo.getPrecio();
+			eventos[i][1] = String.join("\n", cadenas);
+			i++;
+		}
+		ArrayList<String> cadenas = new ArrayList<String>();
+		if (ordenar == "precio") {
+			Arrays.sort(eventos, (a, b) -> {
+				if (a[0] != null) {
+					double precioA = Double.parseDouble(a[0]);
+					double precioB = Double.parseDouble(b[0]);
+					return Double.compare(precioB, precioA);
+				}
+				return 0;
+			});
+		}
+		if (i != 0) {
+			cadenas.add("\n------------- EVENTOS -------------\n");
+			for (int z = 0; z < eventos.length; z++) {
+				if (eventos[z][0] != null) {
+					cadenas.add(eventos[z][1]);
+				}
+			}
+			cadenas.add("---------------PRECIO TOTAL: " + precioTotal + "€ ---------------");
+
+		} else {
+			cadenas.add("\n------------- NO HAY NINGÚN EVENTO -------------\n");
+
+		}
+		return cadenas;
+	}
+
 }
