@@ -140,6 +140,25 @@ public class Inicio extends JFrame {
 			}
 		});
 		panel.add(btnGenerarOfertaViaje);
+		
+		JButton btnInformes = new JButton("Informes");
+		btnInformes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> nombres = new 	ArrayList<String>();
+				nombres.add("Informe de cada viaje en "+controlador.generarViajes(agencia));	
+				nombres.add("Informe de cada viaje y sus eventos en "+controlador.generarViajesEventos(agencia));
+				nombres.add("Informe de cada viaje ordenado por territorio en "+controlador.generarViajesPais(agencia));
+				nombres.add("Informe de cada viaje y sus eventos ordenado por precio en "+controlador.generarEventosPrecio(agencia));
+
+				JOptionPane.showMessageDialog(null, "¡Se han creado los siguientes informes en el escritorio: \n - "+String.join("\n - ", nombres),
+				agencia.getNombreAgencia(), JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		btnInformes.setForeground(Color.BLACK);
+		btnInformes.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		btnInformes.setBackground(Color.WHITE);
+		btnInformes.setBounds(10, 442, 284, 38);
+		panel.add(btnInformes);
 
 		JLabel lblViaje = new JLabel("Viajes");
 		lblViaje.setFont(new Font("Segoe UI", Font.PLAIN, 30));
@@ -414,5 +433,4 @@ public class Inicio extends JFrame {
         double iluminacion = (0.299 * fondo.getRed() + 0.587 * fondo.getGreen() + 0.114 * fondo.getBlue()) / 255;
         return iluminacion < 0.5 ? Color.WHITE : Color.BLACK;
     }
-	
 }
