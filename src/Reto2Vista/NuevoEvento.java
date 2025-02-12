@@ -70,48 +70,58 @@ public class NuevoEvento extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controlador controlador = new Controlador();
-	private JTextField txtNombreEvento;
-	private JTextField txtCiudad;
-	private JTextField txtNombreHotel;
-	private JSpinner spinnerPrecioAlojamiento;
-	private JSpinner spinnerPrecioVuelo;
-	private JSpinner spinnerPrecioOtros;
-	private JComboBox<String> cbA_Origen;
-	private JComboBox<String> cbA_Destino;
-	private JComboBox<String> cbAerolinea;
-	private JDateChooser chooserVueloFechaSalida;
-	private JSpinner spinnerHoraSalida;
-	private JDateChooser chooserEntrada;
-	private JDateChooser chooserSalida;
-	private JTextField txtCodigoVueloVuelta;
-	private JComboBox<String> cbAerolineaVuelta;
-	private JDateChooser chooserFechaOtros;
-	private JComboBox<String> cbTipoHabitacion;
-	private JTextArea txtDescripcionOtros;
-	private JTextField txtCodigoVuelo;
-	private JTextField txtDuracionVuelo;
-	private JRadioButton rdbtnVuelo;
-	private JRadioButton rdbtnAlojamiento;
-	private JRadioButton rdbtnOtros;
-	private JPanel panelAlojamiento;
-	private JPanel panelOtros;
-	private JPanel panelVueloVuelta;
-	private JPanel panelVuelo;
-	private JRadioButton rdbtnVueloIdaVuelta;
-	private JRadioButton rdbtnVueloIda;
 	private JPanel panelIzquierda;
+	private JButton btnGuardar;
+	private JButton btnCancelar;
+	private Controlador controlador = new Controlador();
+	private Font fuentePlain = new Font("Segoe UI", Font.PLAIN, 20);
+	private Font fuenteBold = new Font("Segoe UI", Font.BOLD, 20);
+	// MODELOS: COMBO BOX
 	private DefaultComboBoxModel<String> modeloAeropuertosOrigen;
 	private DefaultComboBoxModel<String> modeloAeropuertosDestino;
 	private DefaultComboBoxModel<String> modeloAerolineasIda;
 	private DefaultComboBoxModel<String> modeloAerolineasVuelta;
+	// PANELES POR SECCIÓN
+	private JPanel panelAlojamiento;
+	private JPanel panelOtros;
+	private JPanel panelVuelo;
+	private JPanel panelVueloVuelta;
+	// EVENTO: COMUNES
+	private JTextField txtNombreEvento;
+	private JRadioButton rdbtnVuelo;
+	private JRadioButton rdbtnAlojamiento;
+	private JRadioButton rdbtnOtros;
+	// EVENTO: PRECIOS
+	private JSpinner spinnerPrecioAlojamiento;
+	private JSpinner spinnerPrecioVuelo;
+	private JSpinner spinnerPrecioOtros;
+	// ALOJAMIENTO
+	private JTextField txtCiudad;
+	private JTextField txtNombreHotel;
+	private JDateChooser chooserEntrada;
+	private JDateChooser chooserSalida;
+	private JComboBox<String> cbTipoHabitacion;
+	private String TipoHabitacion = "";
+	// VUELO: SELECTOR TIPO
+	private JRadioButton rdbtnVueloIdaVuelta;
+	private JRadioButton rdbtnVueloIda;
+	// VUELO: IDA
+	private JComboBox<String> cbA_Origen;
+	private JComboBox<String> cbA_Destino;
+	private JComboBox<String> cbAerolinea;
+	private JSpinner spinnerHoraSalida;
+	private JDateChooser chooserVueloFechaSalida;
+	private JTextField txtCodigoVuelo;
+	private JTextField txtDuracionVuelo;
+	// VUELO: VUELTA
+	private JComboBox<String> cbAerolineaVuelta;
+	private JTextField txtCodigoVueloVuelta;
 	private JDateChooser chooserVueloFechaSalidaVuelta;
 	private JSpinner spinnerHoraSalidaVuelta;
-	private JButton btnGuardar;
-	private JButton btnDesconectar;
-	private String TipoHabitacion = "";
 	private JTextField txtDuracionVueloVuelta;
-	
+	// OTROS
+	private JDateChooser chooserFechaOtros;
+	private JTextArea txtDescripcionOtros;
 
 	public NuevoEvento(Viaje viaje, Agencia agencia, ArrayList<Aeropuerto> aeropuertos,
 			ArrayList<Aerolinea> aerolineas) {
@@ -123,94 +133,90 @@ public class NuevoEvento extends JFrame {
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
-
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setContentPane(contentPane);
 
 		panelIzquierda = new JPanel();
 		panelIzquierda.setBorder(null);
 		panelIzquierda.setBackground(Color.decode(agencia.getColorMarca()));
 		panelIzquierda.setBounds(0, 0, 304, 700);
-		contentPane.add(panelIzquierda);
 		panelIzquierda.setLayout(null);
+		contentPane.add(panelIzquierda);
 
 		JPanel panelLogo = new JPanel();
 		panelLogo.setOpaque(false);
 		panelLogo.setBorder(null);
 		panelLogo.setBackground(Color.decode(agencia.getColorMarca()));
 		panelLogo.setBounds(15, 15, 256, 173);
+		panelLogo.setLayout(new BorderLayout(0, 0));
 		panelIzquierda.add(panelLogo);
 
-		panelLogo.setLayout(new BorderLayout(0, 0));
-
-		URL imgUrl = null;
-		try {
-			imgUrl = new URL(agencia.getLogo());
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ImageIcon image = new ImageIcon(imgUrl);
-		JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(256, 173, Image.SCALE_SMOOTH)));
-		panelLogo.add(lblLogo);
-
 		JLabel lblNombreAgencia = new JLabel(agencia.getNombreAgencia());
-		lblNombreAgencia.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblNombreAgencia.setFont(fuenteBold);
 		lblNombreAgencia.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
 		lblNombreAgencia.setBounds(15, 196, 256, 38);
 		panelIzquierda.add(lblNombreAgencia);
 
-		btnDesconectar = new JButton("Cancelar");
-		btnDesconectar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				Inicio ventana = new Inicio(agencia);
-				ventana.setVisible(true);
-			}
-		});
-		btnDesconectar.setForeground(new Color(0, 0, 0));
-		btnDesconectar.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		btnDesconectar.setBackground(new Color(255, 255, 255));
-		btnDesconectar.setBounds(10, 540, 284, 38);
-		panelIzquierda.add(btnDesconectar);
-
-		btnGuardar = new JButton("Guardar");
-		btnGuardar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				validarEvento(viaje, agencia, aeropuertos, aerolineas);
-			}
-		});
-		btnGuardar.setForeground(new Color(0, 0, 0));
-		btnGuardar.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		btnGuardar.setBackground(new Color(255, 255, 255));
-		btnGuardar.setBounds(10, 491, 284, 38);
-
-		panelIzquierda.add(btnGuardar);
-
 		JLabel lblCrearEvento = new JLabel("Crear evento");
 		lblCrearEvento.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
-
 		lblCrearEvento.setFont(new Font("Segoe UI", Font.BOLD, 40));
 		lblCrearEvento.setBounds(15, 244, 256, 54);
 		panelIzquierda.add(lblCrearEvento);
 
+		JLabel lblNombreEvento = new JLabel("Nombre del evento");
+		lblNombreEvento.setFont(fuentePlain);
+		lblNombreEvento.setBounds(355, 12, 250, 32);
+		contentPane.add(lblNombreEvento);
+
+		JLabel lblTipoEvento = new JLabel("Tipo de evento");
+		lblTipoEvento.setFont(fuentePlain);
+		lblTipoEvento.setBounds(355, 108, 250, 32);
+		contentPane.add(lblTipoEvento);
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(new Color(0, 0, 0));
+		btnCancelar.setFont(fuenteBold);
+		btnCancelar.setBackground(new Color(255, 255, 255));
+		btnCancelar.setBounds(10, 540, 284, 38);
+		panelIzquierda.add(btnCancelar);
+
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setForeground(new Color(0, 0, 0));
+		btnGuardar.setFont(fuenteBold);
+		btnGuardar.setBackground(new Color(255, 255, 255));
+		btnGuardar.setBounds(10, 491, 284, 38);
+		panelIzquierda.add(btnGuardar);
+
 		txtNombreEvento = new JTextField();
-		txtNombreEvento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtNombreEvento.setFont(fuentePlain);
 		txtNombreEvento.setColumns(10);
 		txtNombreEvento.setBounds(355, 54, 488, 41);
 		contentPane.add(txtNombreEvento);
 
-		JLabel lblDescripcin = new JLabel("Nombre del evento");
-		lblDescripcin.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblDescripcin.setBounds(355, 12, 250, 32);
-		contentPane.add(lblDescripcin);
-
-		JLabel lblTipoEvento = new JLabel("Tipo de evento");
-		lblTipoEvento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblTipoEvento.setBounds(355, 108, 250, 32);
-		contentPane.add(lblTipoEvento);
-
 		rdbtnVuelo = new JRadioButton("Vuelo");
+		rdbtnVuelo.setFont(fuentePlain);
+		rdbtnVuelo.setBounds(355, 146, 126, 41);
+		contentPane.add(rdbtnVuelo);
+
+		rdbtnAlojamiento = new JRadioButton("Alojamiento");
+		rdbtnAlojamiento.setFont(fuentePlain);
+		rdbtnAlojamiento.setBounds(516, 146, 162, 41);
+		contentPane.add(rdbtnAlojamiento);
+
+		rdbtnOtros = new JRadioButton("Otros");
+		rdbtnOtros.setFont(fuentePlain);
+		rdbtnOtros.setBounds(717, 146, 126, 47);
+		contentPane.add(rdbtnOtros);
+
+		ImageIcon image = null;
+		try {
+			image = new ImageIcon(new URL(agencia.getLogo()));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(256, 173, Image.SCALE_SMOOTH)));
+		panelLogo.add(lblLogo);
+
 		rdbtnVuelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rdbtnAlojamiento.setSelected(false);
@@ -218,11 +224,6 @@ public class NuevoEvento extends JFrame {
 				tipoEvento();
 			}
 		});
-		rdbtnVuelo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		rdbtnVuelo.setBounds(355, 146, 126, 41);
-		contentPane.add(rdbtnVuelo);
-
-		rdbtnAlojamiento = new JRadioButton("Alojamiento");
 		rdbtnAlojamiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rdbtnVuelo.setSelected(false);
@@ -230,11 +231,6 @@ public class NuevoEvento extends JFrame {
 				tipoEvento();
 			}
 		});
-		rdbtnAlojamiento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		rdbtnAlojamiento.setBounds(516, 146, 162, 41);
-		contentPane.add(rdbtnAlojamiento);
-
-		rdbtnOtros = new JRadioButton("Otros");
 		rdbtnOtros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rdbtnAlojamiento.setSelected(false);
@@ -242,90 +238,93 @@ public class NuevoEvento extends JFrame {
 				tipoEvento();
 			}
 		});
-		rdbtnOtros.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		rdbtnOtros.setBounds(717, 146, 126, 47);
-		contentPane.add(rdbtnOtros);
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				validarEvento(viaje, agencia, aeropuertos, aerolineas);
+			}
+		});
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Inicio ventana = new Inicio(agencia);
+				ventana.setVisible(true);
+			}
+		});
 
 		modeloAeropuertosOrigen = new DefaultComboBoxModel<String>();
 		modeloAeropuertosDestino = new DefaultComboBoxModel<String>();
 		modeloAerolineasIda = new DefaultComboBoxModel<String>();
 		modeloAerolineasVuelta = new DefaultComboBoxModel<String>();
-		contentPane.add(desplegarAlojamiento());
-		contentPane.add(desplegarOtros());
-		contentPane.add(desplegarVuelo(aeropuertos, aerolineas));
 
-		contentPane.add(desplegarVueloVuelta());
+		desplegarAlojamiento();
+		desplegarVuelo(aeropuertos);
+		desplegarVueloVuelta();
+		desplegarOtros();
+		contentPane.add(panelAlojamiento);
+		contentPane.add(panelVuelo);
+		contentPane.add(panelVueloVuelta);
+		contentPane.add(panelOtros);
+
+		cargarComboBoxes(aeropuertos, aerolineas);
 		panelAlojamiento.setVisible(false);
 		panelOtros.setVisible(false);
 		panelVuelo.setVisible(false);
 		panelVueloVuelta.setVisible(false);
 	}
 
-	public JPanel desplegarAlojamiento() {
+	public void desplegarAlojamiento() {
 		panelAlojamiento = new JPanel();
 		panelAlojamiento.setBounds(354, 195, 492, 333);
-		// contentPane.add(panelAlojamiento);
 		panelAlojamiento.setLayout(null);
 		Calendar c = Calendar.getInstance();
+
 		chooserEntrada = new JDateChooser(c.getTime());
-		chooserEntrada.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		chooserEntrada.setFont(fuentePlain);
 		chooserEntrada.setBounds(0, 42, 220, 41);
 		panelAlojamiento.add(chooserEntrada);
+
+		chooserSalida = new JDateChooser(c.getTime());
+		chooserSalida.setFont(fuentePlain);
+		chooserSalida.setBounds(269, 42, 220, 41);
+		panelAlojamiento.add(chooserSalida);
 
 		JButton btnBuscarAlojamiento = new JButton("Buscar alojamiento en Booking");
 		btnBuscarAlojamiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-				    try {
-						Desktop.getDesktop().browse(new URI("https://www.booking.com/"));
+				if (txtCiudad.getText() != null && chooserEntrada.getDate().equals(chooserSalida.getDate()) == false
+						&& (chooserEntrada.getDate().before(chooserSalida.getDate())
+								|| chooserEntrada.getDate().equals(chooserSalida.getDate()))
+						&& Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+					String url = "https://www.booking.com/searchresults.html?ss=" + txtCiudad.getText() + "&checkin="
+							+ df.format(chooserEntrada.getDate()) + "&checkout=" + df.format(chooserSalida.getDate());
+					try {
+						Desktop.getDesktop().browse(new URI(url));
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} catch (URISyntaxException e1) {
 						e1.printStackTrace();
 					}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Para acceder a Booking.com, necesitas indicar una ciudad, una fecha de entrada y una fecha de salida",
+							"Error al acceder a Booking.com", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 		btnBuscarAlojamiento.setBackground(new Color(255, 255, 255));
-		btnBuscarAlojamiento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		btnBuscarAlojamiento.setFont(fuentePlain);
 		btnBuscarAlojamiento.setBounds(0, 200, 489, 41);
 		panelAlojamiento.add(btnBuscarAlojamiento);
 
-		chooserSalida = new JDateChooser(c.getTime());
-		chooserSalida.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		chooserSalida.setBounds(269, 42, 220, 41);
-		panelAlojamiento.add(chooserSalida);
-
-		JLabel lblEntrada = new JLabel("Entrada");
-		lblEntrada.setHorizontalAlignment(SwingConstants.LEFT);
-		lblEntrada.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblEntrada.setBounds(0, 0, 203, 41);
-		panelAlojamiento.add(lblEntrada);
-
-		JLabel lblDescripcin_1_1 = new JLabel("Salida");
-		lblDescripcin_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblDescripcin_1_1.setBounds(269, 0, 203, 41);
-		panelAlojamiento.add(lblDescripcin_1_1);
-
 		txtCiudad = new JTextField();
-		txtCiudad.setToolTipText("ej. Paris");
-		txtCiudad.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtCiudad.setFont(fuentePlain);
 		txtCiudad.setColumns(10);
 		txtCiudad.setBounds(0, 145, 220, 41);
 		panelAlojamiento.add(txtCiudad);
 
-		JLabel lblCiudad = new JLabel("Ciudad");
-		lblCiudad.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblCiudad.setBounds(0, 106, 203, 41);
-		panelAlojamiento.add(lblCiudad);
-
-		JLabel lblNombreHotel = new JLabel("Nombre del hotel");
-		lblNombreHotel.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblNombreHotel.setBounds(0, 251, 249, 41);
-		panelAlojamiento.add(lblNombreHotel);
-
 		txtNombreHotel = new JTextField();
-		txtNombreHotel.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtNombreHotel.setFont(fuentePlain);
 		txtNombreHotel.setColumns(10);
 		txtNombreHotel.setBounds(0, 292, 220, 41);
 		panelAlojamiento.add(txtNombreHotel);
@@ -333,15 +332,9 @@ public class NuevoEvento extends JFrame {
 		spinnerPrecioAlojamiento = new JSpinner();
 		spinnerPrecioAlojamiento
 				.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-		spinnerPrecioAlojamiento.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		spinnerPrecioAlojamiento.setFont(fuentePlain);
 		spinnerPrecioAlojamiento.setBounds(269, 145, 195, 41);
 		panelAlojamiento.add(spinnerPrecioAlojamiento);
-		;
-
-		JLabel lblNombreHotel_1 = new JLabel("Precio");
-		lblNombreHotel_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblNombreHotel_1.setBounds(269, 106, 170, 41);
-		panelAlojamiento.add(lblNombreHotel_1);
 
 		cbTipoHabitacion = new JComboBox<String>();
 		cbTipoHabitacion.addActionListener(new ActionListener() {
@@ -362,221 +355,169 @@ public class NuevoEvento extends JFrame {
 		cbTipoHabitacion.setBackground(new Color(255, 255, 255));
 		cbTipoHabitacion.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "", "Doble", "Doble con uso individual", "Individual", "Triple" }));
-		cbTipoHabitacion.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbTipoHabitacion.setFont(fuentePlain);
 		cbTipoHabitacion.setBounds(270, 292, 219, 41);
 		panelAlojamiento.add(cbTipoHabitacion);
 
-		JLabel lblTipoDelViaje_1 = new JLabel("Tipo de habitacion");
-		lblTipoDelViaje_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblTipoDelViaje_1.setBounds(269, 251, 195, 41);
-		panelAlojamiento.add(lblTipoDelViaje_1);
+		// LABELS
+		JLabel lblCiudad = new JLabel("Ciudad");
+		lblCiudad.setFont(fuentePlain);
+		lblCiudad.setBounds(0, 106, 203, 41);
+		panelAlojamiento.add(lblCiudad);
 
-		JLabel lblDescripcin_1 = new JLabel("€");
-		lblDescripcin_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblDescripcin_1.setBounds(473, 149, 16, 32);
-		panelAlojamiento.add(lblDescripcin_1);
-		return panelAlojamiento;
+		JLabel lblNombreHotel = new JLabel("Nombre del hotel");
+		lblNombreHotel.setFont(fuentePlain);
+		lblNombreHotel.setBounds(0, 251, 249, 41);
+		panelAlojamiento.add(lblNombreHotel);
 
+		JLabel lblEntrada = new JLabel("Entrada");
+		lblEntrada.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEntrada.setFont(fuentePlain);
+		lblEntrada.setBounds(0, 0, 203, 41);
+		panelAlojamiento.add(lblEntrada);
+
+		JLabel lblSalida = new JLabel("Salida");
+		lblSalida.setFont(fuentePlain);
+		lblSalida.setBounds(269, 0, 203, 41);
+		panelAlojamiento.add(lblSalida);
+
+		JLabel lblPrecio = new JLabel("Precio");
+		lblPrecio.setFont(fuentePlain);
+		lblPrecio.setBounds(269, 106, 170, 41);
+		panelAlojamiento.add(lblPrecio);
+
+		JLabel lblTipoHab = new JLabel("Tipo de habitacion");
+		lblTipoHab.setFont(fuentePlain);
+		lblTipoHab.setBounds(269, 251, 195, 41);
+		panelAlojamiento.add(lblTipoHab);
+
+		JLabel lblEuro = new JLabel("€");
+		lblEuro.setFont(fuentePlain);
+		lblEuro.setBounds(473, 149, 16, 32);
+		panelAlojamiento.add(lblEuro);
 	}
 
-	public JPanel desplegarOtros() {
+	public void desplegarOtros() {
 		panelOtros = new JPanel();
 		panelOtros.setBounds(354, 195, 488, 383);
-		// contentPane.add(panelOtros);
 		panelOtros.setLayout(null);
 
-		Calendar c = Calendar.getInstance();
-
-		chooserFechaOtros = new JDateChooser(c.getTime());
-		chooserFechaOtros.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		chooserFechaOtros = new JDateChooser(Calendar.getInstance().getTime());
+		chooserFechaOtros.setFont(fuentePlain);
 		chooserFechaOtros.setBounds(0, 41, 220, 41);
 		panelOtros.add(chooserFechaOtros);
-		chooserFechaOtros.getCalendarButton().setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		chooserFechaOtros.getCalendarButton().setFont(fuentePlain);
 
-		JLabel lblFecha = new JLabel("Fecha");
-		lblFecha.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblFecha.setBounds(0, 0, 203, 41);
-		panelOtros.add(lblFecha);
 		spinnerPrecioOtros = new JSpinner();
 		spinnerPrecioOtros
 				.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-		spinnerPrecioOtros.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		spinnerPrecioOtros.setFont(fuentePlain);
 		spinnerPrecioOtros.setBounds(269, 41, 186, 41);
 		panelOtros.add(spinnerPrecioOtros);
 
-		JLabel lblFecha_1 = new JLabel("Precio");
-		lblFecha_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblFecha_1.setBounds(269, 0, 166, 41);
-		panelOtros.add(lblFecha_1);
-
-		JLabel lblFecha_1_1 = new JLabel("€");
-		lblFecha_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblFecha_1_1.setBounds(465, 41, 34, 32);
-		panelOtros.add(lblFecha_1_1);
-
 		txtDescripcionOtros = new JTextArea();
-		txtDescripcionOtros.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtDescripcionOtros.setFont(fuentePlain);
 		txtDescripcionOtros.setColumns(10);
 		txtDescripcionOtros.setBounds(0, 156, 488, 227);
 		panelOtros.add(txtDescripcionOtros);
 
-		JLabel lblDescripcin_2 = new JLabel("Descripción");
-		lblDescripcin_2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblDescripcin_2.setBounds(0, 105, 478, 41);
-		panelOtros.add(lblDescripcin_2);
-		return panelOtros;
+		// LABELS
+		JLabel lblFecha = new JLabel("Fecha");
+		lblFecha.setFont(fuentePlain);
+		lblFecha.setBounds(0, 0, 203, 41);
+		panelOtros.add(lblFecha);
+
+		JLabel lblPrecio = new JLabel("Precio");
+		lblPrecio.setFont(fuentePlain);
+		lblPrecio.setBounds(269, 0, 166, 41);
+		panelOtros.add(lblPrecio);
+
+		JLabel lblEuro = new JLabel("€");
+		lblEuro.setFont(fuentePlain);
+		lblEuro.setBounds(465, 41, 34, 32);
+		panelOtros.add(lblEuro);
+
+		JLabel lblDescripcion = new JLabel("Descripción");
+		lblDescripcion.setFont(fuentePlain);
+		lblDescripcion.setBounds(0, 105, 478, 41);
+		panelOtros.add(lblDescripcion);
 	}
 
-	public JPanel desplegarVuelo(ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas) {
+	public void desplegarVuelo(ArrayList<Aeropuerto> aeropuertos) {
 		Calendar c = Calendar.getInstance();
 		panelVuelo = new JPanel();
 		panelVuelo.setBounds(354, 195, 493, 473);
-		// contentPane.add(panelVuelo);
 		panelVuelo.setLayout(null);
-		spinnerPrecioVuelo = new JSpinner();
-		spinnerPrecioVuelo
-				.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-		spinnerPrecioVuelo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		spinnerPrecioVuelo.setBounds(270, 41, 195, 41);
-		panelVuelo.add(spinnerPrecioVuelo);
-		JLabel lblqueTipoDe = new JLabel("¿Que tipo de vuelo es?");
-		lblqueTipoDe.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblqueTipoDe.setBounds(0, 0, 250, 41);
-		panelVuelo.add(lblqueTipoDe);
-		JButton btnBuscarViaje = new JButton("Buscar viaje en SkyScanner");
-		btnBuscarViaje.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-				    try {
-						Desktop.getDesktop().browse(new URI("https://www.skyscanner.es/"));
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					} catch (URISyntaxException e1) {
-						e1.printStackTrace();
-					}
-				}
-			}
-		});
-		btnBuscarViaje.setBackground(new Color(255, 255, 255));
-		btnBuscarViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		btnBuscarViaje.setBounds(0, 182, 488, 41);
-		panelVuelo.add(btnBuscarViaje);
 
 		rdbtnVueloIda = new JRadioButton("Ida");
-		rdbtnVueloIda.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		rdbtnVueloIda.setFont(fuentePlain);
 		rdbtnVueloIda.setBounds(10, 41, 66, 23);
+		panelVuelo.add(rdbtnVueloIda);
+
+		rdbtnVueloIdaVuelta = new JRadioButton("Ida y vuelta");
+		rdbtnVueloIdaVuelta.setFont(fuentePlain);
+		rdbtnVueloIdaVuelta.setBounds(83, 41, 140, 23);
+		panelVuelo.add(rdbtnVueloIdaVuelta);
+
 		rdbtnVueloIda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cambiarTipoVuelo("Ida");
 
 			}
 		});
-		panelVuelo.add(rdbtnVueloIda);
-
-		rdbtnVueloIdaVuelta = new JRadioButton("Ida y vuelta");
-		rdbtnVueloIdaVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		rdbtnVueloIdaVuelta.setBounds(83, 41, 140, 23);
 		rdbtnVueloIdaVuelta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cambiarTipoVuelo("Ida y vuelta");
 			}
 		});
-		panelVuelo.add(rdbtnVueloIdaVuelta);
 
-		JLabel lblVueloDeIda = new JLabel("VUELO DE IDA");
-		lblVueloDeIda.setFont(new Font("Segoe UI", Font.BOLD, 25));
-		lblVueloDeIda.setBounds(0, 251, 250, 32);
-		panelVuelo.add(lblVueloDeIda);
-
-		JLabel lblVueloDeIda_1 = new JLabel("Aeropuerto origen");
-		lblVueloDeIda_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_1.setBounds(0, 87, 250, 41);
-		panelVuelo.add(lblVueloDeIda_1);
-
-		JLabel lblVueloDeIda_2 = new JLabel("Aeropuerto destino");
-		lblVueloDeIda_2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_2.setBounds(270, 87, 250, 41);
-		panelVuelo.add(lblVueloDeIda_2);
-
-		JLabel lblVueloDeIda_2_1 = new JLabel("Aerolínea");
-		lblVueloDeIda_2_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_2_1.setBounds(270, 222, 218, 41);
-		panelVuelo.add(lblVueloDeIda_2_1);
+		spinnerPrecioVuelo = new JSpinner();
+		spinnerPrecioVuelo
+				.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+		spinnerPrecioVuelo.setFont(fuentePlain);
+		spinnerPrecioVuelo.setBounds(270, 41, 195, 41);
+		panelVuelo.add(spinnerPrecioVuelo);
 
 		cbA_Origen = new JComboBox<String>(modeloAeropuertosOrigen);
-		cbA_Origen.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbA_Origen.setFont(fuentePlain);
 		cbA_Origen.setBackground(Color.white);
 		cbA_Origen.setBounds(0, 131, 203, 41);
 		panelVuelo.add(cbA_Origen);
 
 		cbA_Destino = new JComboBox<String>(modeloAeropuertosDestino);
-		cbA_Destino.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbA_Destino.setFont(fuentePlain);
 		cbA_Destino.setBounds(270, 131, 218, 41);
 		cbA_Destino.setBackground(Color.white);
 		panelVuelo.add(cbA_Destino);
 
 		cbAerolinea = new JComboBox<String>(modeloAerolineasIda);
-		cbAerolinea.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbAerolinea.setFont(fuentePlain);
 		cbAerolinea.setBounds(270, 263, 218, 41);
 		cbAerolinea.setBackground(Color.white);
 		panelVuelo.add(cbAerolinea);
 
-		rellenaraeropuertos(aeropuertos);
-		rellenaraerolineas(aerolineas);
-
 		txtCodigoVuelo = new JTextField();
-		txtCodigoVuelo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtCodigoVuelo.setFont(fuentePlain);
 		txtCodigoVuelo.setColumns(10);
 		txtCodigoVuelo.setBounds(0, 344, 250, 41);
 		panelVuelo.add(txtCodigoVuelo);
 
-		JLabel lblVueloDeIda_2_1_1 = new JLabel("Código del vuelo");
-		lblVueloDeIda_2_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_2_1_1.setBounds(0, 293, 250, 41);
-		panelVuelo.add(lblVueloDeIda_2_1_1);
-
 		chooserVueloFechaSalida = new JDateChooser(c.getTime());
-		chooserVueloFechaSalida.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		chooserVueloFechaSalida.setFont(fuentePlain);
 		chooserVueloFechaSalida.setBounds(0, 427, 250, 41);
 		panelVuelo.add(chooserVueloFechaSalida);
-		chooserVueloFechaSalida.getCalendarButton().setFont(new Font("Segoe UI", Font.PLAIN, 20));
-
-		JLabel lblVueloDeIda_2_1_1_1 = new JLabel("Fecha de salida");
-		lblVueloDeIda_2_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_2_1_1_1.setBounds(0, 382, 250, 41);
-		panelVuelo.add(lblVueloDeIda_2_1_1_1);
-
-		JLabel lblVueloDeIda_2_1_1_1_1 = new JLabel("Hora de salida");
-		lblVueloDeIda_2_1_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_2_1_1_1_1.setBounds(270, 302, 218, 41);
-		panelVuelo.add(lblVueloDeIda_2_1_1_1_1);
-
-		JLabel lblPrecio = new JLabel("Precio");
-		lblPrecio.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblPrecio.setBounds(269, 0, 224, 32);
-		panelVuelo.add(lblPrecio);
+		chooserVueloFechaSalida.getCalendarButton().setFont(fuentePlain);
 
 		txtDuracionVuelo = new JTextField();
-		txtDuracionVuelo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtDuracionVuelo.setFont(fuentePlain);
 		txtDuracionVuelo.setColumns(10);
 		txtDuracionVuelo.setBounds(270, 429, 218, 41);
 		panelVuelo.add(txtDuracionVuelo);
 
-		JLabel lblDescripcin_1_1 = new JLabel("Duración del vuelo");
-		lblDescripcin_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblDescripcin_1_1.setBounds(270, 386, 218, 41);
-		panelVuelo.add(lblDescripcin_1_1);
-
-		JLabel lblPrecio_1 = new JLabel("€");
-		lblPrecio_1.setBounds(474, 45, 21, 32);
-		panelVuelo.add(lblPrecio_1);
-		lblPrecio_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-
-		Calendar now = Calendar.getInstance();
 		SpinnerDateModel model = new SpinnerDateModel();
-		model.setValue(now.getTime());
+		model.setValue(Calendar.getInstance().getTime());
 		spinnerHoraSalida = new JSpinner(model);
-		spinnerHoraSalida.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		spinnerHoraSalida.setFont(fuentePlain);
 		spinnerHoraSalida.setLocation(270, 344);
 		spinnerHoraSalida.setSize(218, 41);
 		JSpinner.DateEditor de_spinnerHoraSalida = new JSpinner.DateEditor(spinnerHoraSalida, "HH:mm");
@@ -584,74 +525,138 @@ public class NuevoEvento extends JFrame {
 		spinnerHoraSalida.setPreferredSize(new Dimension(80, 30));
 		panelVuelo.add(spinnerHoraSalida);
 
-		return panelVuelo;
+		JButton btnBuscarViaje = new JButton("Buscar viaje en SkyScanner");
+		btnBuscarViaje.setBackground(new Color(255, 255, 255));
+		btnBuscarViaje.setFont(fuentePlain);
+		btnBuscarViaje.setBounds(0, 182, 488, 41);
+		panelVuelo.add(btnBuscarViaje);
+		btnBuscarViaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cbA_Origen.getSelectedItem() != "" && cbA_Destino.getSelectedItem() != ""
+						&& Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+					SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+					String aeropuertoOrigen = "";
+					String aeropuertoDestino = "";
+					for (Aeropuerto aeropuerto : aeropuertos) {
+						if (aeropuerto.getNombreAeropuerto().equals(cbA_Origen.getSelectedItem())) {
+							aeropuertoOrigen = aeropuerto.getCodigoAeropuerto();
+						}
+						if (aeropuerto.getNombreAeropuerto().equals(cbA_Destino.getSelectedItem())) {
+							aeropuertoDestino = aeropuerto.getCodigoAeropuerto();
+						}
+					}
+					String url = "https://skyscanner.es/transporte/vuelos/" + aeropuertoOrigen + "/" + aeropuertoDestino
+							+ "/" + df.format(chooserVueloFechaSalida.getDate()) + "/";
+					if (rdbtnVueloIdaVuelta.isSelected() == true) {
+						url = url + df.format(chooserVueloFechaSalidaVuelta.getDate());
+					}
+					System.out.println(url);
+
+					try {
+						Desktop.getDesktop().browse(new URI(url));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Para acceder a Skyscanner.es, necesitas indicar un aeropuerto de origen, un aeropuerto de destino y una fecha de salida",
+							"Error al acceder a Skyscanner.es", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		// LABELS
+		JLabel lblDuracion = new JLabel("Duración del vuelo");
+		lblDuracion.setFont(fuentePlain);
+		lblDuracion.setBounds(270, 386, 218, 41);
+		panelVuelo.add(lblDuracion);
+
+		JLabel lblPrecio_1 = new JLabel("€");
+		lblPrecio_1.setBounds(474, 45, 21, 32);
+		lblPrecio_1.setFont(fuentePlain);
+		panelVuelo.add(lblPrecio_1);
+
+		JLabel lblTipoV = new JLabel("¿Que tipo de vuelo es?");
+		lblTipoV.setFont(fuentePlain);
+		lblTipoV.setBounds(0, 0, 250, 41);
+		panelVuelo.add(lblTipoV);
+
+		JLabel lblVueloDeIda = new JLabel("VUELO DE IDA");
+		lblVueloDeIda.setFont(new Font("Segoe UI", Font.BOLD, 25));
+		lblVueloDeIda.setBounds(0, 251, 250, 32);
+		panelVuelo.add(lblVueloDeIda);
+
+		JLabel lblAOrigen = new JLabel("Aeropuerto origen");
+		lblAOrigen.setFont(fuentePlain);
+		lblAOrigen.setBounds(0, 87, 250, 41);
+		panelVuelo.add(lblAOrigen);
+
+		JLabel lblADestino = new JLabel("Aeropuerto destino");
+		lblADestino.setFont(fuentePlain);
+		lblADestino.setBounds(270, 87, 250, 41);
+		panelVuelo.add(lblADestino);
+
+		JLabel lblAerolinea = new JLabel("Aerolínea");
+		lblAerolinea.setFont(fuentePlain);
+		lblAerolinea.setBounds(270, 222, 218, 41);
+		panelVuelo.add(lblAerolinea);
+
+		JLabel lblCodigoV = new JLabel("Código del vuelo");
+		lblCodigoV.setFont(fuentePlain);
+		lblCodigoV.setBounds(0, 293, 250, 41);
+		panelVuelo.add(lblCodigoV);
+		JLabel lblFSalida = new JLabel("Fecha de salida");
+		lblFSalida.setFont(fuentePlain);
+		lblFSalida.setBounds(0, 382, 250, 41);
+		panelVuelo.add(lblFSalida);
+
+		JLabel lblHSalida = new JLabel("Hora de salida");
+		lblHSalida.setFont(fuentePlain);
+		lblHSalida.setBounds(270, 302, 218, 41);
+		panelVuelo.add(lblHSalida);
+
+		JLabel lblPrecio = new JLabel("Precio");
+		lblPrecio.setFont(fuentePlain);
+		lblPrecio.setBounds(269, 0, 224, 32);
+		panelVuelo.add(lblPrecio);
+
 	}
 
-	public JPanel desplegarVueloVuelta() {
-		Calendar c = Calendar.getInstance();
+	public void desplegarVueloVuelta() {
 		panelVueloVuelta = new JPanel();
 		panelVueloVuelta.setBounds(888, 195, 493, 473);
 		panelVueloVuelta.setLayout(null);
 
-		JLabel lblVueloDeIda = new JLabel("VUELO DE VUELTA");
-		lblVueloDeIda.setFont(new Font("Segoe UI", Font.BOLD, 25));
-		lblVueloDeIda.setBounds(0, 251, 250, 32);
-		panelVueloVuelta.add(lblVueloDeIda);
-
 		cbAerolineaVuelta = new JComboBox<String>(modeloAerolineasVuelta);
 		cbAerolineaVuelta.setBackground(Color.white);
-		cbAerolineaVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbAerolineaVuelta.setFont(fuentePlain);
 		cbAerolineaVuelta.setBounds(270, 263, 218, 41);
 		panelVueloVuelta.add(cbAerolineaVuelta);
 
-		JLabel lblVueloDeIda_2_1 = new JLabel("Aerolínea");
-		lblVueloDeIda_2_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_2_1.setBounds(270, 222, 218, 41);
-		panelVueloVuelta.add(lblVueloDeIda_2_1);
-
 		txtCodigoVueloVuelta = new JTextField();
-		txtCodigoVueloVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtCodigoVueloVuelta.setFont(fuentePlain);
 		txtCodigoVueloVuelta.setColumns(10);
 		txtCodigoVueloVuelta.setBounds(0, 344, 250, 41);
 		panelVueloVuelta.add(txtCodigoVueloVuelta);
 
-		JLabel lblVueloDeIda_2_1_1 = new JLabel("Código del vuelo");
-		lblVueloDeIda_2_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_2_1_1.setBounds(0, 293, 250, 41);
-		panelVueloVuelta.add(lblVueloDeIda_2_1_1);
-
-		chooserVueloFechaSalidaVuelta = new JDateChooser(c.getTime());
-		chooserVueloFechaSalidaVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		chooserVueloFechaSalidaVuelta = new JDateChooser(Calendar.getInstance().getTime());
+		chooserVueloFechaSalidaVuelta.setFont(fuentePlain);
 		chooserVueloFechaSalidaVuelta.setBounds(0, 427, 250, 41);
 		panelVueloVuelta.add(chooserVueloFechaSalidaVuelta);
-		chooserVueloFechaSalidaVuelta.getCalendarButton().setFont(new Font("Segoe UI", Font.PLAIN, 20));
-
-		JLabel lblVueloDeIda_2_1_1_1 = new JLabel("Fecha de salida");
-		lblVueloDeIda_2_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_2_1_1_1.setBounds(0, 382, 250, 41);
-		panelVueloVuelta.add(lblVueloDeIda_2_1_1_1);
-
-		JLabel lblVueloDeIda_2_1_1_1_1 = new JLabel("Hora de salida");
-		lblVueloDeIda_2_1_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblVueloDeIda_2_1_1_1_1.setBounds(270, 302, 218, 41);
-		panelVueloVuelta.add(lblVueloDeIda_2_1_1_1_1);
+		chooserVueloFechaSalidaVuelta.getCalendarButton().setFont(fuentePlain);
 
 		txtDuracionVueloVuelta = new JTextField();
-		txtDuracionVueloVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtDuracionVueloVuelta.setFont(fuentePlain);
 		txtDuracionVueloVuelta.setColumns(10);
 		txtDuracionVueloVuelta.setBounds(270, 429, 218, 41);
 		panelVueloVuelta.add(txtDuracionVueloVuelta);
 
-		JLabel lblDescripcin_1_1 = new JLabel("Duración del vuelo");
-		lblDescripcin_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblDescripcin_1_1.setBounds(270, 386, 218, 41);
-		panelVueloVuelta.add(lblDescripcin_1_1);
-
-		Calendar now = Calendar.getInstance();
 		SpinnerDateModel model = new SpinnerDateModel();
-		model.setValue(now.getTime());
+		model.setValue(Calendar.getInstance().getTime());
 		spinnerHoraSalidaVuelta = new JSpinner(model);
-		spinnerHoraSalidaVuelta.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		spinnerHoraSalidaVuelta.setFont(fuentePlain);
 		spinnerHoraSalidaVuelta.setLocation(270, 344);
 		spinnerHoraSalidaVuelta.setSize(218, 41);
 		JSpinner.DateEditor de_spinnerHoraSalidaVuelta = new JSpinner.DateEditor(spinnerHoraSalidaVuelta, "HH:mm");
@@ -659,7 +664,36 @@ public class NuevoEvento extends JFrame {
 		spinnerHoraSalidaVuelta.setPreferredSize(new Dimension(80, 30));
 		panelVueloVuelta.add(spinnerHoraSalidaVuelta);
 
-		return panelVueloVuelta;
+		// LABELS
+		JLabel lblVueloDeIda = new JLabel("VUELO DE VUELTA");
+		lblVueloDeIda.setFont(new Font("Segoe UI", Font.BOLD, 25));
+		lblVueloDeIda.setBounds(0, 251, 250, 32);
+		panelVueloVuelta.add(lblVueloDeIda);
+
+		JLabel lblAerolinea = new JLabel("Aerolínea");
+		lblAerolinea.setFont(fuentePlain);
+		lblAerolinea.setBounds(270, 222, 218, 41);
+		panelVueloVuelta.add(lblAerolinea);
+
+		JLabel lblCodigoV = new JLabel("Código del vuelo");
+		lblCodigoV.setFont(fuentePlain);
+		lblCodigoV.setBounds(0, 293, 250, 41);
+		panelVueloVuelta.add(lblCodigoV);
+
+		JLabel lblFSalida = new JLabel("Fecha de salida");
+		lblFSalida.setFont(fuentePlain);
+		lblFSalida.setBounds(0, 382, 250, 41);
+		panelVueloVuelta.add(lblFSalida);
+
+		JLabel lblHoraSalida = new JLabel("Hora de salida");
+		lblHoraSalida.setFont(fuentePlain);
+		lblHoraSalida.setBounds(270, 302, 218, 41);
+		panelVueloVuelta.add(lblHoraSalida);
+
+		JLabel lblDuracionV = new JLabel("Duración del vuelo");
+		lblDuracionV.setFont(fuentePlain);
+		lblDuracionV.setBounds(270, 386, 218, 41);
+		panelVueloVuelta.add(lblDuracionV);
 	}
 
 	public String tipoEvento() {
@@ -668,7 +702,7 @@ public class NuevoEvento extends JFrame {
 			panelOtros.setVisible(false);
 			panelVuelo.setVisible(true);
 			btnGuardar.setBounds(10, 573, 284, 38);
-			btnDesconectar.setBounds(10, 622, 284, 38);
+			btnCancelar.setBounds(10, 622, 284, 38);
 			if (rdbtnVueloIdaVuelta.isSelected() == true) {
 				panelVueloVuelta.setVisible(true);
 				setBounds(0, 0, 1450, 720);
@@ -691,7 +725,7 @@ public class NuevoEvento extends JFrame {
 			setBounds(0, 0, 1000, 650);
 			setLocationRelativeTo(null);
 			btnGuardar.setBounds(10, 491, 284, 38);
-			btnDesconectar.setBounds(10, 540, 284, 38);
+			btnCancelar.setBounds(10, 540, 284, 38);
 			return "Alojamiento";
 		}
 		if (rdbtnOtros.isSelected()) {
@@ -702,29 +736,25 @@ public class NuevoEvento extends JFrame {
 			setBounds(0, 0, 1000, 650);
 			setLocationRelativeTo(null);
 			btnGuardar.setBounds(10, 491, 284, 38);
-			btnDesconectar.setBounds(10, 540, 284, 38);
+			btnCancelar.setBounds(10, 540, 284, 38);
 			return "Otros";
 		}
 		return null;
 	}
 
-	public void rellenaraeropuertos(ArrayList<Aeropuerto> aeropuertos) {
+	public void cargarComboBoxes(ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas) {
 		modeloAeropuertosOrigen.addElement("");
 		modeloAeropuertosDestino.addElement("");
+		modeloAerolineasIda.addElement("");
+		modeloAerolineasVuelta.addElement("");
 		for (Aeropuerto aeropuerto : aeropuertos) {
 			modeloAeropuertosOrigen.addElement(aeropuerto.getNombreAeropuerto());
 			modeloAeropuertosDestino.addElement(aeropuerto.getNombreAeropuerto());
 		}
-	}
-
-	public void rellenaraerolineas(ArrayList<Aerolinea> aerolineas) {
-		modeloAerolineasIda.addElement("");
-		modeloAerolineasVuelta.addElement("");
 		for (Aerolinea aerolinea : aerolineas) {
 			modeloAerolineasIda.addElement(aerolinea.getNombreAerolinea());
 			modeloAerolineasVuelta.addElement(aerolinea.getNombreAerolinea());
 		}
-
 	}
 
 	public void cambiarTipoVuelo(String TipoVuelo) {
@@ -806,6 +836,10 @@ public class NuevoEvento extends JFrame {
 				if (FechaSalida_Alojamiento.length() == 0) {
 					mensajeError.add("La fecha de salida al hotel no puede estar vacío");
 				}
+				if ((chooserEntrada.getDate().before(chooserSalida.getDate())
+						|| chooserEntrada.getDate().equals(chooserSalida.getDate())) == false) {
+					mensajeError.add("Fecha salida no puede ser antes que fecha entrada");
+				}
 				if (Ciudad.length() == 0) {
 					mensajeError.add("El nombre de la ciudad no puede estar vacío");
 				}
@@ -850,6 +884,11 @@ public class NuevoEvento extends JFrame {
 					if (FechaSalidaVuelta.length() == 0) {
 						mensajeError.add("La fecha de salida del vuelo de vuelta no puede estar vacía");
 					}
+					if ((chooserVueloFechaSalida.getDate().before(chooserVueloFechaSalidaVuelta.getDate())
+							|| chooserVueloFechaSalida.getDate()
+									.equals(chooserVueloFechaSalidaVuelta.getDate())) == false) {
+						mensajeError.add("El vuelo de vuelta no puede ser antes que el vuelo de ida");
+					}
 					if (DuracionVueloVuelta.length() == 0) {
 						mensajeError.add("La duración del vuelo de vuelta no puede estar vacía");
 					}
@@ -878,7 +917,6 @@ public class NuevoEvento extends JFrame {
 				alojamiento.setTipoHabitacion(TipoHabitacion);
 				creado = controlador.insertarAlojamiento(alojamiento);
 			} else if (TipoEvento.equals("Otros")) {
-
 				Otros otros = new Otros();
 				otros.setViajeID(viaje);
 				otros.setNombreEvento(NombreEvento);
@@ -896,7 +934,6 @@ public class NuevoEvento extends JFrame {
 							AerolineaVuelta, CodigoVueloVuelta, HoraSalidaVuelta, FechaSalidaVuelta,
 							DuracionVueloVuelta, aeropuertos, aerolineas);
 					controlador.insertarVuelo(vueloVuelta);
-					System.out.println(controlador.getSumaVuelos());
 					vueloVuelta.setEventoID(controlador.getSumaVuelos() + "");
 					vuelo.setEventoVueltaID(vueloVuelta);
 
