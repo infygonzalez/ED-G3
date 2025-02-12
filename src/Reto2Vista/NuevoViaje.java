@@ -1,37 +1,17 @@
 package Reto2Vista;
 
-import java.awt.EventQueue;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import Reto2Modelo.Aerolinea;
-import Reto2Modelo.Aeropuerto;
 import Reto2Modelo.Agencia;
 import Reto2Modelo.Pais;
 import Reto2Modelo.Viaje;
-import Reto2Modelo.Vuelo;
-import Reto2Modelo.Alojamiento;
-import Reto2Modelo.Otros;
-
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,32 +19,22 @@ import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.table.DefaultTableModel;
-
 import com.toedter.calendar.JDateChooser;
 
 import Reto2Controlador.Controlador;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.awt.event.ActionEvent;
-import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.awt.Window.Type;
 import javax.swing.SwingConstants;
 
 public class NuevoViaje extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controlador controlador = new Controlador();
 	private JTextField txtNombreViaje;
 	private JTextArea txtServiciosNoIncluidos;
 	private DefaultComboBoxModel<String> modeloPais;
@@ -74,9 +44,12 @@ public class NuevoViaje extends JFrame {
 	private JDateChooser chooserFechaFin;
 	private JTextArea txtDescripcion;
 	private JLabel lblDiasViaje;
-
+	private Controlador controlador = new Controlador();
+	private Font fuentePlain = new Font("Segoe UI", Font.PLAIN, 20);
+	private Font fuenteBold = new Font("Segoe UI", Font.BOLD, 20);
+	
 	public NuevoViaje(Agencia agencia, ArrayList<Pais> paises) {
-		setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		setFont(fuentePlain);
 		setResizable(false);
 		setTitle("Crear viaje | " + agencia.getNombreAgencia());
 		setBackground(new Color(255, 255, 255));
@@ -86,168 +59,164 @@ public class NuevoViaje extends JFrame {
 
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
-
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setContentPane(contentPane);
 
-		JPanel panel = new JPanel();
-		panel.setBorder(null);
-		panel.setBackground(Color.decode(agencia.getColorMarca()));
-		panel.setBounds(0, 0, 304, 700);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JPanel panelIzquierda = new JPanel();
+		panelIzquierda.setBorder(null);
+		panelIzquierda.setBackground(Color.decode(agencia.getColorMarca()));
+		panelIzquierda.setBounds(0, 0, 304, 700);
+		panelIzquierda.setLayout(null);
+		contentPane.add(panelIzquierda);
 
-		JPanel panelLogo = new JPanel();
-		panelLogo.setOpaque(false);
-		panelLogo.setBorder(null);
-		panelLogo.setBackground(Color.decode(agencia.getColorMarca()));
-		panelLogo.setBounds(15, 15, 256, 173);
-		panel.add(panelLogo);
-
-		panelLogo.setLayout(new BorderLayout(0, 0));
-
-		URL imgUrl = null;
+		ImageIcon image = null;
 		try {
-			imgUrl = new URL(agencia.getLogo());
+			image = new ImageIcon(new URL(agencia.getLogo()));
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ImageIcon image = new ImageIcon(imgUrl);
 		JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(256, 173, Image.SCALE_SMOOTH)));
-		panelLogo.add(lblLogo);
+		lblLogo.setBounds(15, 15, 256, 173);
+		panelIzquierda.add(lblLogo);
 
-		JLabel lblNombreAgencia = new JLabel(agencia.getNombreAgencia());
-		lblNombreAgencia.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblNombreAgencia.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
-		lblNombreAgencia.setBounds(15, 196, 256, 38);
-		panel.add(lblNombreAgencia);
 
-		JButton btnDesconectar = new JButton("Cancelar");
-		btnDesconectar.addActionListener(new ActionListener() {
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(new Color(0, 0, 0));
+		btnCancelar.setFont(fuenteBold);
+		btnCancelar.setBackground(new Color(255, 255, 255));
+		btnCancelar.setBounds(10, 540, 284, 38);
+		panelIzquierda.add(btnCancelar);
+
+		JButton btnGenerarOfertaViaje = new JButton("Guardar");
+		btnGenerarOfertaViaje.setForeground(new Color(0, 0, 0));
+		btnGenerarOfertaViaje.setFont(fuenteBold);
+		btnGenerarOfertaViaje.setBackground(new Color(255, 255, 255));
+		btnGenerarOfertaViaje.setBounds(10, 491, 284, 38);
+		panelIzquierda.add(btnGenerarOfertaViaje);
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				Inicio ventana = new Inicio(agencia);
 				ventana.setVisible(true);
 			}
 		});
-		btnDesconectar.setForeground(new Color(0, 0, 0));
-		btnDesconectar.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		btnDesconectar.setBackground(new Color(255, 255, 255));
-		btnDesconectar.setBounds(10, 540, 284, 38);
-		panel.add(btnDesconectar);
-
-		JButton btnGenerarOfertaViaje = new JButton("Guardar");
 		btnGenerarOfertaViaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				validarViaje(agencia, paises);
 			}
 		});
-		btnGenerarOfertaViaje.setForeground(new Color(0, 0, 0));
-		btnGenerarOfertaViaje.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		btnGenerarOfertaViaje.setBackground(new Color(255, 255, 255));
-		btnGenerarOfertaViaje.setBounds(10, 491, 284, 38);
-		panel.add(btnGenerarOfertaViaje);
-
-		JLabel lblTitulo2 = new JLabel("Crear viaje");
-		lblTitulo2.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
-		lblTitulo2.setFont(new Font("Segoe UI", Font.BOLD, 40));
-		lblTitulo2.setBounds(15, 244, 256, 54);
-		panel.add(lblTitulo2);
-
-		JLabel lblNombreDelViaje = new JLabel("Nombre del viaje");
-		lblNombreDelViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblNombreDelViaje.setBounds(334, 33, 273, 32);
-		contentPane.add(lblNombreDelViaje);
-
 		txtNombreViaje = new JTextField();
-		txtNombreViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtNombreViaje.setFont(fuentePlain);
 		txtNombreViaje.setColumns(10);
 		txtNombreViaje.setBounds(334, 76, 580, 35);
 		contentPane.add(txtNombreViaje);
-
-		JLabel lblTipoDelViaje = new JLabel("Tipo de viaje");
-		lblTipoDelViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblTipoDelViaje.setBounds(334, 139, 264, 32);
-		contentPane.add(lblTipoDelViaje);
 
 		cbTipoViaje = new JComboBox<String>();
 		cbTipoViaje.setBackground(Color.white);
 		cbTipoViaje.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "", "Novios", "Senior", "Grupos", "Grandes viajes(destinos exoticos)",
 						"Combinado(vuelo+hotel)", "Escapadas", "Familias con niños menores" }));
-		cbTipoViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbTipoViaje.setFont(fuentePlain);
 		cbTipoViaje.setBounds(334, 182, 273, 33);
 		contentPane.add(cbTipoViaje);
-		Calendar c = Calendar.getInstance();
-		chooserFechaIncio = new JDateChooser(c.getTime());
-		chooserFechaIncio.getCalendarButton().setFont(new Font("Segoe UI", Font.PLAIN, 20));
+
+		chooserFechaIncio = new JDateChooser(Calendar.getInstance().getTime());
+		chooserFechaIncio.getCalendarButton().setFont(fuentePlain);
 		chooserFechaIncio.setSize(273, 35);
-		chooserFechaIncio.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		chooserFechaIncio.setFont(fuentePlain);
 		chooserFechaIncio.setLocation(334, 269);
 		chooserFechaIncio.addPropertyChangeListener("date", e -> calcularDias());
 		contentPane.add(chooserFechaIncio);
 
-		JLabel lblFechaInicio = new JLabel("Fecha inicio");
-		lblFechaInicio.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblFechaInicio.setBounds(334, 226, 273, 32);
-		contentPane.add(lblFechaInicio);
 
-		JLabel lblFechaFin = new JLabel("Fecha fin");
-		lblFechaFin.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblFechaFin.setBounds(641, 226, 273, 32);
-		contentPane.add(lblFechaFin);
-
-		chooserFechaFin = new JDateChooser(c.getTime());
-		chooserFechaFin.getCalendarButton().setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		chooserFechaFin.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		chooserFechaFin = new JDateChooser(Calendar.getInstance().getTime());
+		chooserFechaFin.getCalendarButton().setFont(fuentePlain);
+		chooserFechaFin.setFont(fuentePlain);
 		chooserFechaFin.setBounds(641, 269, 273, 35);
 		chooserFechaFin.addPropertyChangeListener("date", e -> calcularDias());
 		contentPane.add(chooserFechaFin);
 
 		txtDescripcion = new JTextArea();
-		txtDescripcion.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtDescripcion.setFont(fuentePlain);
 		txtDescripcion.setColumns(10);
 		txtDescripcion.setBounds(334, 404, 580, 60);
 		contentPane.add(txtDescripcion);
 
-		JLabel lblDescripcin = new JLabel("Descripción");
-		lblDescripcin.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblDescripcin.setBounds(334, 359, 580, 41);
-		contentPane.add(lblDescripcin);
-
-		JLabel lblServiciosNoIncluidos = new JLabel("Servicios no incluidos");
-		lblServiciosNoIncluidos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblServiciosNoIncluidos.setBounds(334, 474, 580, 41);
-		contentPane.add(lblServiciosNoIncluidos);
 
 		txtServiciosNoIncluidos = new JTextArea();
-		txtServiciosNoIncluidos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		txtServiciosNoIncluidos.setFont(fuentePlain);
 		txtServiciosNoIncluidos.setColumns(10);
 		txtServiciosNoIncluidos.setBounds(334, 517, 580, 60);
 		contentPane.add(txtServiciosNoIncluidos);
 
-		JLabel lblPais = new JLabel("Pais de destino");
-		lblPais.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblPais.setBounds(638, 139, 273, 32);
-		contentPane.add(lblPais);
 		modeloPais = new DefaultComboBoxModel<String>();
-		rellenarpaises(paises);
 		cbPais = new JComboBox<String>(modeloPais);
 		cbPais.setBackground(Color.white);
-		cbPais.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		cbPais.setFont(fuentePlain);
 		cbPais.setBounds(638, 182, 273, 33);
 		contentPane.add(cbPais);
+		rellenarpaises(paises);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(334, 314, 580, 41);
-		panel_1.setBackground(Color.white);
-		contentPane.add(panel_1);
+		JPanel panelDias = new JPanel();
+		panelDias.setBounds(334, 314, 580, 41);
+		panelDias.setBackground(Color.white);
+		contentPane.add(panelDias);
+		
+		//LABELS
+		JLabel lblTipoDelViaje = new JLabel("Tipo de viaje");
+		lblTipoDelViaje.setFont(fuentePlain);
+		lblTipoDelViaje.setBounds(334, 139, 264, 32);
+		contentPane.add(lblTipoDelViaje);
+		
+		JLabel lblNombreAgencia = new JLabel(agencia.getNombreAgencia());
+		lblNombreAgencia.setFont(fuenteBold);
+		lblNombreAgencia.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
+		lblNombreAgencia.setBounds(15, 196, 256, 38);
+		panelIzquierda.add(lblNombreAgencia);
+		
+		JLabel lblTitulo2 = new JLabel("Crear viaje");
+		lblTitulo2.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
+		lblTitulo2.setFont(new Font("Segoe UI", Font.BOLD, 40));
+		lblTitulo2.setBounds(15, 244, 256, 54);
+		panelIzquierda.add(lblTitulo2);
+
+		JLabel lblNombreDelViaje = new JLabel("Nombre del viaje");
+		lblNombreDelViaje.setFont(fuentePlain);
+		lblNombreDelViaje.setBounds(334, 33, 273, 32);
+		contentPane.add(lblNombreDelViaje);
+		
+		JLabel lblFechaInicio = new JLabel("Fecha inicio");
+		lblFechaInicio.setFont(fuentePlain);
+		lblFechaInicio.setBounds(334, 226, 273, 32);
+		contentPane.add(lblFechaInicio);
+
+		JLabel lblFechaFin = new JLabel("Fecha fin");
+		lblFechaFin.setFont(fuentePlain);
+		lblFechaFin.setBounds(641, 226, 273, 32);
+		contentPane.add(lblFechaFin);
+		
+		JLabel lblDescripcin = new JLabel("Descripción");
+		lblDescripcin.setFont(fuentePlain);
+		lblDescripcin.setBounds(334, 359, 580, 41);
+		contentPane.add(lblDescripcin);
+
+		JLabel lblServiciosNoIncluidos = new JLabel("Servicios no incluidos");
+		lblServiciosNoIncluidos.setFont(fuentePlain);
+		lblServiciosNoIncluidos.setBounds(334, 474, 580, 41);
+		contentPane.add(lblServiciosNoIncluidos);
+		
+		JLabel lblPais = new JLabel("Pais de destino");
+		lblPais.setFont(fuentePlain);
+		lblPais.setBounds(638, 139, 273, 32);
+		contentPane.add(lblPais);
+		
 		lblDiasViaje = new JLabel("Duración del viaje: 1 día");
 		lblDiasViaje.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDiasViaje.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblDiasViaje.setFont(fuentePlain);
 		lblDiasViaje.setBounds(334, 314, 580, 41);
-		panel_1.add(lblDiasViaje);
+		panelDias.add(lblDiasViaje);
+		
+		
 	}
 
 	public void rellenarpaises(ArrayList<Pais> paises) {
@@ -281,13 +250,13 @@ public class NuevoViaje extends JFrame {
 
 		ArrayList<String> mensajeError = new ArrayList<String>();
 		if ((NombreViaje.length() >= 1 || NombreViaje.length() >= 30) == false) {
-			mensajeError.add("Nombre no puede estar vacio");
+			mensajeError.add("Nombre del viaje no puede estar vacio");
 		}
 		if (TipoViaje.length() == 0) {
 			mensajeError.add("Tipo de viaje no puede estar vacio");
 		}
 		if (Pais.length() == 0) {
-			mensajeError.add("Pais no puede estar vacio");
+			mensajeError.add("País no puede estar vacio");
 		}
 		if (FechaInicio.length() == 0) {
 			mensajeError.add("Fecha de inicio no puede estar vacio");
@@ -327,7 +296,7 @@ public class NuevoViaje extends JFrame {
 						agencia.getNombreAgencia(), JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "- " + String.join("\n - ", mensajeError),
+			JOptionPane.showMessageDialog(null, " - " + String.join("\n - ", mensajeError),
 					"Error al crear viaje | " + agencia.getNombreAgencia(), JOptionPane.ERROR_MESSAGE);
 		}
 		return mensajeError.size() == 0;

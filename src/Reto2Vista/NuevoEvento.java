@@ -1,69 +1,45 @@
 package Reto2Vista;
 
-import java.awt.EventQueue;
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import Reto2Modelo.Aerolinea;
 import Reto2Modelo.Aeropuerto;
 import Reto2Modelo.Agencia;
-import Reto2Modelo.Pais;
 import Reto2Modelo.Viaje;
 import Reto2Modelo.Vuelo;
 import Reto2Modelo.Alojamiento;
 import Reto2Modelo.Otros;
-import Reto2Vista.Inicio;
-
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.table.DefaultTableModel;
-
 import com.toedter.calendar.JDateChooser;
-
 import Reto2Controlador.Controlador;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerDateModel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.util.Date;
 import javax.swing.JRadioButton;
-import com.toedter.calendar.JCalendar;
 import javax.swing.SwingConstants;
-import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 
 public class NuevoEvento extends JFrame {
@@ -143,14 +119,6 @@ public class NuevoEvento extends JFrame {
 		panelIzquierda.setLayout(null);
 		contentPane.add(panelIzquierda);
 
-		JPanel panelLogo = new JPanel();
-		panelLogo.setOpaque(false);
-		panelLogo.setBorder(null);
-		panelLogo.setBackground(Color.decode(agencia.getColorMarca()));
-		panelLogo.setBounds(15, 15, 256, 173);
-		panelLogo.setLayout(new BorderLayout(0, 0));
-		panelIzquierda.add(panelLogo);
-
 		JLabel lblNombreAgencia = new JLabel(agencia.getNombreAgencia());
 		lblNombreAgencia.setFont(fuenteBold);
 		lblNombreAgencia.setForeground(Inicio.colorTexto(Color.decode(agencia.getColorMarca())));
@@ -215,7 +183,8 @@ public class NuevoEvento extends JFrame {
 			e.printStackTrace();
 		}
 		JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(256, 173, Image.SCALE_SMOOTH)));
-		panelLogo.add(lblLogo);
+		lblLogo.setBounds(15, 15, 256, 173);
+		panelIzquierda.add(lblLogo);
 
 		rdbtnVuelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
