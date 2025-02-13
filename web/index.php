@@ -33,11 +33,11 @@
     <main class="modal">
         <section class="principal">
             <a href="#" id="logoprincipal"><img src="<?php echo $logoAgencia ?>" alt=""></a>
-            <h2 class="textoagencia"><?php echo $nombreAgencia; ?></h2>
-            <a href="viaje.php" id="Vuelo" class="botonInicio">Registrar Viaje<i class="fa-solid fa-plane xl"></i></a>
-            <a href="evento.php" id="BotonEvento" class="botonInicio">Registrar Evento <i
+            <h2><?php echo $nombreAgencia; ?></h2>
+            <a href="viaje.php" id="Vuelo" >Registrar Viaje<i class="fa-solid fa-plane xl"></i></a>
+            <a href="evento.php" id="BotonEvento" >Registrar Evento <i
                     class="fa-solid fa-square-h xl"></i></a>
-            <a id="Desconectar" class="botonInicio desconectar">Desconectar<i
+            <a id="Desconectar" class="desconectar">Desconectar<i
                     class="fa-solid fa-arrow-right-from-bracket xl"></i></a>
         </section>
     </main>

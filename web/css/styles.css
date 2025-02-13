@@ -177,11 +177,6 @@ section {
     margin: 2rem auto;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
 button {
     display: block;
     background: black;
@@ -203,6 +198,10 @@ button:hover {
 
 
 /* FORMULARIOS*/
+form {
+    display: flex;
+    flex-direction: column;
+}
 fieldset {
     display: flex;
     flex-direction: column;
@@ -217,9 +216,11 @@ legend {
     margin-bottom: .8rem;
     font-size: 1.7rem;
 }
+
 label {
     text-align: left;
 }
+
 label,
 button {
     margin-bottom: 1rem;
@@ -246,10 +247,6 @@ button {
     gap: 10px;
 }
 
-.none {
-    display: none;
-}
-
 input[type="time"],
 input[type="number"],
 input[type="text"],
@@ -265,6 +262,7 @@ select {
     font-family: inherit;
     resize: vertical;
 }
+
 input[type="radio"] {
     width: 1.3rem;
     height: 1.3rem;
@@ -273,9 +271,11 @@ input[type="radio"] {
 input[type="radio"]+label {
     margin-right: 1rem;
 }
-textarea{
+
+textarea {
     min-height: 5rem;
 }
+
 select {
     width: 100%;
 }
@@ -287,6 +287,7 @@ input[type="date"]::placeholder,
 textarea::placeholder {
     font-size: 1rem;
 }
+
 #vuelos,
 #vuelovuelta,
 #alojamientos,
@@ -327,30 +328,36 @@ span {
     animation: fondo 25s infinite;
 }
 
-.login {
-    background-color: #f2f2f2;
+.modal section {
     padding: 2rem;
     border-radius: 1rem;
     text-align: center;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.login {
     width: 500px;
+    background-color: #f2f2f2;
     box-sizing: border-box;
 }
 
 .principal {
-    background-color: var(--coloragencia);
-    padding: 2rem;
-    border-radius: 1rem;
-    text-align: center;
+    width: 530px;
+    gap: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     align-items: center;
     justify-content: center;
-    width: 530px;
+    background-color: var(--coloragencia);
 }
 
-.botonInicio {
+.principal h2 {
+    color: var(--coloragenciatexto)
+}
+
+#Vuelo,
+#BotonEvento,
+#Desconectar {
     width: 300px;
     display: flex;
     background: #ffffff;
@@ -365,7 +372,9 @@ span {
     color: black;
 }
 
-.botonInicio:hover {
+#Vuelo:hover,
+#BotonEvento:hover,
+#Desconectar:hover {
     color: black;
 }
 
@@ -381,9 +390,6 @@ span {
     background: linear-gradient(to right, white, rgb(219, 2, 2));
 }
 
-.textoagencia {
-    color: var(--coloragenciatexto)
-}
 
 
 
@@ -495,6 +501,7 @@ span {
         width: 100%;
     }
 }
+
 @media (max-width: 480px) {
     header {
         flex-direction: column;

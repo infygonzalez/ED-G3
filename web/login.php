@@ -38,7 +38,7 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
-    <main id="loginfondo" class="modal">
+    <main class="modal">
         <section id="login" class="login">
             <h1>Iniciar sesión</h1>
             <form name="login" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validarLogin()"
