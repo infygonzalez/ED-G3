@@ -1,7 +1,7 @@
 <?php
-include_once('conexion-php/agencia.php');
+require_once('conexion-php/conexion.php');
+session_start();
 $mensajeError = null;
-
 if (isset($_POST['NombreViaje'])) {
   $NombreAgencia = $_SESSION['Agencia'];
   $NombreViaje = $_POST["NombreViaje"];
@@ -29,13 +29,19 @@ if (isset($_POST['NombreViaje'])) {
 
 <head>
   <meta charset="UTF-8">
+  <meta name="language" content="es">
+  <meta name="author" content="Iker Arrebola, Julen González y Daniel Alonso">
+  <meta name="owner" content="Iker Arrebola, Julen González y Daniel Alonso">
+  <meta name="description" content="Aplicación Web para la gestión de agencias de vuelo.">
+  <meta name="keywords" content="vuelos, alojamientos, actividades">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <?php include_once('conexion-php/agencia.php'); ?>
   <title>Registrar Viaje | <?php echo $nombreAgencia; ?></title>
 
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <link rel="stylesheet" type="text/css" href="css/reset.css">
   <script src="js/validaciones.js"></script>
 </head>
 
@@ -47,7 +53,7 @@ if (isset($_POST['NombreViaje'])) {
       <input id="ico" type="checkbox">
       <ul>
         <li><a href="viaje.php"><i class="fa-sharp fa-solid fa-plane"></i>Registrar Viaje</a></li>
-        <li><a href="evento.php"><i class="fa-regular fa-calendar-days"></i>Registrar Evento</a></li>
+        <li><a href="evento.php"><i class="fa-solid fa-square-h"></i>Registrar Evento</a></li>
       </ul>
     </nav>
   </header>
@@ -131,6 +137,7 @@ if (isset($_POST['NombreViaje'])) {
       } ?>
     });
   </script>
+
 </body>
 
 </html>

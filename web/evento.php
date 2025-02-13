@@ -1,5 +1,6 @@
 <?php
-include_once('conexion-php/agencia.php');
+require_once('conexion-php/conexion.php');
+session_start();
 $mensajeError = null;
 if (isset($_POST['nombre-evento'])) {
     // Atributos comunes de todos los eventos
@@ -94,13 +95,18 @@ function getMaxVuelos($conn)
 
 <head>
     <meta charset="UTF-8">
+    <meta name="language" content="es">
+    <meta name="author" content="Iker Arrebola, Julen González y Daniel Alonso">
+    <meta name="owner" content="Iker Arrebola, Julen González y Daniel Alonso">
+    <meta name="description" content="Aplicación Web para la gestión de agencias de vuelo.">
+    <meta name="keywords" content="vuelos, alojamientos, actividades">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php include_once('conexion-php/agencia.php'); ?>
     <title>Registrar Evento | <?php echo $nombreAgencia; ?></title>
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
     <script src="js/validaciones.js"></script>
 </head>
 
@@ -112,7 +118,7 @@ function getMaxVuelos($conn)
             <input id="ico" type="checkbox">
             <ul>
                 <li><a href="viaje.php"><i class="fa-sharp fa-solid fa-plane"></i>Registrar Viaje</a></li>
-                <li><a href="evento.php"><i class="fa-regular fa-calendar-days"></i>Registrar Evento</a></li>
+                <li><a href="evento.php"><i class="fa-solid fa-square-h"></i>Registrar Evento</a></li>
             </ul>
         </nav>
     </header>
@@ -123,18 +129,18 @@ function getMaxVuelos($conn)
             <section id="evento">
                 <h1>Registrar Evento</h1>
                 <fieldset>
-                    <label for="viajeID">Elegir Viaje</label>
+                    <label for="viajeID">Elegir viaje</label>
                     <select id="viajeID" name="viajeID">
                         <option></option>
                         <?php include('conexion-php/viajes.php'); ?>
                     </select>
                 </fieldset>
                 <fieldset>
-                    <label for="vuelo-ida">Nombre del Evento</label>
-                    <input type="text" name="nombre-evento" name="servicio">
+                    <label for="vuelo-ida">Nombre del evento</label>
+                    <input type="text" name="nombre-evento" placeholder="Escribe el nombre del evento">
                 </fieldset>
                 <fieldset class="inline">
-                    <legend>Tipo de Evento</legend>
+                    <legend>Tipo de evento</legend>
                     <input type="radio" id="vuelo" name="tipoEventoRadio" onclick="tipoEvento(this)" value="vuelo">
                     <label for="vuelo">Vuelo</label>
 
@@ -152,16 +158,16 @@ function getMaxVuelos($conn)
                 <h2>Vuelo de ida</h2>
 
                 <fieldset class="inline">
-                    <legend>Que tipo de vuelo es?</legend>
+                    <legend>Tipo de vuelo</legend>
                     <input type="radio" id="ida" name="tipoVueloRadio" onclick="tipoVuelo()" value="ida" checked>
                     <label for="ida">Ida</label>
                     <input type="radio" id="ida-vuelta" name="tipoVueloRadio" onclick="tipoVuelo()" value="ida-vuelta">
-                    <label for="ida-vuelta">Ida/Vuelta</label>
+                    <label for="ida-vuelta">Ida y Vuelta</label>
                 </fieldset>
 
                 <div class="campos">
                     <fieldset>
-                        <label for="aeropuertoOrigen">Aeropuerto de Origen</label>
+                        <label for="aeropuertoOrigen">Aeropuerto de origen</label>
                         <select id="aeropuertoOrigen" name="aeropuertoOrigen">
                             <option></option>
                             <?php include('conexion-php/aeropuerto.php'); ?>
@@ -177,12 +183,12 @@ function getMaxVuelos($conn)
                     </fieldset>
 
                     <fieldset>
-                        <label for="codigoVuelo">Codigo de Vuelo</label>
+                        <label for="codigoVuelo">Codigo de vuelo</label>
                         <input type="text" id="codigoVuelo" name="codigoVuelo">
                     </fieldset>
 
                     <fieldset>
-                        <label for="aerolinea">Aerolinea</label>
+                        <label for="aerolinea">Aerolínea</label>
                         <select id="aerolinea" name="aerolinea">
                             <option></option>
                             <?php include('conexion-php/aerolinea.php'); ?>
@@ -190,12 +196,12 @@ function getMaxVuelos($conn)
                     </fieldset>
 
                     <fieldset>
-                        <label for="fechaSalida">Fecha de Salida</label>
+                        <label for="fechaSalida">Fecha de salida</label>
                         <input type="date" id="fechaSalida" name="fechaSalida">
                     </fieldset>
 
                     <fieldset>
-                        <label for="HoraSalida">Hora de Salida</label>
+                        <label for="HoraSalida">Hora de salida</label>
                         <input type="time" id="HoraSalida" name="HoraSalida">
                     </fieldset>
 
@@ -208,7 +214,7 @@ function getMaxVuelos($conn)
                     </fieldset>
 
                     <fieldset>
-                        <label for="DuracionVuelo">Duración del Viaje (Horas)</label>
+                        <label for="DuracionVuelo">Duración del viaje (Horas)</label>
                         <input type="time" id="DuracionVuelo" min="0" name="DuracionVuelo">
                     </fieldset>
                 </div>
@@ -220,12 +226,12 @@ function getMaxVuelos($conn)
 
                 <div class="campos">
                     <fieldset>
-                        <label for="codigoVueloVuelta">Codigo de Vuelo</label>
+                        <label for="codigoVueloVuelta">Codigo de vuelo</label>
                         <input type="text" id="codigoVueloVuelta" name="codigoVueloVuelta">
                     </fieldset>
 
                     <fieldset>
-                        <label for="aerolineaVuelta">Aerolinea</label>
+                        <label for="aerolineaVuelta">Aerolínea</label>
                         <select id="aerolineaVuelta" name="aerolineaVuelta">
                             <option></option>
                             <?php include('conexion-php/aerolinea.php'); ?>
@@ -233,17 +239,17 @@ function getMaxVuelos($conn)
                     </fieldset>
 
                     <fieldset>
-                        <label for="fechaSalidaVuelta">Fecha de Salida</label>
+                        <label for="fechaSalidaVuelta">Fecha de salida</label>
                         <input type="date" id="fechaSalidaVuelta" name="fechaSalidaVuelta">
                     </fieldset>
 
                     <fieldset>
-                        <label for="horaSalidaVuelta">Hora de Salida</label>
+                        <label for="horaSalidaVuelta">Hora de salida</label>
                         <input type="time" id="horaSalidaVuelta" name="horaSalidaVuelta">
                     </fieldset>
 
                     <fieldset>
-                        <label for="DuracionVueloVuelta">Duración del Viaje (Horas)</label>
+                        <label for="DuracionVueloVuelta">Duración del viaje (Horas)</label>
                         <input type="time" id="DuracionVueloVuelta" min="0" name="DuracionVueloVuelta">
                     </fieldset>
                 </div>
@@ -255,7 +261,7 @@ function getMaxVuelos($conn)
 
                 <div class="campos">
                     <fieldset>
-                        <label for="FechaEntrada"> Fecha de entrada</label>
+                        <label for="FechaEntrada">Fecha de entrada</label>
                         <input type="date" id="FechaEntrada" name="FechaEntrada">
                     </fieldset>
                     <fieldset>
@@ -270,7 +276,7 @@ function getMaxVuelos($conn)
                 </fieldset>
 
                 <fieldset>
-                    <label for="NombreHotel">Nombre del Hotel</label>
+                    <label for="NombreHotel">Nombre del hotel</label>
                     <input type="text" id="NombreHotel" name="NombreHotel">
                 </fieldset>
 
@@ -284,7 +290,7 @@ function getMaxVuelos($conn)
                     </fieldset>
 
                     <fieldset>
-                        <label for="TipoHabitacion">Tipo de Habitación</label>
+                        <label for="TipoHabitacion">Tipo de habitación</label>
                         <select id="TipoHabitacion" name="TipoHabitacion">
                             <option></option>
                             <option value="DB">Doble</option>

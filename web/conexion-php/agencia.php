@@ -4,7 +4,6 @@ $nombreAgencia = "";
 $colorAgencia = "";
 $logoAgencia = "";
 $login = false;
-session_start();
 if (isset($_SESSION['Agencia'])) {
   $nombreAgencia = $_SESSION['Agencia'];
   $sql = "SELECT * FROM agencia WHERE NombreAgencia = '$nombreAgencia'";

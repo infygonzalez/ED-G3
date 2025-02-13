@@ -25,9 +25,14 @@ if (isset($_POST['login'])) {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="language" content="es">
+    <meta name="author" content="Iker Arrebola, Julen González y Daniel Alonso">
+    <meta name="owner" content="Iker Arrebola, Julen González y Daniel Alonso">
+    <meta name="description" content="Aplicación Web para la gestión de agencias de vuelo.">
+    <meta name="keywords" content="vuelos, alojamientos, actividades">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Iniciar sesión</title>
-    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/validaciones.js"></script>
 </head>
@@ -48,12 +53,14 @@ if (isset($_POST['login'])) {
                 </fieldset>
                 <button type="submit" name="login">Iniciar sesión</button>
             </form>
-    </section>
+        </section>
     </main>
     <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function(event) {
-        <?php if(!empty($mensajeError)){ echo'alert("' . $mensajeError . '");';} ?>
-    });
+        document.addEventListener("DOMContentLoaded", function (event) {
+            <?php if (!empty($mensajeError)) {
+                echo 'alert("' . $mensajeError . '");';
+            } ?>
+        });
     </script>
 </body>
 
