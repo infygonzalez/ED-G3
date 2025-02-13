@@ -246,10 +246,6 @@ button {
     gap: 10px;
 }
 
-.inline-radio input[type="radio"] {
-    margin-right: 5px;
-}
-
 .none {
     display: none;
 }
@@ -269,9 +265,6 @@ select {
     font-family: inherit;
     resize: vertical;
 }
-textarea{
-    min-height: 5rem;
-}
 input[type="radio"] {
     width: 1.3rem;
     height: 1.3rem;
@@ -280,7 +273,9 @@ input[type="radio"] {
 input[type="radio"]+label {
     margin-right: 1rem;
 }
-
+textarea{
+    min-height: 5rem;
+}
 select {
     width: 100%;
 }
@@ -291,6 +286,12 @@ input[type="text"]::placeholder,
 input[type="date"]::placeholder,
 textarea::placeholder {
     font-size: 1rem;
+}
+#vuelos,
+#vuelovuelta,
+#alojamientos,
+#otros {
+    display: none;
 }
 
 #PrecioVuelo,
@@ -303,13 +304,6 @@ textarea::placeholder {
     width: 800px;
     background-color: var(--coloragencia);
     color: var(--coloragenciatexto);
-}
-
-#vuelos,
-#vuelovuelta,
-#alojamientos,
-#otros {
-    display: none;
 }
 
 .precio {
